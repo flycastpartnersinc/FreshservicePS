@@ -4,8 +4,8 @@ permalink: /module/PSFreshservice/
 ---
 # [PSFreshservice](https://www.flycastpartners.com/PSFreshservice)
 
-<!-- [![GitHub release](https://img.shields.io/github/release/AtlassianPS/PSFreshService.svg?style=for-the-badge)](https://github.com/AtlassianPS/PSFreshService/releases/latest)
-[![Build Status](https://img.shields.io/vso/build/AtlassianPS/PSFreshService/11/master.svg?style=for-the-badge)](https://dev.azure.com/AtlassianPS/PSFreshService/_build/latest?definitionId=11)
+<!-- [![GitHub release](https://img.shields.io/github/release/flycastpartnersinc/PSFreshservice.svg?style=for-the-badge)](https://github.com/flycastpartnersinc/PSFreshservice/releases/latest)
+[![Build Status](https://img.shields.io/vso/build/flycastpartnersinc/PSFreshservice/11/master.svg?style=for-the-badge)](https://dev.azure.com/flycastpartnersinc/PSFreshservice/_build/latest?definitionId=11)
 [![PowerShell Gallery](https://img.shields.io/powershellgallery/dt/PSFreshService.svg?style=for-the-badge)](https://www.powershellgallery.com/packages/PSFreshService)
 ![License](https://img.shields.io/badge/license-MIT-blue.svg?style=for-the-badge) -->
 
@@ -65,9 +65,9 @@ For more information on how to use PSFreshService, tips, blogs and more, check o
 ### Contribute
 
 Want to contribute to PSFreshservice? Great!
-We appreciate [everyone](https://atlassianps.org/#people) who invests their time to make our modules the best they can be.
+We appreciate who invests their time to make our modules the best they can be.
 
-Check out our guidelines on [Contributing] to our modules and documentation.
+<!-- Check out our guidelines on [Contributing] to our modules and documentation. -->
 
 <!-- ## Tested on
 
@@ -75,10 +75,10 @@ Check out our guidelines on [Contributing] to our modules and documentation.
 |-------------|------|
 |Windows Powershell v3||
 |Windows Powershell v4||
-|Windows Powershell v5.1|[![Build Status](https://img.shields.io/vso/build/AtlassianPS/PSFreshService/11/master.svg?style=for-the-badge)](https://dev.azure.com/AtlassianPS/PSFreshService/_build/latest?definitionId=11)|
-|Powershell Core (latest) on Windows|[![Build Status](https://img.shields.io/vso/build/AtlassianPS/PSFreshService/11/master.svg?style=for-the-badge)](https://dev.azure.com/AtlassianPS/PSFreshService/_build/latest?definitionId=11)|
-|Powershell Core (latest) on Ubuntu|[![Build Status](https://img.shields.io/vso/build/AtlassianPS/PSFreshService/11/master.svg?style=for-the-badge)](https://dev.azure.com/AtlassianPS/PSFreshService/_build/latest?definitionId=11)|
-|Powershell Core (latest) on MacOS|[![Build Status](https://img.shields.io/vso/build/AtlassianPS/PSFreshService/11/master.svg?style=for-the-badge)](https://dev.azure.com/AtlassianPS/PSFreshService/_build/latest?definitionId=11)| -->
+|Windows Powershell v5.1|[![Build Status](https://img.shields.io/vso/build/flycastpartnersinc/PSFreshservice/11/master.svg?style=for-the-badge)](https://dev.azure.com/flycastpartnersinc/PSFreshservice/_build/latest?definitionId=11)|
+|Powershell Core (latest) on Windows|[![Build Status](https://img.shields.io/vso/build/flycastpartnersinc/PSFreshservice/11/master.svg?style=for-the-badge)](https://dev.azure.com/flycastpartnersinc/PSFreshservice/_build/latest?definitionId=11)|
+|Powershell Core (latest) on Ubuntu|[![Build Status](https://img.shields.io/vso/build/flycastpartnersinc/PSFreshservice/11/master.svg?style=for-the-badge)](https://dev.azure.com/flycastpartnersinc/PSFreshservice/_build/latest?definitionId=11)|
+|Powershell Core (latest) on MacOS|[![Build Status](https://img.shields.io/vso/build/flycastpartnersinc/PSFreshservice/11/master.svg?style=for-the-badge)](https://dev.azure.com/flycastpartnersinc/PSFreshservice/_build/latest?definitionId=11)| -->
 
 <!-- ## Acknowledgements
 
@@ -91,7 +91,7 @@ Check out our guidelines on [Contributing] to our modules and documentation.
 * [Latest Release]
 * [Submit an Issue]
 * [Contributing]
-* How you can help us: [List of Issues](https://github.com/AtlassianPS/PSFreshService/issues?q=is%3Aissue+is%3Aopen+label%3Aup-for-grabs)
+* How you can help us: [List of Issues](https://github.com/flycastpartnersinc/PSFreshservice/issues?q=is%3Aissue+is%3Aopen+label%3Aup-for-grabs)
 
 ## Disclaimer
 
@@ -100,11 +100,11 @@ Hopefully this is obvious, but:
 > This is an open source project (under the [MIT license]), and all contributors are volunteers. All commands are executed at your own risk. Please have good backups before you start, because you can delete a lot of stuff if you're not careful.
 
 <!-- reference-style links -->
-  [JIRA]: https://www.atlassian.com/software/jira
+  <!-- [JIRA]: https://www.atlassian.com/software/jira -->
   [PowerShell Gallery]: https://www.powershellgallery.com/
-  [Source Code]: https://github.com/AtlassianPS/PSFreshService
-  [Latest Release]: https://github.com/AtlassianPS/PSFreshService/releases/latest
-  [Submit an Issue]: https://github.com/AtlassianPS/PSFreshService/issues/new
-  [replicaJunction]: https://github.com/replicaJunction
-  [MIT license]: https://github.com/AtlassianPS/PSFreshService/blob/master/LICENSE
-  [Contributing]: http://atlassianps.org/docs/Contributing
+  [Source Code]: https://github.com/flycastpartnersinc/PSFreshservice
+  [Latest Release]: https://github.com/flycastpartnersinc/PSFreshservice/releases/latest
+  [Submit an Issue]: https://github.com/flycastpartnersinc/PSFreshservice/issues/new
+  <!-- [replicaJunction]: https://github.com/replicaJunction -->
+  [MIT license]: https://github.com/flycastpartnersinc/PSFreshservice/blob/master/LICENSE
+  <!-- [Contributing]: http://atlassianps.org/docs/Contributing -->
