@@ -1,0 +1,376 @@
+'Cmd/Ctrl+Enter' // Triggers `Markdown Todo: Toggle Todo`
+'Alt+Enter' // Triggers `Markdown Todo: Toggle Todo`
+'Alt+D' // Triggers `Markdown Todo: Toggle Done`
+
+- [ ] Tickets
+    - [x] Create a Ticket - New-FreshServiceTicket
+    - [x] View a Ticket - Get-FreshServiceTicket
+    - [x] Filter Tickets - Get-FreshServiceTicket
+    - [x] List All Tickets - Get-FreshServiceTicket
+    - [x] Update a Ticket - Set-FreshServiceTicket
+    - [x] Delete a Ticket - Remove-FreshServiceTicket
+    - [ ] Delete a Ticket Attachment - Remove-FreshServiceTicketAttachment
+    - [x] Restore a Ticket - Set-FreshServiceTicket
+    - [ ] Create a Child Ticket - Set-FreshServiceTicket - Needs to be in New-FreshserviceTicket or copy New-FreshserviceTicket to create cmdlet New-FreshServiceChildTicket with mandatory id
+    - [ ] List All Ticket Fields (Old) - NOT IMPL
+    - [x] List All Ticket Fields (New) - Get-FreshServiceForm -Form Ticket
+    - [x] Get Ticket Activites Get-FreshServiceTicket -id 8 -activities
+        - [ ] Time Entries
+            - [ ] Create a Time Entry
+            - [ ] View a Time Entry
+            - [ ] List All Time Entries of a Ticket
+            - [ ] Update a Time Entry
+            - [ ] Delete a Time Entry
+    - [x] Create a Source
+    - [x] Service Request
+        - [x] Create a Service Request
+        - [x] View Requested Items of a Service Request
+    - [x] Update Requested Items of a Service Request
+        - [x] Tasks
+            - [x] Create a Task
+            - [x] View a Task
+            - [x] View all Tasks
+            - [x] Update a Task
+            - [x] Delete a Task
+        - [x] CSAT
+            - [x] CSAT Response
+        - [x] Conversations
+            - [x] Create a Reply
+            - [x] Create a Note
+            - [x] Update a Conversation
+            - [x] Delete a Conversation
+            - [ ] Delete a Conversation Attachment
+            - [x] List All Conversations of a Ticket
+- [x] Problems
+    - [ ] Create a Problem - Attachments not working.  Used same code from Ticket
+    - [x] View a Problem
+    - [x] List All Problems
+    - [ ] Update a Problem - Attachments not working.  Used same code from Ticket
+    - [x] Delete a Problem
+    - [x] Restore a Problem
+    - [ ] List All Problem Fields
+        - [ ] Notes
+            - [ ] Create a note
+            - [ ] View a note
+            - [ ] View all notes
+            - [ ] Update a note
+            - [ ] Delete a note
+        - [ ] Time Entries
+            - [ ] Create a Time Entry
+            - [ ] View a Time Entry
+            - [ ] List All Time Entries
+            - [ ] Update a Time Entry
+            - [ ] Delete a Time Entry
+        - [ ] Tasks
+            - [ ] Create a Task
+            - [ ] View a Task
+            - [ ] View all Tasks
+            - [ ] Update a Task
+            - [ ] Delete a Task
+- [ ] Changes
+    - [ ] Create a Change
+    - [ ] View a Change
+    - [ ] List All Changes
+    - [ ] Update a Change
+    - [ ] Delete a Change
+    - [ ] Restore a Change
+    - [ ] List All Change Fields (Old)
+    - [ ] List All Change Fields (New)
+        - [ ] Notes
+            - [ ] Create a note
+            - [ ] View a note
+            - [ ] View all notes
+            - [ ] Update a note
+            - [ ] Delete a note
+- [ ] Time Entries
+    - [ ] Create a Time Entry
+    - [ ] View a Time Entry
+    - [ ] List All Time Entries
+    - [ ] Update a Time Entry
+    - [ ] Delete a Time Entry
+        - [ ] Tasks
+            - [ ] Create a Task
+            - [ ] View a Task
+            - [ ] View all Tasks
+            - [ ] Update a Task
+            - [ ] Delete a Task
+- [ ] Releases
+    - [ ] Create a Release
+    - [ ] View a Release
+    - [ ] Update a Release
+    - [ ] Delete a Release
+    - [ ] Filter Releases
+    - [ ] View list of Releases
+    - [ ] Restore a Release
+    - [ ] View All Release Fields
+        - [ ] Notes
+            - [ ] Create a note
+            - [ ] View a note
+            - [ ] View all notes
+            - [ ] Update a note
+            - [ ] Delete a note
+        - [ ] Time Entries
+            - [ ] Create a Time Entry
+            - [ ] View a Time Entry
+            - [ ] List All Time Entries
+            - [ ] Update a Time Entry
+            - [ ] Delete a Time Entry
+        - [ ] Tasks
+            - [ ] Create a Task
+            - [ ] View a Task
+            - [ ] View all Tasks
+            - [ ] Update a Task
+            - [ ] Delete a Task
+- [ ] Requesters
+    - [ ] Create a Requester
+    - [ ] View a Requester
+    - [ ] List All Requesters
+    - [ ] Filter Requesters
+    - [ ] List All Requester Fields
+    - [ ] Update a Requester
+    - [ ] Deactivate a Requester
+    - [ ] Forget a Requester
+    - [ ] Convert To Agent
+    - [ ] Merge Requesters
+    - [ ] Reactivate a Requester
+- [ ] Agents
+    - [ ] Create an Agent
+    - [ ] View an Agent
+    - [ ] List All Agents
+    - [ ] Filter Agents
+    - [ ] Update an Agent
+    - [ ] Deactivate an Agent
+    - [ ] Forget an Agent
+    - [ ] Reactivate an Agent
+    - [ ] Convert To Requester
+    - [ ] List All Agent Fields
+- [ ] Agent Roles
+    - [ ] View a Role
+    - [ ] List All Roles
+- [ ] Agent Groups
+    - [ ] Create a Group
+    - [ ] View a Group
+    - [ ] List All Groups
+    - [ ] Update a Group
+    - [ ] Delete a Group
+- [ ] Requester Groups
+    - [ ] Create a Requester Group
+    - [ ] View a Requester Group
+    - [ ] List All Requester Groups
+    - [ ] Update a Requester Group
+    - [ ] Delete a Requester Group
+    - [ ] Add Requester to Requester Group
+    - [ ] Delete Requester from Requester Group
+    - [ ] List Requester Group Members
+- [ ] Locations
+    - [ ] Create a Location
+    - [ ] View a Location
+    - [ ] List all Locations
+    - [ ] Filter Locations
+    - [ ] Update a Location
+    - [ ] Delete a Location
+- [ ] Products
+    - [ ] Create a Product
+    - [ ] View a Product
+    - [ ] List All Products
+    - [ ] Update a Product
+    - [ ] Delete a Product
+- [ ] Vendors
+    - [ ] Create a Vendor
+    - [ ] View a Vendor
+    - [ ] List All Vendors
+    - [ ] Update a Vendor
+    - [ ] Delete a Vendor
+- [ ] Assets
+    - [ ] Create an Asset
+    - [ ] View an Asset
+    - [ ] List All Assets
+    - [ ] Search Assets
+    - [ ] Filter Assets
+    - [ ] Update an Asset
+    - [ ] Delete an Asset
+    - [ ] Restore an Asset
+    - [ ] Delete an Asset Permanently
+    - [ ] List all Asset Components
+    - [ ] List All Associated Requests
+    - [ ] List all associated Contracts
+    - [ ] Create Relationships in bulk
+    - [ ] View a Relationship
+    - [ ] List all Relationships in the Account
+    - [ ] List all Relationships for an Asset
+    - [ ] Delete Relationships in bulk
+    - [ ] List all Relationship Types
+- [ ] Purchase Order
+    - [ ] Create a new Purchase Order
+    - [ ] List All Purchase Orders
+    - [ ] View a Purchase Order
+    - [ ] Update a Purchase Order
+    - [ ] Delete a Purchase Order
+- [ ] Asset Types
+    - [ ] Create an Asset Type
+    - [ ] View an Asset Type
+    - [ ] List all Asset Types
+    - [ ] Update an Asset Type
+    - [ ] Delete an Asset Type
+    - [ ] List all Fields of an Asset Type
+- [ ] Software
+    - [ ] Create a Software
+    - [ ] Update a Software
+    - [ ] View a Software
+    - [ ] List all Software
+    - [ ] List all Licenses
+    - [ ] Delete a Software
+    - [ ] Delete multiple Software
+        - [ ] Software Users
+            - [ ] Add Users to a Software in bulk
+            - [ ] View a Software User
+            - [ ] List all Users of a Software
+            - [ ] Update Users of a Software in bulk
+            - [ ] Remove Users from a Software in bulk
+        - [ ] Software Installations
+            - [ ] Add a device to a Software
+            - [ ] List all installations of a Software
+            - [ ] Remove devices from a Software in bulk
+            - [ ] List all Relationships for a Software
+- [ ] Contracts
+    - [ ] List all contract types
+    - [ ] List all fields of a contract type
+    - [ ] View a contract
+    - [ ] List all contracts
+    - [ ] Create a Contract
+    - [ ] Create a Contract with associated assets
+    - [ ] Create a Contract with attachment
+    - [ ] Update a Contract
+    - [ ] Submit a contract for approval
+    - [ ] Approve a Contract
+    - [ ] Reject a Contract
+    - [ ] List all associated assets of a contract
+    - [ ] List all attachments of a contract
+- [ ] Departments / Companies
+    - [ ] Create a Department
+    - [ ] View a Department
+    - [ ] List All Departments
+    - [ ] Filter Departments
+    - [ ] Update a Department
+    - [ ] Delete a Department
+    - [ ] List All Department Fields
+- [ ] Business Hours
+    - [ ] View a Business Hours Configuration
+    - [ ] List All Business Hours Configurations
+Projects (Legacy)
+Create a Project
+Update a Project
+View a Project
+List All Projects
+Delete a Project
+Archive a Project
+Restore a Project
+Projects Tasks (Legacy)
+Create a Project Task
+Update a Project Task
+View a Project Task
+List All Project Tasks
+Delete a Project Task
+- [ ] Projects
+    - [ ] Create a Project
+    - [ ] Update a Project
+    - [ ] View a Project
+    - [ ] List All Projects
+    - [ ] Delete a Project
+    - [ ] Archive a Project
+    - [ ] Restore a Project
+    - [ ] View Project Fields
+- [ ] Projects Tasks
+    - [ ] Create a Project Task
+    - [ ] Update a Project Task
+    - [ ] View a Project Task
+    - [ ] List All Project Tasks
+    - [ ] Delete a Project Task
+    - [ ] View Project Task Type Fields
+    - [ ] View Project Task Types
+    - [ ] View Project Task Priorities
+    - [ ] View Project Task Statuses
+    - [ ] View Project Versions
+    - [ ] View Project Sprints
+    - [ ] View Project Memberships
+- [ ] Solution Category
+    - [ ] Create Solution Category
+    - [ ] Update Solution Category
+    - [ ] View Solution Category
+    - [ ] View All Solution Category
+    - [ ] Delete Solution Category
+- [ ] Solution Folder
+    - [ ] Create Solution Folder
+    - [ ] Create Solution Folder with Approval
+    - [ ] Update Solution Folder
+    - [ ] View Solution Folder
+    - [ ] View All Solution Folder
+    - [ ] Delete Solution Folder
+- [ ] Solution Article
+    - [ ] Create Solution Article
+    - [ ] Create Secondary Language Article
+    - [ ] Create Article With Attachment
+    - [ ] Create Article from External URL
+    - [ ] Search Solution Articles
+    - [ ] Send Article to Approval
+    - [ ] Publish Solution Article
+    - [ ] Update Solution Article
+    - [ ] View Solution Article
+    - [ ] View All Solution Article
+    - [ ] Delete Solution Article
+- [ ] Service Catalog
+    - [ ] Service Item
+        - [ ] View a Service Item
+        - [ ] List all Service Items
+        - [ ] Search Service Items
+    - [ ] Service Category
+        - [ ] List all Service Categories
+- [ ] Announcements
+    - [ ] Create an Announcement
+    - [ ] View an Announcement
+    - [ ] List All Announcements
+    - [ ] Edit an Announcement
+    - [ ] Delete an Announcement
+- [ ] Employee Onboarding
+    - [ ] View Onboarding Form Fields
+    - [ ] Create an Onboarding Request
+    - [ ] View an Onboarding Request
+    - [ ] View all Onboarding Requests
+    - [ ] View Onboarding Tickets
+- [ ] Custom Objects
+    - [ ] List all Custom Objects
+    - [ ] Show a Custom Object
+    - [ ] Create new Custom Object Record
+    - [ ] List all records of a Custom Object
+    - [ ] Update Custom Object Record
+    - [ ] Delete Custom Object Record
+- [ ] SLA Policies
+    - [ ] List All SLAs
+- [ ] Canned Response Folders
+    - [ ] List all Canned Response Folders
+    - [ ] Show a Canned Response Folder
+    - [ ] List all Canned Responses In a Folder
+- [ ] Canned Responses
+    - [ ] List all Canned Responses
+    - [ ] Show a Canned Response
+- [ ] Audit Logs
+    - [ ] Audit Log Export
+
+- [ ] New-FreshServiceAgentRoleConfig - need a way when assignment scope is specified_groups, make the groups parameter mandatory.Is there any way to get the plan since some options are for certain plans?
+- [ ] Get-FSAgent - Add quick filters for Email and others
+- [ ] Get-FSAsset - Parameterset for Listing Components, Requests, Contracts.  Need to use display_id versus id like rest of the api? Filter does not support pagination??
+- [ ] Get-FSForm  - Move this functionality to the Get functions?  Get-FSRequester -Form
+- [ ] Remove-FSSoftware - Bulk support.  Would need to loop through array to generate array to make call.  Does it save API calls?
+- [ ] New-FSSoftwareUser - Bulk support.  Not sure you gain much and it would be difficult to enforce a schema without a supplemental helper cmdlet (e.g. New-FSSoftwareUserItem)
+- [ ] Remove-FSSoftwareUser - Call not working. Once this is working can do support for devices.
+- [ ] SoftwareDevice cmdlets - resolve Remove-FSSoftwareUser issue.
+- [ ] Get-FSSoftware - add switch for list software relationships
+- [ ] Get-FSContract -Parameterset doesn't let you do the by Id and then assoc_assets OR attachments.  Right now it would let you pass both, but only process one, which isn't ideal.  Possibly add a Details (or Extended) param with validateset and then pass right params or break out into seperate functions e.g. Get-FSContractAttachment
+- [ ] New-FSContract - add supplemental script for generation of item cost objects.
+- [ ] Set-FSContract - Parameterset for Approve\Reject.
+- [ ] Set-FSProject - no return for Archive\Restore
+- [ ] Get-FSSolutionFolder - No GET for All, only by Category??
+- [ ] Set-FSSolutionArticle - Requiring State in payload, not in documentation.
+- [ ] Get-FSOnboardingRequest - need to create requests to test.  {"code":"inaccessible_api","message":"There are no active actors available."}
+- [ ] Get-FSTask - need to move to the GET for type or have param for type as mandatory.
+- [ ] Attachment Support - Easiest approach is to just set #requires to 7.x and use the -Form on Invoke RestMethod or WebRequest.
