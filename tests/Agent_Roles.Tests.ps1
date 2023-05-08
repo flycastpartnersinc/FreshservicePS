@@ -1,13 +1,8 @@
 
 Describe "Agents" {
-    Get-Module PSFreshservice | Remove-Module -Force
-    Import-Module "$PSScriptRoot/../PSFreshservice" -Force -ErrorAction Stop
-
     InModuleScope PSFreshservice {
-
-        Connect-Freshservice -Name ItsFine_Prod -NoBanner
-
-        BeforeDiscovery {
+         BeforeDiscovery {
+            Connect-Freshservice -Name ItsFine_Prod -NoBanner
             $Script:agentRoles = Get-FreshServiceAgentRole
         }
         Context "Get" {

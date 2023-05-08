@@ -1,20 +1,15 @@
 
 Describe "Connection" {
-    Get-Module PSFreshservice | Remove-Module -Force
-    Import-Module "$PSScriptRoot/../PSFreshservice" -Force -ErrorAction Stop
-
     InModuleScope PSFreshservice {
-
-        Connect-Freshservice -Name ItsFine_Prod -NoBanner
-
-        BeforeDiscovery {
-            $Script:guid = New-Guid
+         BeforeDiscovery {
+            Connect-Freshservice -Name ItsFine_Prod -NoBanner
+            $Script:connection_test_guid = New-Guid
             $Script:testerEmail = "rob.simmers@flycastpartners.com"
 
 
             $newFreshServiceConnectionSplat = @{
-                Name         = 'my_connection_{0}' -f $guid
-                ApiKey       = $guid
+                Name         = 'my_connection_{0}' -f $connection_test_guid
+                ApiKey       = $connection_test_guid
                 Tenant       = 'my-fstenant'
                 EmailAddress = $testerEmail
                 Environment  = 'Production'
@@ -43,7 +38,7 @@ Describe "Connection" {
             }
             It "Get-FreshServiceConnection -Name should return the test connection" -Tag "Connection" {
                 $connection = Get-FreshServiceConnection -name $newFSConnection.Name
-                $connection.Name | Should -BeLike "*$guid"
+                $connection.Name | Should -BeLike "*$connection_test_guid"
             }
             It "Get-FreshServiceConnection -Name should throw on bad name" -Tag "Connection" {
                 {Get-FreshServiceConnection -Name 'foo'} |

@@ -1,18 +1,13 @@
 
 Describe "Asset Types" {
-    Get-Module PSFreshservice | Remove-Module -Force
-    Import-Module "$PSScriptRoot/../PSFreshservice" -Force -ErrorAction Stop
-
     InModuleScope PSFreshservice {
-
-        Connect-Freshservice -Name ItsFine_Prod -NoBanner
-
-        BeforeDiscovery {
-            $Script:guid = New-Guid
+         BeforeDiscovery {
+            Connect-Freshservice -Name ItsFine_Prod -NoBanner
+            $Script:asset_type_test_guid = New-Guid
 
             $newFreshServiceAssetTypeSplat = @{
-                name        = ('Pester Test {0}' -f $guid)
-                description = ('Pester Test {0}' -f $guid)
+                name        = ('Pester Test {0}' -f $asset_type_test_guid)
+                description = ('Pester Test {0}' -f $asset_type_test_guid)
             }
 
             $Script:newFSAssetType = New-FreshServiceAssetType @newFreshServiceAssetTypeSplat
@@ -41,10 +36,10 @@ Describe "Asset Types" {
             }
             It "Get-FreshServiceAssetType -id should return the test Asset Type" -Tag "Asset Type" {
                 $at= Get-FreshServiceAssetType -id $newFSAssetType.ID
-                $at.name | Should -BeLike "*$guid"
+                $at.name | Should -BeLike "*$asset_type_test_guid"
             }
             It "Get-FreshServiceAssetType -id should throw on bad id" -Tag "Asset Type" {
-                {Get-FreshServiceAssetType -id $guid} |
+                {Get-FreshServiceAssetType -id $asset_type_test_guid} |
                     Should -Throw
             }
         }

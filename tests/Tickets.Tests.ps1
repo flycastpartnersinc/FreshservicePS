@@ -1,14 +1,9 @@
 
 Describe "Tickets" {
-    Get-Module PSFreshservice | Remove-Module -Force
-    Import-Module "$PSScriptRoot/../PSFreshservice" -Force -ErrorAction Stop
-
     InModuleScope PSFreshservice {
-
-        Connect-Freshservice -Name ItsFine_Prod -NoBanner
-
-        BeforeDiscovery {
-            $Script:guid = New-Guid
+         BeforeDiscovery {
+            Connect-Freshservice -Name ItsFine_Prod -NoBanner
+            $Script:ticket_test_guid = New-Guid
             $Script:testerEmail = "rob.simmers@flycastpartners.com"
 
             $agent_id = Get-FreshServiceAgent -Filter "email:'$testerEmail'" |
@@ -16,8 +11,8 @@ Describe "Tickets" {
 
             $ticketParams = @{
                 email        = $testerEmail
-                subject      = ("Pester parent test ticket {0}" -f $guid)
-                description  = "Test ticket from Powershell Module with GUID {0}" -f $guid
+                subject      = ("Pester parent test ticket {0}" -f $ticket_test_guid)
+                description  = "Test ticket from Powershell Module with GUID {0}" -f $ticket_test_guid
                 priority     = 2
                 status       = 2
                 impact       = 2
@@ -33,8 +28,8 @@ Describe "Tickets" {
 
             $childTktParams = @{
                 email       = $testerEmail
-                subject     = ("Pester child test ticket for parent ticket {0}" -f $guid)
-                description = "Test child ticket from Powershell Module with GUID {0}" -f $guid
+                subject     = ("Pester child test ticket for parent ticket {0}" -f $ticket_test_guid)
+                description = "Test child ticket from Powershell Module with GUID {0}" -f $ticket_test_guid
                 priority    = 3
                 status      = 3
                 parent_id   = $newFSTicket.Id
@@ -64,8 +59,8 @@ Describe "Tickets" {
                 type        = 'Ticket'
                 status      = 1
                 due_date    = (Get-Date).AddDays(3)
-                title       = ('Task for parent ticket {0}' -f $guid)
-                description = ('Task for parent ticket {0}' -f $guid)
+                title       = ('Task for parent ticket {0}' -f $ticket_test_guid)
+                description = ('Task for parent ticket {0}' -f $ticket_test_guid)
             }
 
             $Script:newFSTask = New-FreshServiceTask @taskParams
@@ -108,7 +103,7 @@ Describe "Tickets" {
             }
             It "Get-FreshServiceTicket -id should return the test ticket" -Tag "Ticket" {
                 $testTicket = Get-FreshServiceTicket -id $newFSTicket.ID
-                $testTicket.Subject | Should -BeLike "*$guid"
+                $testTicket.Subject | Should -BeLike "*$ticket_test_guid"
             }
             It "Get-FreshServiceTicket -activities should return ticket activity" -Tag "Ticket", "Activity" {
                 {Get-FreshServiceTicket -id $newFSTicket.ID -activities} |
@@ -131,7 +126,7 @@ Describe "Tickets" {
                     Should -Not -BeNullOrEmpty
             }
             It "Get-FreshServiceTicket -id should throw on bad id" -Tag "Ticket" {
-                {Get-FreshServiceTicket -id $guid} |
+                {Get-FreshServiceTicket -id $ticket_test_guid} |
                     Should -Throw
             }
             It "Get-FreshServiceTicket -fields should get Ticket fields" -Tag "Form" {

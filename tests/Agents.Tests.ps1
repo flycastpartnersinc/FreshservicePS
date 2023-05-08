@@ -1,13 +1,8 @@
 Describe "Agents" {
-    Get-Module PSFreshservice | Remove-Module -Force
-    Import-Module "$PSScriptRoot/../PSFreshservice" -Force -ErrorAction Stop
-
     InModuleScope PSFreshservice {
-
-        Connect-Freshservice -Name ItsFine_Prod -NoBanner
-
-        BeforeDiscovery {
-            $Script:guid = New-Guid
+         BeforeDiscovery {
+            Connect-Freshservice -Name ItsFine_Prod -NoBanner
+            $Script:agent_test_guid = New-Guid
             $Script:testerEmail = 'rasimmers.{0}@gmail.com' -f (Get-Date).TimeOfDay.Ticks
 
             $role_id = Get-FreshServiceAgentRole |
@@ -29,7 +24,7 @@ Describe "Agents" {
             $newFreshServiceAgentSplat = @{
                 first_name             = 'Ralph'
                 last_name              = 'Simmers'
-                job_title              = 'Pester Test: {0}' -f $guid
+                job_title              = 'Pester Test: {0}' -f $agent_test_guid
                 email                  = $testerEmail
                 background_information = 'Awesome helpdesk training'
                 roles                  = $agentRoles
@@ -89,14 +84,14 @@ Describe "Agents" {
             }
             It "Get-FreshServiceAgent -id should return the test agent" -Tag "Agent" {
                 $testAgent = Get-FreshServiceAgent -id $newFSAgent.ID
-                $testAgent.job_title | Should -BeLike "*$guid"
+                $testAgent.job_title | Should -BeLike "*$agent_test_guid"
             }
             It "Get-FreshServiceAgent -filter should return agents" -Tag "Agent" {
                 {Get-FreshServiceAgent -filter "email:'$testerEmail' AND time_zone:'Eastern Time (US & Canada)'"} |
                     Should -Not -BeNullOrEmpty
             }
             It "Get-FreshServiceAgent -id should throw on bad id" -Tag "Agent" {
-                {Get-FreshServiceAgent -id $guid} |
+                {Get-FreshServiceAgent -id $agent_test_guid} |
                     Should -Throw
             }
             It "Get-FreshServiceAgent -fields should get Agent fields" -Tag "Form" {

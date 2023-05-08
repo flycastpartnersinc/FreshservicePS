@@ -1,22 +1,17 @@
 
 Describe "Requester Groups" {
-    Get-Module PSFreshservice | Remove-Module -Force
-    Import-Module "$PSScriptRoot/../PSFreshservice" -Force -ErrorAction Stop
-
     InModuleScope PSFreshservice {
-
-        Connect-Freshservice -Name ItsFine_Prod -NoBanner
-
-        BeforeDiscovery {
-            $Script:guid = New-Guid
+         BeforeDiscovery {
+            Connect-Freshservice -Name ItsFine_Prod -NoBanner
+            $Script:requester_group_test_guid = New-Guid
 
             $Script:requester_id = Get-FreshServiceRequester |
                                         Where-Object -FilterScript {$_.active -eq $true} |
                                             Select-Object -First 1 -ExpandProperty id
 
             $newFreshServiceRequesterGroupSplat = @{
-                name        = ("Pester Test {0}" -f $guid)
-                description = ("Pester Test: {0}" -f $guid)
+                name        = ("Pester Test {0}" -f $requester_group_test_guid)
+                description = ("Pester Test: {0}" -f $requester_group_test_guid)
             }
 
             $Script:newFSRequesterGroup = New-FreshServiceRequesterGroup @newFreshServiceRequesterGroupSplat
@@ -45,10 +40,10 @@ Describe "Requester Groups" {
             }
             It "Get-FreshServiceRequesterGroup -id should return the test Requester Group" -Tag "Requester Group" {
                 $testReqGroups= Get-FreshServiceRequesterGroup -id $newFSRequesterGroup.ID
-                $testReqGroups.description | Should -BeLike "*$guid"
+                $testReqGroups.description | Should -BeLike "*$requester_group_test_guid"
             }
             It "Get-FreshServiceRequesterGroup -id should throw on bad id" -Tag "Requester Group" {
-                {Get-FreshServiceRequesterGroup -id $guid} |
+                {Get-FreshServiceRequesterGroup -id $requester_group_test_guid} |
                     Should -Throw
             }
         }

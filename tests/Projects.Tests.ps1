@@ -1,22 +1,17 @@
 
 Describe "Projects" {
-    Get-Module PSFreshservice | Remove-Module -Force
-    Import-Module "$PSScriptRoot/../PSFreshservice" -Force -ErrorAction Stop
-
     InModuleScope PSFreshservice {
-
-        Connect-Freshservice -Name ItsFine_Prod -NoBanner
-
-        BeforeDiscovery {
-            $Script:guid = New-Guid
+         BeforeDiscovery {
+            Connect-Freshservice -Name ItsFine_Prod -NoBanner
+            $Script:project_test_guid = New-Guid
             $Script:testerEmail = "rob.simmers@flycastpartners.com"
 
             $agent_id = Get-FreshServiceAgent -Filter "email:'$testerEmail'" |
                             Select-Object -ExpandProperty id
 
             $newFreshServiceProjectSplat = @{
-                name               = 'Project {0}' -f $guid
-                description        = 'Project {0}' -f $guid
+                name               = 'Project {0}' -f $project_test_guid
+                description        = 'Project {0}' -f $project_test_guid
                 project_type       = 1 #Business
                 key                = 'P{0}' -f (Get-Random -Minimum 100000 -Maximum 999999 -Count 1)
                 priority_id        = 1 #Low
@@ -43,8 +38,8 @@ Describe "Projects" {
 
             $newFreshServiceProjectTaskSplat = @{
                 project_id         = $newFSProject.id
-                title              = ('Test task {0}' -f $guid)
-                description        = ('Test task {0}' -f $guid)
+                title              = ('Test task {0}' -f $project_test_guid)
+                description        = ('Test task {0}' -f $project_test_guid)
                 type_id            = $task_type_id
                 assignee_id        = $agent_id
                 planned_start_date = (Get-Date)
@@ -120,10 +115,10 @@ Describe "Projects" {
             }
             It "Get-FreshServiceProject -id should return the test Project" -Tag "Project" {
                 $testProject = Get-FreshServiceProject -id $newFSProject.ID
-                $testProject.description | Should -BeLike "*$guid"
+                $testProject.description | Should -BeLike "*$project_test_guid"
             }
             It "Get-FreshServiceProject -id should throw on bad id" -Tag "Project" {
-                {Get-FreshServiceProject -id $guid} |
+                {Get-FreshServiceProject -id $project_test_guid} |
                     Should -Throw
             }
 
@@ -133,10 +128,10 @@ Describe "Projects" {
             }
             It "Get-FreshServiceProject -id should return the test Project Task" -Tag "Project Task" {
                 $testProject = Get-FreshServiceProjectTask -project_id $newFSProject.id -Id $newFSProjectTask.id
-                $testProject.title | Should -BeLike "*$guid"
+                $testProject.title | Should -BeLike "*$project_test_guid"
             }
             It "Get-FreshServiceProject -id should throw on bad id" -Tag "Project Task" {
-                {Get-FreshServiceProjectTask -project_id $newFSProject.id -Id $guid} |
+                {Get-FreshServiceProjectTask -project_id $newFSProject.id -Id $project_test_guid} |
                     Should -Throw
             }
 

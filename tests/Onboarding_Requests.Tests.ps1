@@ -1,15 +1,10 @@
 
 
 Describe "Onboarding Requests" {
-    Get-Module PSFreshservice | Remove-Module -Force
-    Import-Module "$PSScriptRoot/../PSFreshservice" -Force -ErrorAction Stop
-
     InModuleScope PSFreshservice {
-
-        Connect-Freshservice -Name ItsFine_Prod -NoBanner
-
-        BeforeDiscovery {
-            $Script:guid = New-Guid
+         BeforeDiscovery {
+            Connect-Freshservice -Name ItsFine_Prod -NoBanner
+            $Script:onboarding_request_test_guid = New-Guid
             # $Script:testerEmail = 'rob.simmers@flycastpartners.com'
 
             $location_id = Get-FreshServiceLocation -Name 'America' |
@@ -57,7 +52,7 @@ Describe "Onboarding Requests" {
                 $obReq | Should -Not -BeNullOrEmpty
             }
             It "Get-FreshServiceOnboardingRequest -id should throw on bad id" -Tag "Onboarding Request" {
-                {Get-FreshServiceOnboardingRequest -id $guid} |
+                {Get-FreshServiceOnboardingRequest -id $onboarding_request_test_guid} |
                     Should -Throw
             }
             It "Get-FreshServiceOnboardingRequest -tickets should return associated ticket data" -Tag "Onboarding Request" {

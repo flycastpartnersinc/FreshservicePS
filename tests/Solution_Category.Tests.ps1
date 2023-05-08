@@ -1,17 +1,12 @@
 
 Describe "Solution Category" {
-    Get-Module PSFreshservice | Remove-Module -Force
-    Import-Module "$PSScriptRoot/../PSFreshservice" -Force -ErrorAction Stop
-
     InModuleScope PSFreshservice {
-
-        Connect-Freshservice -Name ItsFine_Prod -NoBanner
-
-        BeforeDiscovery {
-            $Script:guid = New-Guid
+         BeforeDiscovery {
+            Connect-Freshservice -Name ItsFine_Prod -NoBanner
+            $Script:solution_category_test_guid = New-Guid
 
             $newFreshServiceSolutionCategorySplat = @{
-                name        = ('Category {0}' -f $guid)
+                name        = ('Category {0}' -f $solution_category_test_guid)
                 description = "Pester Test Category"
             }
 
@@ -42,10 +37,10 @@ Describe "Solution Category" {
             }
             It "Get-FreshServiceSolutionCategory -id should return the test SolutionCategory" -Tag "Solution Category" {
                 $solCat = Get-FreshServiceSolutionCategory -id $newFSSolutionCategory.ID
-                $solCat.name | Should -BeLike "*$guid"
+                $solCat.name | Should -BeLike "*$solution_category_test_guid"
             }
             It "Get-FreshServiceSolutionCategory -id should throw on bad id" -Tag "Solution Category" {
-                {Get-FreshServiceSolutionCategory -id $guid} |
+                {Get-FreshServiceSolutionCategory -id $solution_category_test_guid} |
                     Should -Throw
             }
         }

@@ -1,21 +1,16 @@
 
 Describe "Locations" {
-    Get-Module PSFreshservice | Remove-Module -Force
-    Import-Module "$PSScriptRoot/../PSFreshservice" -Force -ErrorAction Stop
-
     InModuleScope PSFreshservice {
-
-        Connect-Freshservice -Name ItsFine_Prod -NoBanner
-
-        BeforeDiscovery {
-            $Script:guid = New-Guid
+         BeforeDiscovery {
+            Connect-Freshservice -Name ItsFine_Prod -NoBanner
+            $Script:location_test_guid = New-Guid
             $Script:testerEmail = 'rob.simmers@flycastpartners.com'
 
             $agent_id = Get-FreshServiceAgent -Filter "email:'$testerEmail'" |
                             Select-Object -ExpandProperty id
 
             $newFreshServiceLocationSplat = @{
-                name = ('Richmond {0}' -f $guid)
+                name = ('Richmond {0}' -f $location_test_guid)
                 address = @{
                     line1   = '123 Anywhere Ln'
                     line2   = 'Suite 1'
@@ -54,10 +49,10 @@ Describe "Locations" {
             }
             It "Get-FreshServiceLocation -id should return the test Location" -Tag "Location" {
                 $location= Get-FreshServiceLocation -id $newFSLocation.ID
-                $location.name | Should -BeLike "*$guid"
+                $location.name | Should -BeLike "*$location_test_guid"
             }
             It "Get-FreshServiceLocation -id should throw on bad id" -Tag "Location" {
-                {Get-FreshServiceLocation -id $guid} |
+                {Get-FreshServiceLocation -id $location_test_guid} |
                     Should -Throw
             }
         }

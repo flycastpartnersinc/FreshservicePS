@@ -1,14 +1,9 @@
 
 Describe "Canned Responses" {
-    Get-Module PSFreshservice | Remove-Module -Force
-    Import-Module "$PSScriptRoot/../PSFreshservice" -Force -ErrorAction Stop
-
     InModuleScope PSFreshservice {
-
-        Connect-Freshservice -Name ItsFine_Prod -NoBanner
-
-        BeforeDiscovery {
-            $Script:guid = New-Guid
+         BeforeDiscovery {
+            Connect-Freshservice -Name ItsFine_Prod -NoBanner
+            $Script:canned_response_test_guid = New-Guid
         }
         Context "View and List" {
             It "Get-FreshServiceCannedResponseFolder should return data" -Tag "Canned Folders" {
@@ -20,7 +15,7 @@ Describe "Canned Responses" {
                 $cannedFldr | Should -Not -BeNullOrEmpty
             }
             It "Get-FreshServiceCannedResponseFolder -id should throw on bad id" -Tag "Canned Folders" {
-                {Get-FreshServiceCannedResponseFolder -id $guid} |
+                {Get-FreshServiceCannedResponseFolder -id $canned_response_test_guid} |
                     Should -Throw
             }
             It "Get-FreshServiceCannedResponse should return data" -Tag "Canned Response" {
@@ -32,7 +27,7 @@ Describe "Canned Responses" {
                 $cannedResp | Should -Not -BeNullOrEmpty
             }
             It "Get-FreshServiceCannedResponse -id should throw on bad id" -Tag "Canned Response" {
-                {Get-FreshServiceCannedResponse -id $guid} |
+                {Get-FreshServiceCannedResponse -id $canned_response_test_guid} |
                     Should -Throw
             }
 

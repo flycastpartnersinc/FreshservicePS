@@ -1,14 +1,9 @@
 
 Describe "Solution Article" {
-    Get-Module PSFreshservice | Remove-Module -Force
-    Import-Module "$PSScriptRoot/../PSFreshservice" -Force -ErrorAction Stop
-
     InModuleScope PSFreshservice {
-
-        Connect-Freshservice -Name ItsFine_Prod -NoBanner
-
-        BeforeDiscovery {
-            $Script:guid = New-Guid
+         BeforeDiscovery {
+            Connect-Freshservice -Name ItsFine_Prod -NoBanner
+            $Script:solution_article_test_guid = New-Guid
 
             $Script:category_id = Get-FreshServiceSolutionCategory |
                                     Where-Object -FilterScript {$_.name -eq 'General'} |
@@ -19,7 +14,7 @@ Describe "Solution Article" {
                                         Select-Object -ExpandProperty id
 
             $newFreshServiceSolutionArticleSplat = @{
-                title        = 'KB {0}' -f $guid
+                title        = 'KB {0}' -f $solution_article_test_guid
                 description  = 'This is how you fix stuff'
                 article_type = 1 #permanent
                 folder_id    = $folder_id
@@ -81,10 +76,10 @@ Describe "Solution Article" {
             }
             It "Get-FreshServiceSolutionArticle -id should return the test SolutionArticle" -Tag "Solution Article" {
                 $solArticle = Get-FreshServiceSolutionArticle -folder_id $folder_id -id $newFSSolutionArticle.ID
-                $solArticle.title | Should -BeLike "*$guid"
+                $solArticle.title | Should -BeLike "*$solution_article_test_guid"
             }
             It "Get-FreshServiceSolutionArticle -id should throw on bad id" -Tag "Solution Article" {
-                {Get-FreshServiceSolutionArticle -folder_id $folder_id -id $guid} |
+                {Get-FreshServiceSolutionArticle -folder_id $folder_id -id $solution_article_test_guid} |
                     Should -Throw
             }
         }

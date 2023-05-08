@@ -1,14 +1,9 @@
 
 Describe "Release" {
-    Get-Module PSFreshservice | Remove-Module -Force
-    Import-Module "$PSScriptRoot/../PSFreshservice" -Force -ErrorAction Stop
-
     InModuleScope PSFreshservice {
-
-        Connect-Freshservice -Name ItsFine_Prod -NoBanner
-
-        BeforeDiscovery {
-            $Script:guid = New-Guid
+         BeforeDiscovery {
+            Connect-Freshservice -Name ItsFine_Prod -NoBanner
+            $Script:release_test_guid = New-Guid
             $Script:testerEmail = "rob.simmers@flycastpartners.com"
 
             $agent_id = Get-FreshServiceAgent -Filter "email:'$testerEmail'" |
@@ -24,8 +19,8 @@ Describe "Release" {
             $addAgentToGroup = Add-FreshServiceAgentGroupMember -id $group_id -members $agent_id
 
             $newFreshServiceReleaseSplat = @{
-                subject            = "Release from Pester: {0}" -f $guid
-                description        = "Release from Pester: {0}" -f $guid
+                subject            = "Release from Pester: {0}" -f $release_test_guid
+                description        = "Release from Pester: {0}" -f $release_test_guid
                 priority           = 1
                 status             = 1
                 planned_start_date = Get-Date -hour 20 -Minute 0 -Second 0
@@ -61,8 +56,8 @@ Describe "Release" {
                 type        = 'Release'
                 status      = 1
                 due_date    = (Get-Date).AddDays(3)
-                title       = ('Task for parent release {0}' -f $guid)
-                description = ('Task for parent release {0}' -f $guid)
+                title       = ('Task for parent release {0}' -f $release_test_guid)
+                description = ('Task for parent release {0}' -f $release_test_guid)
             }
 
             $Script:newFSRelTask = New-FreshServiceTask @taskParams
@@ -106,7 +101,7 @@ Describe "Release" {
             }
             It "Get-FreshServiceRelease -id should return the test release" -Tag "Release" {
                 $testRelease = Get-FreshServiceRelease -id $newFSRelease.ID
-                $testRelease.Subject | Should -BeLike "*$guid"
+                $testRelease.Subject | Should -BeLike "*$release_test_guid"
             }
               It "Get-FreshServiceTimeEntry should return time entries" -Tag "TimeEntry" {
                 {Get-FreshServiceTimeEntry -type Release -parent_id $newFSRelease.ID} |
@@ -121,7 +116,7 @@ Describe "Release" {
                     Should -Not -BeNullOrEmpty
             }
             It "Get-FreshServiceRelease -id should throw on bad id" -Tag "Release" {
-                {Get-FreshServiceRelease -id $guid} |
+                {Get-FreshServiceRelease -id $release_test_guid} |
                     Should -Throw
             }
             It "Get-FreshServiceRelease -fields should get Release fields" -Tag "Form" {

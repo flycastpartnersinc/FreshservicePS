@@ -1,14 +1,9 @@
 
 Describe "Problems" {
-    Get-Module PSFreshservice | Remove-Module -Force
-    Import-Module "$PSScriptRoot/../PSFreshservice" -Force -ErrorAction Stop
-
     InModuleScope PSFreshservice {
-
-        Connect-Freshservice -Name ItsFine_Prod -NoBanner
-
-        BeforeDiscovery {
-            $Script:guid = New-Guid
+         BeforeDiscovery {
+            Connect-Freshservice -Name ItsFine_Prod -NoBanner
+            $Script:problem_test_guid = New-Guid
             $Script:testerEmail = "rob.simmers@flycastpartners.com"
 
             $agent_id = Get-FreshServiceAgent -Filter "email:'$testerEmail'" |
@@ -20,11 +15,11 @@ Describe "Problems" {
             $newFreshServiceProblemSplat = @{
                 requester_id    = $agent_id
                 agent_id        = $agent_id
-                description     = "Problem test from Pester: {0}" -f $guid
+                description     = "Problem test from Pester: {0}" -f $problem_test_guid
                 status          = 1
                 impact          = 1
                 priority        = 1
-                subject         = "Problem test from Pester {0}" -f $guid
+                subject         = "Problem test from Pester {0}" -f $problem_test_guid
                 due_by          = (Get-Date).AddDays(5)
                 known_error     = $true
                 category        = "Hardware"
@@ -42,7 +37,7 @@ Describe "Problems" {
             $newFreshServiceNoteSplat = @{
                 parent_id = $newFSProblem.id
                 type      = 'Problem'
-                body      = "Test note from Pester {0}" -f $guid
+                body      = "Test note from Pester {0}" -f $problem_test_guid
             }
 
             $Script:newFSPblmNote = New-FreshServiceNote @newFreshServiceNoteSplat
@@ -51,7 +46,7 @@ Describe "Problems" {
                 parent_id  = $newFSProblem.id
                 time_spent = "01:00"
                 billable   = $true
-                note       = "Test time entry from Pester {0}" -f $guid
+                note       = "Test time entry from Pester {0}" -f $problem_test_guid
                 agent_id   = $agent_id
                 type       = "Problem"
             }
@@ -63,8 +58,8 @@ Describe "Problems" {
                 type        = 'Problem'
                 status      = 1
                 due_date    = (Get-Date).AddDays(3)
-                title       = ('Task for parent Problem {0}' -f $guid)
-                description = ('Task for parent Problem {0}' -f $guid)
+                title       = ('Task for parent Problem {0}' -f $problem_test_guid)
+                description = ('Task for parent Problem {0}' -f $problem_test_guid)
             }
 
             $Script:newFSPblmTask = New-FreshServiceTask @taskParams
@@ -113,7 +108,7 @@ Describe "Problems" {
             }
             It "Get-FreshServiceProblem -id should return the test Problem" -Tag "Problem" {
                 $pblById = Get-FreshServiceProblem -id $newFSProblem.ID
-                $pblById.Subject | Should -BeLike "*$guid"
+                $pblById.Subject | Should -BeLike "*$problem_test_guid"
             }
             It "Get-FreshServiceTimeEntry should return time entries" -Tag "TimeEntry" {
                 {Get-FreshServiceTimeEntry -type Problem -parent_id $newFSProblem.ID} |
@@ -124,7 +119,7 @@ Describe "Problems" {
                     Should -Not -BeNullOrEmpty
             }
             It "Get-FreshServiceProblem -id should throw on bad id" -Tag "Problem" {
-                {Get-FreshServiceProblem -id $guid} |
+                {Get-FreshServiceProblem -id $problem_test_guid} |
                     Should -Throw
             }
             It "Get-FreshServiceOnboardingRequest -fields should get Problem fields" -Tag "Form" {

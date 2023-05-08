@@ -1,17 +1,12 @@
 
 Describe "Vendors" {
-    Get-Module PSFreshservice | Remove-Module -Force
-    Import-Module "$PSScriptRoot/../PSFreshservice" -Force -ErrorAction Stop
-
     InModuleScope PSFreshservice {
-
-        Connect-Freshservice -Name ItsFine_Prod -NoBanner
-
-        BeforeDiscovery {
-            $Script:guid = New-Guid
+         BeforeDiscovery {
+            Connect-Freshservice -Name ItsFine_Prod -NoBanner
+            $Script:vendor_test_guid = New-Guid
 
             $venParams = @{
-                name = "Vendor {0}" -f $guid
+                name = "Vendor {0}" -f $vendor_test_guid
                 description = "My vendor description"
                 address = @{
                     line1   = "123 Corporate Avenue"
@@ -50,10 +45,10 @@ Describe "Vendors" {
             }
             It "Get-FreshServiceVendor -id should return the test Vendor" -Tag "Vendor" {
                 $vendor= Get-FreshServiceVendor -id $newFSVendor.ID
-                $vendor.name | Should -BeLike "*$guid"
+                $vendor.name | Should -BeLike "*$vendor_test_guid"
             }
             It "Get-FreshServiceVendor -id should throw on bad id" -Tag "Vendor" {
-                {Get-FreshServiceVendor -id $guid} |
+                {Get-FreshServiceVendor -id $vendor_test_guid} |
                     Should -Throw
             }
         }

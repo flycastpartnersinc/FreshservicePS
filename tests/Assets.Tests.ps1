@@ -1,14 +1,9 @@
 
 Describe "Assets" {
-    Get-Module PSFreshservice | Remove-Module -Force
-    Import-Module "$PSScriptRoot/../PSFreshservice" -Force -ErrorAction Stop
-
     InModuleScope PSFreshservice {
-
-        Connect-Freshservice -Name ItsFine_Prod -NoBanner
-
-        BeforeDiscovery {
-            $Script:guid = New-Guid
+         BeforeDiscovery {
+            Connect-Freshservice -Name ItsFine_Prod -NoBanner
+            $Script:asset_test_guid = New-Guid
 
             $asset_types = Get-FreshServiceAssetType
 
@@ -42,22 +37,22 @@ Describe "Assets" {
                                  Select-Object -Skip 2 -First 1 -ExpandProperty id
 
             $newFreshServiceProductSplat = @{
-                name               = "Dell Laptop XPS 17 {0}" -f $guid
+                name               = "Dell Laptop XPS 17 {0}" -f $asset_test_guid
                 asset_type_id      = $asset_type_id
-                description        = "Dell Laptop XPS 17 {0}" -f $guid
+                description        = "Dell Laptop XPS 17 {0}" -f $asset_test_guid
                 manufacturer       = $manufacturer_id
                 mode_of_procurement = 'Buy'
             }
 
             $product_id = New-FreshServiceProduct @newFreshServiceProductSplat
 
-            $Script:asset_name = 'Laptop{0}' -f $guid
+            $Script:asset_name = 'Laptop{0}' -f $asset_test_guid
 
             $assetParams = @{
                 name          = $asset_name
-                description   = 'New Laptop from Pester: {0}' -f $guid
+                description   = 'New Laptop from Pester: {0}' -f $asset_test_guid
                 asset_type_id = $asset_type_id
-                asset_tag     = "LAP-{0}" -f $guid
+                asset_tag     = "LAP-{0}" -f $asset_test_guid
                 impact        = 'Low'
                 usage_type    = 'Permanent'
                 user_id       = $user_id
@@ -66,7 +61,7 @@ Describe "Assets" {
                 type_fields = @{
                     ('product_{0}' -f $hardware_layer_id)     = ($product_id | Select-Object -ExpandProperty id)
                     ('asset_state_{0}' -f $hardware_layer_id) = 'In Stock'
-                    ('hostname_{0}' -f $computer_layer_id)    = 'Laptop{0}' -f $guid
+                    ('hostname_{0}' -f $computer_layer_id)    = 'Laptop{0}' -f $asset_test_guid
                 }
             }
 
@@ -79,9 +74,9 @@ Describe "Assets" {
                                     Select-Object -ExpandProperty id
 
             $secFreshServiceProductSplat = @{
-                name               = "Dell PowerConnect 2808 {0}" -f $guid
+                name               = "Dell PowerConnect 2808 {0}" -f $asset_test_guid
                 asset_type_id      = $asset_type_id
-                description        = "PC2808 - Dell PowerConnect 2808 8 x Ports 10/100/1000Base-T Gigabit Ethernet Managed Network Switch {0}" -f $guid
+                description        = "PC2808 - Dell PowerConnect 2808 8 x Ports 10/100/1000Base-T Gigabit Ethernet Managed Network Switch {0}" -f $asset_test_guid
                 manufacturer       = $manufacturer_id
                 mode_of_procurement = 'Buy'
             }
@@ -167,10 +162,10 @@ Describe "Assets" {
             }
             It "Get-FreshServiceAsset -display_id should return the test Asset" -Tag "Asset" {
                 $asset = Get-FreshServiceAsset -display_id $newFreshServiceAsset.display_id
-                $asset.name | Should -BeLike "*$guid"
+                $asset.name | Should -BeLike "*$asset_test_guid"
             }
             It "Get-FreshServiceAsset -id should throw on bad id" -Tag "Asset" {
-                {Get-FreshServiceAsset -display_id $guid} |
+                {Get-FreshServiceAsset -display_id $asset_test_guid} |
                     Should -Throw
             }
             It "Get-FreshServiceBackground should return data" -Tag "Job" {

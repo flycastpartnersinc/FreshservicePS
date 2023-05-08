@@ -1,14 +1,9 @@
 
 Describe "Custom Objects" {
-    Get-Module PSFreshservice | Remove-Module -Force
-    Import-Module "$PSScriptRoot/../PSFreshservice" -Force -ErrorAction Stop
-
     InModuleScope PSFreshservice {
-
-        Connect-Freshservice -Name ItsFine_Prod -NoBanner
-
-        BeforeDiscovery {
-            $Script:guid = New-Guid
+         BeforeDiscovery {
+            Connect-Freshservice -Name ItsFine_Prod -NoBanner
+            $Script:custom_object_test_guid = New-Guid
 
             $Script:testerEmail = "rob.simmers@flycastpartners.com"
 
@@ -33,7 +28,7 @@ Describe "Custom Objects" {
                 $customObject | Should -Not -BeNullOrEmpty
             }
             It "Get-FreshServiceCustomObject -id should throw on bad id" -Tag "Custom Objects" {
-                {Get-FreshServiceCustomObject -id $guid} |
+                {Get-FreshServiceCustomObject -id $custom_object_test_guid} |
                     Should -Throw
             }
             It "Get-FreshServiceCustomObjectRecord -id should return the test Custom Objects" -Tag "Custom Objects" {

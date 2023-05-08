@@ -1,13 +1,8 @@
 Describe "Contract" {
-    Get-Module PSFreshservice | Remove-Module -Force
-    Import-Module "$PSScriptRoot/../PSFreshservice" -Force -ErrorAction Stop
-
     InModuleScope PSFreshservice {
-
-        Connect-Freshservice -Name ItsFine_Prod -NoBanner
-
-       BeforeDiscovery {
-            $Script:guid = New-Guid
+        BeforeDiscovery {
+            Connect-Freshservice -Name ItsFine_Prod -NoBanner
+            $Script:contract_test_guid = New-Guid
             $Script:testerEmail = "rob.simmers@flycastpartners.com"
 
             $agent_id = Get-FreshServiceAgent -Filter "email:'$testerEmail'" |
@@ -35,8 +30,8 @@ Describe "Contract" {
             $icd = New-FreshServiceContractItem @newFreshServiceContractItemSplat
 
             $contractParams = @{
-                name               = 'Microsoft O365 Contract {0}' -f $guid
-                description        = 'Microsoft Office 365 Contract {0}' -f $guid
+                name               = 'Microsoft O365 Contract {0}' -f $contract_test_guid
+                description        = 'Microsoft Office 365 Contract {0}' -f $contract_test_guid
                 vendor_id          = $vendor_id #Get-FreshServiceVendor
                 auto_renew         = $true
                 notify_expiry      = $true
@@ -45,7 +40,7 @@ Describe "Contract" {
                 start_date         = Get-Date
                 end_date           = (Get-Date).AddDays(365)
                 cost               = 6454.00
-                contract_number    = 'MSFT{0}' -f $guid
+                contract_number    = 'MSFT{0}' -f $contract_test_guid
                 contract_type_id   = 3
                 visible_to_id      = $agent_group #Get-FSAgentGroup
                 notify_to          = 'john.smith@company.com'
@@ -106,10 +101,10 @@ Describe "Contract" {
             }
             It "Get-FreshServiceContract -id should return the test Contract" -Tag "Contract" {
                 $Contract = Get-FreshServiceContract -id $newFSContract.ID
-                $Contract.name | Should -BeLike "*$guid"
+                $Contract.name | Should -BeLike "*$contract_test_guid"
             }
             It "Get-FreshServiceContract -id should throw on bad id" -Tag "Contract" {
-                {Get-FreshServiceContract -id $guid} |
+                {Get-FreshServiceContract -id $contract_test_guid} |
                     Should -Throw
             }
             It "Get-FreshServiceContractType should return Contract types" -Tag "Contract Type" {

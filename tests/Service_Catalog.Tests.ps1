@@ -1,14 +1,9 @@
 
 Describe "Service Catalog" {
-    Get-Module PSFreshservice | Remove-Module -Force
-    Import-Module "$PSScriptRoot/../PSFreshservice" -Force -ErrorAction Stop
-
     InModuleScope PSFreshservice {
-
-        Connect-Freshservice -Name ItsFine_Prod -NoBanner
-
-        BeforeDiscovery {
-            $Script:guid = New-Guid
+         BeforeDiscovery {
+            Connect-Freshservice -Name ItsFine_Prod -NoBanner
+            $Script:service_catalog_test_guid = New-Guid
         }
         Context "View and List" {
             It "Get-FreshServiceCatalogItem should return data" -Tag "Catalog Item" {
@@ -20,7 +15,7 @@ Describe "Service Catalog" {
                 $catItem | Should -Not -BeNullOrEmpty
             }
             It "Get-FreshServiceCatalogItem -id should throw on bad id" -Tag "Catalog Item" {
-                {Get-FreshServiceCatalogItem -display_id $guid} |
+                {Get-FreshServiceCatalogItem -display_id $service_catalog_test_guid} |
                     Should -Throw
             }
             It "Get-FreshServiceCatalogCategory should return data" -Tag "Service Category" {
@@ -32,7 +27,7 @@ Describe "Service Catalog" {
                 $category | Should -Not -BeNullOrEmpty
             }
             It "Get-FreshServiceCatalogCategory -id should throw on bad id" -Tag "Catalog Item" {
-                {Get-FreshServiceCatalogCategory -id $guid} |
+                {Get-FreshServiceCatalogCategory -id $service_catalog_test_guid} |
                     Should -Throw
             }
         }

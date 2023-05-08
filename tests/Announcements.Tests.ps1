@@ -1,18 +1,13 @@
 
 Describe "Announcements" {
-    Get-Module PSFreshservice | Remove-Module -Force
-    Import-Module "$PSScriptRoot/../PSFreshservice" -Force -ErrorAction Stop
-
     InModuleScope PSFreshservice {
-
-        Connect-Freshservice -Name ItsFine_Prod -NoBanner
-
-        BeforeDiscovery {
-            $Script:guid = New-Guid
+         BeforeDiscovery {
+            Connect-Freshservice -Name ItsFine_Prod -NoBanner
+            $Script:announcement_test_guid = New-Guid
             $Script:testerEmail = 'rob.simmers@flycastpartners.com'
 
             $newFreshServiceAnnouncementSplat = @{
-                title             = "SAP Outtage {0}" -f $guid
+                title             = "SAP Outtage {0}" -f $announcement_test_guid
                 body_html         = '<h1>SAP IS DOWN</h1><p>No ETA on service restoration</p>'
                 visible_from      = (get-date)
                 visibility        = 'Everyone'
@@ -58,10 +53,10 @@ Describe "Announcements" {
             }
             It "Get-FreshServiceAnnouncement -id should return the test Announcement" -Tag "Announcement" {
                 $Announcement= Get-FreshServiceAnnouncement -id $newFSAnnouncement.ID
-                $Announcement.title | Should -BeLike "*$guid"
+                $Announcement.title | Should -BeLike "*$announcement_test_guid"
             }
             It "Get-FreshServiceAnnouncement -id should throw on bad id" -Tag "Announcement" {
-                {Get-FreshServiceAnnouncement -id $guid} |
+                {Get-FreshServiceAnnouncement -id $announcement_test_guid} |
                     Should -Throw
             }
         }

@@ -1,17 +1,11 @@
 Describe "SLA Policies" {
-    Get-Module PSMyModule | Remove-Module -Force
-    Import-Module "$PSScriptRoot/../PSMyModule" -Force -ErrorAction Stop
-
-    InModuleScope PSMyModule {
-
-        Connect-MyModule -Name ItsFine_Prod -NoBanner
-
+    InModuleScope PSFreshService {
         BeforeDiscovery {
-            $Script:guid = New-Guid
+            Connect-FreshService -Name ItsFine_Prod -NoBanner
         }
         Context "View and List" {
-            It "Get-MyModuleSLAPolicy should return data" -Tag "SLA Policies" {
-                $Script:SLAs = Get-MyModuleSLAPolicy
+            It "Get-FreshServiceSLAPolicy should return data" -Tag "SLA Policies" {
+                $Script:SLAs = Get-FreshServiceSLAPolicy
                 $SLAs | Should -Not -BeNullOrEmpty
             }
         }

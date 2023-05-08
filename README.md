@@ -106,5 +106,5 @@ Hopefully this is obvious, but:
   [Latest Release]: https://github.com/flycastpartnersinc/PSFreshservice/releases/latest
   [Submit an Issue]: https://github.com/flycastpartnersinc/PSFreshservice/issues/new
   <!-- [replicaJunction]: https://github.com/replicaJunction -->
-  [MIT license]: https://github.com/flycastpartnersinc/PSFreshservice/blob/master/LICENSE
+  [MIT license]: https://github.com/flycastpartnersinc/PSFreshservice/blob/main/LICENSE
   <!-- [Contributing]: http://atlassianps.org/docs/Contributing -->

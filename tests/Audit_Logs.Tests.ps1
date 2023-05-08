@@ -1,14 +1,9 @@
 
 Describe "Audit Logs" {
-    Get-Module PSFreshservice | Remove-Module -Force
-    Import-Module "$PSScriptRoot/../PSFreshservice" -Force -ErrorAction Stop
-
     InModuleScope PSFreshservice {
-
-        Connect-Freshservice -Name ItsFine_Prod -NoBanner
-
-        BeforeDiscovery {
-            $Script:guid = New-Guid
+         BeforeDiscovery {
+            Connect-Freshservice -Name ItsFine_Prod -NoBanner
+            $Script:audit_log_test_guid = New-Guid
 
             $invokeFreshServiceAuditLogExportSplat = @{
                 since   = Get-Date -Date (Get-Date).AddDays(-5)

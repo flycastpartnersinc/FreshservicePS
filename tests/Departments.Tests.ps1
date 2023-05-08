@@ -1,25 +1,20 @@
 
 Describe "Departments" {
-    Get-Module PSFreshservice | Remove-Module -Force
-    Import-Module "$PSScriptRoot/../PSFreshservice" -Force -ErrorAction Stop
-
     InModuleScope PSFreshservice {
-
-        Connect-Freshservice -Name ItsFine_Prod -NoBanner
-
-        BeforeDiscovery {
-            $Script:guid = New-Guid
+         BeforeDiscovery {
+            Connect-Freshservice -Name ItsFine_Prod -NoBanner
+            $Script:department_test_guid = New-Guid
             $Script:testerEmail = 'rob.simmers@flycastpartners.com'
 
             $agent_id = Get-FreshServiceAgent -Filter "email:'$testerEmail'" |
                             Select-Object -ExpandProperty id
 
             $newFreshServiceDepartmentSplat = @{
-                name          = ('Department {0}' -f $guid)
-                description   = ('Department {0}' -f $guid)
+                name          = ('Department {0}' -f $department_test_guid)
+                description   = ('Department {0}' -f $department_test_guid)
                 head_user_id  = $agent_id
                 prime_user_id = $agent_id
-                domains       = "foo$guid.com","faa$guid.com"
+                domains       = "foo$department_test_guid.com","faa$department_test_guid.com"
             }
 
             $Script:newFSDepartment = New-FreshServiceDepartment @newFreshServiceDepartmentSplat
@@ -50,10 +45,10 @@ Describe "Departments" {
             }
             It "Get-FreshServiceDepartment -id should return the test Department" -Tag "Department" {
                 $Department = Get-FreshServiceDepartment -id $newFSDepartment.ID
-                $Department.name | Should -BeLike "*$guid"
+                $Department.name | Should -BeLike "*$department_test_guid"
             }
             It "Get-FreshServiceDepartment -id should throw on bad id" -Tag "Department" {
-                {Get-FreshServiceDepartment -id $guid} |
+                {Get-FreshServiceDepartment -id $department_test_guid} |
                     Should -Throw
             }
             It "Get-FreshServiceDepartment -fields should get Department fields" -Tag "Form" {

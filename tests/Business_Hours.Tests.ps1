@@ -1,14 +1,9 @@
 
 Describe "Business Hours" {
-    Get-Module PSFreshservice | Remove-Module -Force
-    Import-Module "$PSScriptRoot/../PSFreshservice" -Force -ErrorAction Stop
-
     InModuleScope PSFreshservice {
-
-        Connect-Freshservice -Name ItsFine_Prod -NoBanner
-
-        BeforeDiscovery {
-            $Script:guid = New-Guid
+         BeforeDiscovery {
+            Connect-Freshservice -Name ItsFine_Prod -NoBanner
+            $Script:business_hour_test_guid = New-Guid
         }
         Context "View and List" {
             It "Get-FreshServiceBusinessHour should return data" -Tag "Business Hours" {
@@ -20,7 +15,7 @@ Describe "Business Hours" {
                 $bizHour | Should -Not -BeNullOrEmpty
             }
             It "Get-FreshServiceBusinessHour -id should throw on bad id" -Tag "Business Hours" {
-                {Get-FreshServiceBusinessHour -id $guid} |
+                {Get-FreshServiceBusinessHour -id $business_hour_test_guid} |
                     Should -Throw
             }
         }

@@ -1,14 +1,9 @@
 
 Describe "Software" {
-    Get-Module PSFreshservice | Remove-Module -Force
-    Import-Module "$PSScriptRoot/../PSFreshservice" -Force -ErrorAction Stop
-
     InModuleScope PSFreshservice {
-
-        Connect-Freshservice -Name ItsFine_Prod -NoBanner
-
-        BeforeDiscovery {
-            $Script:guid = New-Guid
+         BeforeDiscovery {
+            Connect-Freshservice -Name ItsFine_Prod -NoBanner
+            $Script:software_test_guid = New-Guid
             $Script:testerEmail = "rob.simmers@flycastpartners.com"
 
             $agent_id = Get-FreshServiceAgent -Filter "email:'$testerEmail'" |
@@ -19,7 +14,7 @@ Describe "Software" {
                                     Select-Object -ExpandProperty id
 
             $newFreshserviceSoftwareSplat = @{
-                name             = 'Microsoft Visual Studio Code {0}' -f $guid
+                name             = 'Microsoft Visual Studio Code {0}' -f $software_test_guid
                 description      = 'Visual Studio Code is a streamlined code editor with support for development operations like debugging, task running, and version control. It aims to provide just the tools a developer needs for a quick code-build-debug cycle and leaves more complex workflows to fuller featured IDEs, such as Visual Studio IDE'
                 application_type = 'desktop'
                 status           = 'managed'
@@ -32,6 +27,12 @@ Describe "Software" {
 
             $script:newFSSoftware = New-FreshserviceSoftware @newFreshserviceSoftwareSplat
 
+            $Script:user_ids = Get-FreshServiceRequester |
+                Where-Object -FilterScript {$_.primary_email -like '*freshservice.com'}
+
+            $Script:installation_machine_ids = Get-FreshServiceAsset |
+                Where-Object -FilterScript {$_.name -like '*laptop*'} |
+                    Select-Object -First 1
         }
 
         Context "New"  -Tag "Software" {
@@ -56,10 +57,6 @@ Describe "Software" {
             It "Object schema Contains property <_>" -ForEach $properties -Tag "Software" {
                 $newFSSoftware.PSObject.Properties.Name | Should -Contain $_
             }
-
-            $user_ids = Get-FreshServiceRequester |
-                Where-Object -FilterScript {$_.primary_email -like '*freshservice.com'}
-
             It "New-FreshServiceSoftwareUser adds user <_.primary_email> to Software" -ForEach $user_ids -Tag "Users" {
                     $suParams = @{
                         software_id    = $newFSSoftware.id #Get-FreshworksSoftware
@@ -73,11 +70,6 @@ Describe "Software" {
 
                     New-FreshServiceSoftwareUser @suParams | Should -Not -BeNullOrEmpty
             }
-
-            $installation_machine_ids = Get-FreshServiceAsset |
-                                        Where-Object -FilterScript {$_.name -like '*laptop*'} |
-                                            Select-Object -First 2
-
             It "New-FreshServiceSoftwareInstallation adds asset <_.name> to Software installation" -ForEach $installation_machine_ids -Tag "Installation" {
 
                     $newFreshServiceSoftwareInstallationSplat = @{
@@ -101,7 +93,7 @@ Describe "Software" {
             }
             It "Get-FreshServiceSoftware -id should return the test Software" -Tag "Software" {
                 $software = Get-FreshServiceSoftware -id $newFSSoftware.ID
-                $software.name | Should -BeLike "*$guid"
+                $software.name | Should -BeLike "*$software_test_guid"
             }
             It "Get-FreshServiceSoftwareUser should return software users" -Tag "Users" {
                 $Script:swUser = Get-FreshServiceSoftwareUser -software_id $newFSSoftware.id

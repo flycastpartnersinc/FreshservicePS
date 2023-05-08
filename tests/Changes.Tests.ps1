@@ -1,14 +1,9 @@
 
 Describe "Changes" {
-    Get-Module PSFreshservice | Remove-Module -Force
-    Import-Module "$PSScriptRoot/../PSFreshservice" -Force -ErrorAction Stop
-
     InModuleScope PSFreshservice {
-
-        Connect-Freshservice -Name ItsFine_Prod -NoBanner
-
-        BeforeDiscovery {
-            $Script:guid = New-Guid
+         BeforeDiscovery {
+            Connect-Freshservice -Name ItsFine_Prod -NoBanner
+            $Script:change_test_guid = New-Guid
             $Script:testerEmail = "rob.simmers@flycastpartners.com"
 
             $agent_id = Get-FreshServiceAgent -Filter "email:'$testerEmail'" |
@@ -25,8 +20,8 @@ Describe "Changes" {
 
             $newFreshServiceChangeSplat = @{
                 requester_id       = $agent_id
-                description        = "Test change from Pester: {0}" -f $guid
-                subject            = "Test change from Pester: {0}" -f $guid
+                description        = "Test change from Pester: {0}" -f $change_test_guid
+                subject            = "Test change from Pester: {0}" -f $change_test_guid
                 priority           = 1
                 status             = 1
                 risk               = 1
@@ -62,8 +57,8 @@ Describe "Changes" {
                 type        = 'Change'
                 status      = 1
                 due_date    = (Get-Date).AddDays(3)
-                title       = ('Task for parent Change {0}' -f $guid)
-                description = ('Task for parent Change {0}' -f $guid)
+                title       = ('Task for parent Change {0}' -f $change_test_guid)
+                description = ('Task for parent Change {0}' -f $change_test_guid)
             }
 
             $Script:newFSChgTask = New-FreshServiceTask @taskParams
@@ -109,7 +104,7 @@ Describe "Changes" {
             }
             It "Get-FreshServiceChange -id should return the test change" -Tag "Change" {
                 $chgById = Get-FreshServiceChange -id $newFSChange.ID
-                $chgById.Subject | Should -BeLike "*$guid"
+                $chgById.Subject | Should -BeLike "*$change_test_guid"
             }
             It "Get-FreshServiceTimeEntry should return time entries" -Tag "TimeEntry" {
                 {Get-FreshServiceTimeEntry -type Change -parent_id $newFSChange.ID} |
@@ -128,7 +123,7 @@ Describe "Changes" {
                     Should -Not -BeNullOrEmpty
             }
             It "Get-FreshServiceChange -id should throw on bad id" -Tag "Change" {
-                {Get-FreshServiceChange -id $guid} |
+                {Get-FreshServiceChange -id $change_test_guid} |
                     Should -Throw
             }
             It "Get-FreshServiceChange -fields should get Change fields" -Tag "Form" {

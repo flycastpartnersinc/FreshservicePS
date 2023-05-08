@@ -1,14 +1,9 @@
 
 Describe "Solution Folder" {
-    Get-Module PSFreshservice | Remove-Module -Force
-    Import-Module "$PSScriptRoot/../PSFreshservice" -Force -ErrorAction Stop
-
     InModuleScope PSFreshservice {
-
-        Connect-Freshservice -Name ItsFine_Prod -NoBanner
-
-        BeforeDiscovery {
-            $Script:guid = New-Guid
+         BeforeDiscovery {
+            Connect-Freshservice -Name ItsFine_Prod -NoBanner
+            $Script:solution_folder_test_guid = New-Guid
             $Script:testerEmail = 'rob.simmers@flycastpartners.com'
 
             $agent_id = Get-FreshServiceAgent -Filter "email:'$testerEmail'" |
@@ -23,7 +18,7 @@ Describe "Solution Folder" {
                                 Select-Object -ExpandProperty id
 
             $newFreshServiceSolutionFolderSplat = @{
-                name        = ('Folder {0}' -f $guid)
+                name        = ('Folder {0}' -f $solution_folder_test_guid)
                 description = "Pester Test Folder"
                 category_id = $category_id
                 visibility  = 1 #All
@@ -64,10 +59,10 @@ Describe "Solution Folder" {
             }
             It "Get-FreshServiceSolutionFolder -id should return the test SolutionFolder" -Tag "Solution Folder" {
                 $solCat = Get-FreshServiceSolutionFolder -category_id $category_id -id $newFSSolutionFolder.ID
-                $solCat.name | Should -BeLike "*$guid"
+                $solCat.name | Should -BeLike "*$solution_folder_test_guid"
             }
             It "Get-FreshServiceSolutionFolder -id should throw on bad id" -Tag "Solution Folder" {
-                {Get-FreshServiceSolutionFolder -category_id $category_id -id $guid} |
+                {Get-FreshServiceSolutionFolder -category_id $category_id -id $solution_folder_test_guid} |
                     Should -Throw
             }
         }

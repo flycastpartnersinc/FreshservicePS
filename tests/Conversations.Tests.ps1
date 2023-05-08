@@ -1,14 +1,9 @@
 
 Describe "Conversations" -Tag 'Conversations' {
-    Get-Module PSFreshservice | Remove-Module -Force
-    Import-Module "$PSScriptRoot/../PSFreshservice" -Force -ErrorAction Stop
-
     InModuleScope PSFreshservice {
-
-        Connect-Freshservice -Name ItsFine_Prod -NoBanner
-
-        BeforeDiscovery {
-            $Script:guid = New-Guid
+         BeforeDiscovery {
+            Connect-Freshservice -Name ItsFine_Prod -NoBanner
+            $Script:conversation_test_guid = New-Guid
             $Script:testerEmail = "rob.simmers@flycastpartners.com"
 
             $agent_id = Get-FreshServiceAgent -Filter "email:'$testerEmail'" |
@@ -16,8 +11,8 @@ Describe "Conversations" -Tag 'Conversations' {
 
             $ticketParams = @{
                 email        = $testerEmail
-                subject      = ("Pester Conversation test ticket {0}" -f $guid)
-                description  = ("Pester Conversation test ticket {0}" -f $guid)
+                subject      = ("Pester Conversation test ticket {0}" -f $conversation_test_guid)
+                description  = ("Pester Conversation test ticket {0}" -f $conversation_test_guid)
                 priority     = 2
                 status       = 2
                 impact       = 2
@@ -31,8 +26,8 @@ Describe "Conversations" -Tag 'Conversations' {
 
             $Script:newFSTicket = New-FreshServiceTicket @ticketParams
 
-            $Script:newTktNote = New-FreshServiceConversation -Id $newFSTicket.Id -body "Adding conversation to ticket $guid" -private $true -As Note
-            $Script:newTktReply = New-FreshServiceConversation -Id $newFSTicket.Id -body "Adding conversation to ticket $guid" -As Reply
+            $Script:newTktNote = New-FreshServiceConversation -Id $newFSTicket.Id -body "Adding conversation to ticket $conversation_test_guid" -private $true -As Note
+            $Script:newTktReply = New-FreshServiceConversation -Id $newFSTicket.Id -body "Adding conversation to ticket $conversation_test_guid" -As Reply
 
 
         }

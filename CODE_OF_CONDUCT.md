@@ -54,7 +54,7 @@ further defined and clarified by project maintainers.
 ## Enforcement
 
 Instances of abusive, harassing, or otherwise unacceptable behavior may be
-reported by contacting the project team at [rob.simmers@flycastpartners.com](mailto:rob.simmers@flycastpartners.com). All
+reported by contacting the project team at [developers@flycastpartners.com](mailto:developers@flycastpartners.com). All
 complaints will be reviewed and investigated and will result in a response that
 is deemed necessary and appropriate to the circumstances. The project team is
 obligated to maintain confidentiality with regard to the reporter of an incident.
@@ -71,4 +71,3 @@ available at [http://contributor-covenant.org/version/1/4/1][version]
 
 [homepage]: http://contributor-covenant.org
 [version]: http://contributor-covenant.org/version/1/4/
-

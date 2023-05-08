@@ -1,13 +1,8 @@
 Describe "Agent Groups" {
-    Get-Module PSFreshservice | Remove-Module -Force
-    Import-Module "$PSScriptRoot/../PSFreshservice" -Force -ErrorAction Stop
-
     InModuleScope PSFreshservice {
-
-        Connect-Freshservice -Name ItsFine_Prod -NoBanner
-
-        BeforeDiscovery {
-            $Script:guid = New-Guid
+         BeforeDiscovery {
+            Connect-Freshservice -Name ItsFine_Prod -NoBanner
+            $Script:agent_group_test_guid = New-Guid
             $Script:testerEmail = 'rob.simmers@flycastpartners.com'
 
             $agent_id = Get-FreshServiceAgent -Filter "email:'$testerEmail'" |
@@ -17,8 +12,8 @@ Describe "Agent Groups" {
                                     Select-Object -First 1 -ExpandProperty id
 
             $newFreshServiceAgentGroupSplat = @{
-                name               = ('Pester Test {0}' -f $guid)
-                description        = ('Pester Test: {0}' -f $guid)
+                name               = ('Pester Test {0}' -f $agent_group_test_guid)
+                description        = ('Pester Test: {0}' -f $agent_group_test_guid)
                 unassigned_for     = '30m'
                 business_hours_id  = $business_hours_id
                 escalate_to        = $agent_id
@@ -60,10 +55,10 @@ Describe "Agent Groups" {
             }
             It "Get-FreshServiceAgentGroup -id should return the test agent group" -Tag "Agent Group" {
                 $testAgentGroup = Get-FreshServiceAgentGroup -id $newFSAgentGroup.ID
-                $testAgentGroup.description | Should -BeLike "*$guid"
+                $testAgentGroup.description | Should -BeLike "*$agent_group_test_guid"
             }
             It "Get-FreshServiceAgentGroup -id should throw on bad id" -Tag "Agent Group" {
-                {Get-FreshServiceAgentGroup -id $guid} |
+                {Get-FreshServiceAgentGroup -id $agent_group_test_guid} |
                     Should -Throw
             }
             It "Get-FreshServiceAgent -fields should get Agent fields" -Tag "Form" {

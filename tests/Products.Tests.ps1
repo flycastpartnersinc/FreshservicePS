@@ -1,22 +1,17 @@
 
 Describe "Products" {
-    Get-Module PSFreshservice | Remove-Module -Force
-    Import-Module "$PSScriptRoot/../PSFreshservice" -Force -ErrorAction Stop
-
     InModuleScope PSFreshservice {
-
-        Connect-Freshservice -Name ItsFine_Prod -NoBanner
-
-        BeforeDiscovery {
-            $Script:guid = New-Guid
+         BeforeDiscovery {
+            Connect-Freshservice -Name ItsFine_Prod -NoBanner
+            $Script:product_test_guid = New-Guid
 
             $asset_type_id = Get-FreshServiceAssetType |
                                 Where-Object -FilterScript {$_.name -eq 'Computer'} |
                                     Select-Object -ExpandProperty id
 
             $newFreshServiceProductSplat = @{
-                name                = 'Pester {0}' -f $guid
-                description         = 'Test product from Pester: {0}' -f $guid
+                name                = 'Pester {0}' -f $product_test_guid
+                description         = 'Test product from Pester: {0}' -f $product_test_guid
                 asset_type_id       = $asset_type_id
                 manufacturer        = 'Pester'
                 status              = 'In Production'
@@ -55,10 +50,10 @@ Describe "Products" {
             }
             It "Get-FreshServiceProduct -id should return the test Product" -Tag "Product" {
                 $product = Get-FreshServiceProduct -id $newFSProduct.ID
-                $product.name | Should -BeLike "*$guid"
+                $product.name | Should -BeLike "*$product_test_guid"
             }
             It "Get-FreshServiceProduct -id should throw on bad id" -Tag "Product" {
-                {Get-FreshServiceProduct -id $guid} |
+                {Get-FreshServiceProduct -id $product_test_guid} |
                     Should -Throw
             }
         }

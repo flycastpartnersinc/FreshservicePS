@@ -1,14 +1,9 @@
 
 Describe "Purchase Orders" {
-    Get-Module PSFreshservice | Remove-Module -Force
-    Import-Module "$PSScriptRoot/../PSFreshservice" -Force -ErrorAction Stop
-
     InModuleScope PSFreshservice {
-
-        Connect-Freshservice -Name ItsFine_Prod -NoBanner
-
-        BeforeDiscovery {
-            $Script:guid = New-Guid
+         BeforeDiscovery {
+            Connect-Freshservice -Name ItsFine_Prod -NoBanner
+            $Script:purchase_order_test_guid = New-Guid
 
             $vendor_id = Get-FreshServiceVendor |
                             Where-Object -FilterScript {$_.name -eq 'Dell' } |
@@ -32,8 +27,8 @@ Describe "Purchase Orders" {
 
             $poParams = @{
                 vendor_id                = $vendor_id
-                name                     = 'Purchase Order {0}' -f $guid
-                po_number                = $guid
+                name                     = 'Purchase Order {0}' -f $purchase_order_test_guid
+                po_number                = $purchase_order_test_guid
                 vendor_details           = 'Dell Corporation'
                 shipping_address         = '123 Nowhere Ave'
                 billing_same_as_shipping = $true
@@ -85,10 +80,10 @@ Describe "Purchase Orders" {
             }
             It "Get-FreshServicePurchaseOrder -id should return the test Purchase Order" -Tag "Purchase Order" {
                 $po= Get-FreshServicePurchaseOrder -id $newFSPurchaseOrder.ID
-                $po.name | Should -BeLike "*$guid"
+                $po.name | Should -BeLike "*$purchase_order_test_guid"
             }
             It "Get-FreshServicePurchaseOrder -id should throw on bad id" -Tag "Purchase Order" {
-                {Get-FreshServicePurchaseOrder -id $guid} |
+                {Get-FreshServicePurchaseOrder -id $purchase_order_test_guid} |
                     Should -Throw
             }
         }
