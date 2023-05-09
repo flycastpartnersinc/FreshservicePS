@@ -66,7 +66,7 @@ Accept wildcard characters: False
 ```
 
 ### -parent_id
-Unique id of the parent Ticket, Problem, Change or Release.
+Parent Id of the ticket, problem, change or release to create the task.
 
 ```yaml
 Type: Int64

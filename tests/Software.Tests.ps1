@@ -30,8 +30,12 @@ Describe "Software" {
             $Script:user_ids = Get-FreshServiceRequester |
                 Where-Object -FilterScript {$_.primary_email -like '*freshservice.com'}
 
+            $Script:assetTypes = Get-FSAssetType |
+                                    Where-Object -FilterScript {'Laptop','Desktop' -contains $_.name} |
+                                        Select-Object -ExpandProperty id
+
             $Script:installation_machine_ids = Get-FreshServiceAsset |
-                Where-Object -FilterScript {$_.name -like '*laptop*'} |
+                Where-Object -FilterScript { $assetTypes -contains $_.asset_type_id -and $_.name -like 'Andrea*'} |
                     Select-Object -First 1
         }
 
@@ -80,6 +84,7 @@ Describe "Software" {
                         installation_date       = (Get-Date)
                     }
 
+                    Start-Sleep -Seconds 2
                     New-FreshServiceSoftwareInstallation @newFreshServiceSoftwareInstallationSplat |
                         Should -Not -BeNullOrEmpty
             }

@@ -19,12 +19,12 @@ Get-FreshServiceOnboardingRequest [[-per_page] <Int32>] [[-page] <Int32>] [<Comm
 
 ### Ticket
 ```
-Get-FreshServiceOnboardingRequest [-Id] <Int64> [-tickets] [<CommonParameters>]
+Get-FreshServiceOnboardingRequest [-id] <Int64> [-tickets] [<CommonParameters>]
 ```
 
 ### id
 ```
-Get-FreshServiceOnboardingRequest [-Id] <Int64> [<CommonParameters>]
+Get-FreshServiceOnboardingRequest [-id] <Int64> [<CommonParameters>]
 ```
 
 ### Form
@@ -110,7 +110,7 @@ Returns tickets associated with a specific FreshService Onboarding Request by id
 
 ### EXAMPLE 4
 ```
-Get-FreshServiceOnboardingRequest -Fields
+Get-FreshServiceOnboardingRequest -fields
 ```
 
 placeholder : Enter employee name
@@ -159,7 +159,7 @@ Returns all the built-in and custom fields for the Onboarding Request.
 
 ## PARAMETERS
 
-### -Id
+### -id
 Unique id of the Onboarding Request.
 
 ```yaml

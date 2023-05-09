@@ -155,6 +155,35 @@ project_id  : 1000251723
 
 Return all Task Types on a Freshservice Project.
 
+### EXAMPLE 4
+```
+Get-FreshServiceProjectTask -project_id 1000251723 -Filter "type_id:1000602500"
+```
+
+id                 : 1003442491
+title              : Onboarding Kickoff Call
+project_id         : 1000251723
+description        :
+status_id          : 1000304164
+priority_id        :
+created_at         : 10/31/2022 3:36:08 PM
+updated_at         : 10/31/2022 3:36:08 PM
+display_key        : FSD-1
+planned_start_date :
+type_id            : 1000602500
+planned_end_date   :
+reporter_id        : 21000418005
+assignee_id        :
+planned_effort     :
+planned_duration   :
+custom_fields      :
+version_id         :
+parent_id          :
+story_points       :
+sprint_id          :
+
+Return all Project Tasks on a Freshservice Project with a filtered type id of '1000602500'.
+
 ## PARAMETERS
 
 ### -project_id
@@ -188,7 +217,8 @@ Accept wildcard characters: False
 ```
 
 ### -filter
-Filter Project Tasks.  See documentation for filterable properties:
+Filter Project Tasks. 
+See documentation for filterable properties:
 
 https://api.freshservice.com/#filter_all_project_tasks_newgen
 
