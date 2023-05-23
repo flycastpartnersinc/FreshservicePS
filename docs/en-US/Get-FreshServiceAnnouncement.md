@@ -54,7 +54,7 @@ groups            :
 departments       :
 is_read           : False
 send_email        : False
-additional_emails : {rasimmers@gmail.com}
+additional_emails : {Alex@example.com}
 
 id                : 21000034874
 created_at        : 2/22/2023 7:54:58 PM
@@ -63,15 +63,15 @@ title             : Test Announcement
 created_by        : 21000418005
 visible_from      : 2/22/2023 7:52:08 PM
 visible_till      :
-body              :  Test Announcement from Rob's FreshService Instance!
-body_html         : \<p\>Test Announcement from Rob's FreshService Instance!\</p\>
+body              :  Test Announcement from Alex's FreshService Instance!
+body_html         : \<p\>Test Announcement from Alex's FreshService Instance!\</p\>
 visibility        : everyone
 state             : active
 groups            :
 departments       :
 is_read           : True
 send_email        : False
-additional_emails : {11618e9e.flycastpartners.com@amer.teams.ms}
+additional_emails : {mymsteamsemail.mycompany.com@amer.teams.ms}
 
 id                : 21000011768
 created_at        : 8/29/2022 2:17:30 PM
@@ -149,7 +149,7 @@ groups            :
 departments       :
 is_read           : True
 send_email        : False
-additional_emails : {rasimmers@gmail.com}
+additional_emails : {Alex@example.com}
 
 Returns all Freshservice Announcement by Id.
 

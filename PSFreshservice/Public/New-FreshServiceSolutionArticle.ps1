@@ -296,7 +296,7 @@ function New-FreshServiceSolutionArticle {
         }
 
         try {
-            if ($PSCmdlet.ShouldProcess($title)) {
+            if ($PSCmdlet.ShouldProcess($uri.Uri.AbsoluteUri)) {
 
                 $params = @{
                     Uri         = $uri.Uri.AbsoluteUri

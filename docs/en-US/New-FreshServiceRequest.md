@@ -14,7 +14,7 @@ Creates new Freshservice Service Request.
 
 ```
 New-FreshServiceRequest [-display_id] <Int64> [[-quantity] <Int32>] [[-requested_for] <String>]
- [[-email] <String>] [[-child_items] <Object[]>] [[-custom_fields] <Object>] [[-parent_ticket_id] <Int64>]
+ [[-email] <String>] [[-child_items] <Object[]>] [[-custom_fields] <Object[]>] [[-parent_ticket_id] <Int64>]
  [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
@@ -35,10 +35,10 @@ https://api.freshservice.com/#create_service_request
 
 ### EXAMPLE 1
 ```
-New-FreshServiceRequest -display_id 2 -email 'rob.simmers@flycastpartners.com'
+New-FreshServiceRequest -display_id 2 -email 'alex@example.com'
 ```
 
-subject              : Request for Rob Simmers : Windows Laptop
+subject              : Request for Alex : Windows Laptop
 group_id             :
 department_id        :
 category             :
@@ -78,10 +78,10 @@ Creates a new Freshservice Service Request.
 
 ### EXAMPLE 2
 ```
-New-FreshServiceRequest -parent_ticket_id 221 -display_id 3 -quantity 2 -email 'rob.simmers@flycastpartners.com'
+New-FreshServiceRequest -parent_ticket_id 221 -display_id 3 -quantity 2 -email 'alex@example.com'
 ```
 
-subject              : Request for Rob Simmers : Microsoft Office 2013
+subject              : Request for Alex : Microsoft Office 2013
 group_id             :
 department_id        :
 category             :
@@ -210,7 +210,7 @@ Accept wildcard characters: False
 Values of custom fields present in the service item form
 
 ```yaml
-Type: Object
+Type: Object[]
 Parameter Sets: (All)
 Aliases:
 

@@ -108,7 +108,8 @@
     This module was developed and tested with Freshservice REST API v2.
 #>
 function New-FreshServiceRelease {
-         [CmdletBinding(SupportsShouldProcess=$true, ConfirmImpact='Medium')]
+    [CmdletBinding(SupportsShouldProcess=$true, ConfirmImpact='Medium')]
+
     param (
         [Parameter(
             Mandatory = $false,
@@ -220,7 +221,7 @@ function New-FreshServiceRelease {
             HelpMessage = 'List of assets associated with the release',
             ValueFromPipelineByPropertyName = $true
         )]
-        [object]$assets,
+        [object[]]$assets,
         [Parameter(
             Mandatory = $false,
             HelpMessage = 'Release attachments. The total size of these attachments cannot exceed 15MB.',
@@ -297,7 +298,7 @@ function New-FreshServiceRelease {
         }
 
         try {
-            if ($PSCmdlet.ShouldProcess($subject)) {
+            if ($PSCmdlet.ShouldProcess($uri.Uri.AbsoluteUri)) {
 
                 $params = @{
                     Uri         = $uri.Uri.AbsoluteUri

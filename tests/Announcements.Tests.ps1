@@ -4,7 +4,7 @@ Describe "Announcements" {
          BeforeDiscovery {
             Connect-Freshservice -Name ItsFine_Prod -NoBanner
             $Script:announcement_test_guid = New-Guid
-            $Script:testerEmail = 'rob.simmers@flycastpartners.com'
+            $Script:testerEmail = $env:PSFreshservice_Instance_Admin_Email
 
             $newFreshServiceAnnouncementSplat = @{
                 title             = "SAP Outtage {0}" -f $announcement_test_guid
@@ -12,7 +12,6 @@ Describe "Announcements" {
                 visible_from      = (get-date)
                 visibility        = 'Everyone'
                 send_email        = $false
-                additional_emails = 'rasimmers@gmail.com'
             }
 
             $Script:newFSAnnouncement = New-FreshServiceAnnouncement @newFreshServiceAnnouncementSplat

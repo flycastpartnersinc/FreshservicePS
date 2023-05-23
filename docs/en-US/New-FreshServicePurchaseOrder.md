@@ -18,7 +18,7 @@ New-FreshServicePurchaseOrder [-vendor_id] <Int64> [-name] <String> [-po_number]
  [[-billing_same_as_shipping] <Boolean>] [-billing_address] <String> [-currency_code] <String>
  [[-conversion_rate] <Decimal>] [[-department_id] <Int64>] [[-discount_percentage] <Decimal>]
  [[-tax_percentage] <Decimal>] [[-shipping_cost] <Decimal>] [[-custom_fields] <Hashtable>]
- [-purchase_items] <Object> [-WhatIf] [-Confirm] [<CommonParameters>]
+ [-purchase_items] <Object[]> [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -287,7 +287,7 @@ Items to be ordered.
 Use helper function New-FreshServicePurchaseItem.
 
 ```yaml
-Type: Object
+Type: Object[]
 Parameter Sets: (All)
 Aliases:
 

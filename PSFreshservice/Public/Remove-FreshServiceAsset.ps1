@@ -38,7 +38,8 @@
     This module was developed and tested with Freshservice REST API v2.
 #>
 function Remove-FreshServiceAsset {
-         [CmdletBinding(SupportsShouldProcess=$true, ConfirmImpact='Medium')]
+    [CmdletBinding(SupportsShouldProcess=$true, ConfirmImpact='Medium')]
+
     param (
         [Parameter(
             Mandatory = $true,
@@ -68,7 +69,7 @@ function Remove-FreshServiceAsset {
         $uri = [System.UriBuilder]('{0}/assets' -f $PrivateData['FreshserviceBaseUri'])
 
         try {
-                if ($PSCmdlet.ShouldProcess($id)) {
+                if ($PSCmdlet.ShouldProcess($uri.Uri.AbsoluteUri)) {
 
                     $Method = 'DELETE'
 

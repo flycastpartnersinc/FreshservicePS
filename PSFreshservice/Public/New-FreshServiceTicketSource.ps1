@@ -30,7 +30,8 @@
     There are no GET, SET (PUT) or REMOVE (DELETE) methods currently available for this API endpoint.
 #>
 function New-FreshServiceTicketSource {
-         [CmdletBinding(SupportsShouldProcess=$true, ConfirmImpact='Medium')]
+    [CmdletBinding(SupportsShouldProcess=$true, ConfirmImpact='Medium')]
+
     param (
         [Parameter(
             Mandatory = $true,
@@ -59,7 +60,7 @@ function New-FreshServiceTicketSource {
         }
 
         try {
-            if ($PSCmdlet.ShouldProcess($name)) {
+            if ($PSCmdlet.ShouldProcess($uri.Uri.AbsoluteUri)) {
 
                 $params = @{
                     Uri         = $uri.Uri.AbsoluteUri

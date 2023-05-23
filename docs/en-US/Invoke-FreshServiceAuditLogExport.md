@@ -31,7 +31,7 @@ Invoke-FreshServiceAuditLogExport -since (Get-Date -Date (Get-Date).AddDays(-5))
 ```
 
 Your export is on its way.
-It will be in rob.simmers@flycastpartners.com's inbox soon
+It will be in alex@example.com's inbox soon
 
 Request audit log email export for last 5 days.
 

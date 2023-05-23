@@ -3,7 +3,7 @@ Describe "Agents" {
          BeforeDiscovery {
             Connect-Freshservice -Name ItsFine_Prod -NoBanner
             $Script:agent_test_guid = New-Guid
-            $Script:testerEmail = 'rasimmers.{0}@gmail.com' -f (Get-Date).TimeOfDay.Ticks
+            $Script:testerEmail = 'agent.{0}@mailinator.com' -f (Get-Date).TimeOfDay.Ticks
 
             $role_id = Get-FreshServiceAgentRole |
                             Where-Object -FilterScript {$_.name -eq 'SD Agent'} |
@@ -19,15 +19,15 @@ Describe "Agents" {
                 groups           = $groups
             }
 
-            $agentRoles = New-FreshServiceAgentRoleConfig @newFreshServiceAgentRoleConfigSplat
+            $newAgtRole = New-FreshServiceAgentRoleConfig @newFreshServiceAgentRoleConfigSplat
 
             $newFreshServiceAgentSplat = @{
-                first_name             = 'Ralph'
-                last_name              = 'Simmers'
+                first_name             = 'Sam'
+                last_name              = 'Sung'
                 job_title              = 'Pester Test: {0}' -f $agent_test_guid
                 email                  = $testerEmail
                 background_information = 'Awesome helpdesk training'
-                roles                  = $agentRoles
+                roles                  = $newAgtRole
                 time_zone              = 'Eastern Time (US & Canada)'
                 scoreboard_level_id    = 3
             }

@@ -91,7 +91,7 @@ status                : draft
 contract_number       : MSFT1
 contract_type_id      : 3
 visible_to_id         : 18000144649
-notify_to             : {rob.simmers@flycastpartner.com}
+notify_to             : {john.smith@company.com}
 custom_fields         :
 software_id           : 18001038620
 license_type          : volume
@@ -130,7 +130,7 @@ status                : draft
 contract_number       : MSFT1
 contract_type_id      : 3
 visible_to_id         : 18000144649
-notify_to             : {rob.simmers@flycastpartner.com}
+notify_to             : {john.smith@company.com}
 custom_fields         :
 software_id           : 18001038620
 license_type          : volume

@@ -17,7 +17,7 @@ New-FreshServiceRelease [-workspace_id <Int64>] [-agent_id <Int64>] [-group_id <
  -status <Int32> -release_type <Int32> -subject <String> [-description <String>] -planned_start_date <DateTime>
  -planned_end_date <DateTime> [-work_start_date <DateTime>] [-work_end_date <DateTime>]
  [-department_id <Int64>] [-category <String>] [-sub_category <String>] [-item_category <String>]
- [-custom_fields <Hashtable>] [-assets <Object>] [-attachments <FileInfo[]>] [[-build_plan] <String>]
+ [-custom_fields <Hashtable>] [-assets <Object[]>] [-attachments <FileInfo[]>] [[-build_plan] <String>]
  [[-test_plan] <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
@@ -325,7 +325,7 @@ Accept wildcard characters: False
 List of assets associated with the release.
 
 ```yaml
-Type: Object
+Type: Object[]
 Parameter Sets: (All)
 Aliases:
 

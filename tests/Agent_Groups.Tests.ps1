@@ -3,7 +3,7 @@ Describe "Agent Groups" {
          BeforeDiscovery {
             Connect-Freshservice -Name ItsFine_Prod -NoBanner
             $Script:agent_group_test_guid = New-Guid
-            $Script:testerEmail = 'rob.simmers@flycastpartners.com'
+            $Script:testerEmail = $env:PSFreshservice_Instance_Admin_Email
 
             $agent_id = Get-FreshServiceAgent -Filter "email:'$testerEmail'" |
                             Select-Object -ExpandProperty id

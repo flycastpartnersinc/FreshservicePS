@@ -85,7 +85,8 @@
     This module was developed and tested with Freshservice REST API v2.
 #>
 function New-FreshServiceAgentGroup {
-         [CmdletBinding(SupportsShouldProcess=$true, ConfirmImpact='Medium')]
+    [CmdletBinding(SupportsShouldProcess=$true, ConfirmImpact='Medium')]
+
     param (
         [Parameter(
             Mandatory = $true,
@@ -177,7 +178,7 @@ function New-FreshServiceAgentGroup {
         }
 
         try {
-            if ($PSCmdlet.ShouldProcess($id)) {
+            if ($PSCmdlet.ShouldProcess($uri.Uri.AbsoluteUri)) {
 
                 $params = @{
                     Uri         = $uri.Uri.AbsoluteUri

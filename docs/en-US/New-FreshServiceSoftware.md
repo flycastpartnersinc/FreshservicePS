@@ -15,7 +15,7 @@ Creates a new Freshservice Software.
 ```
 New-FreshServiceSoftware [-name] <String> [[-description] <String>] [-application_type] <String>
  [[-status] <String>] [[-publisher_id] <Int64>] [[-managed_by_id] <Int64>] [[-notes] <String>]
- [[-category] <String>] [[-source] <String>] [[-custom_field] <Object>] [-WhatIf] [-Confirm]
+ [[-category] <String>] [[-source] <String>] [[-custom_field] <Object[]>] [-WhatIf] [-Confirm]
  [<CommonParameters>]
 ```
 
@@ -199,7 +199,7 @@ Accept wildcard characters: False
 Key-value pair containing the names and values of the (custom) requester fields.
 
 ```yaml
-Type: Object
+Type: Object[]
 Parameter Sets: (All)
 Aliases:
 

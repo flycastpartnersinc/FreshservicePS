@@ -36,11 +36,11 @@
     created_at      : 4/24/2023 7:29:38 PM
     updated_at      : 4/24/2023 8:20:54 PM
     approver_id     : 21001931878
-    approver_name   : Rob Simmers
+    approver_name   : Alex
     approval_type   : 2
     user_id         : 21000418005
     level           : 1
-    user_name       : Rob Simmers
+    user_name       : Alex
     approval_status : @{id=3; name=cancelled}
     delegatee       :
     latest_remark   :
@@ -116,7 +116,7 @@ function Set-FreshServiceRequestApproval {
         }
 
         try {
-            if ($PSCmdlet.ShouldProcess($id)) {
+            if ($PSCmdlet.ShouldProcess($uri.Uri.AbsoluteUri)) {
 
                 $params = @{
                     Uri         = $uri.Uri.AbsoluteUri

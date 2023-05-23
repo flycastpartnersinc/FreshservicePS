@@ -70,7 +70,8 @@
     This module was developed and tested with Freshservice REST API v2.
 #>
 function New-FreshServiceSoftware {
-         [CmdletBinding(SupportsShouldProcess=$true, ConfirmImpact='Medium')]
+    [CmdletBinding(SupportsShouldProcess=$true, ConfirmImpact='Medium')]
+
     param (
         [Parameter(
             Mandatory = $true,
@@ -123,7 +124,7 @@ function New-FreshServiceSoftware {
             Mandatory = $false,
             HelpMessage = 'Key-value pair containing the names and values of the (custom) requester fields.'
         )]
-        [object]$custom_field
+        [object[]]$custom_field
     )
     begin {
 
@@ -151,7 +152,7 @@ function New-FreshServiceSoftware {
         }
 
         try {
-            if ($PSCmdlet.ShouldProcess($name)) {
+            if ($PSCmdlet.ShouldProcess($uri.Uri.AbsoluteUri)) {
 
                 $params = @{
                     Uri         = $uri.Uri.AbsoluteUri

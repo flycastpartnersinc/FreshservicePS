@@ -4,7 +4,7 @@ Describe "Connection" {
          BeforeDiscovery {
             Connect-Freshservice -Name ItsFine_Prod -NoBanner
             $Script:connection_test_guid = New-Guid
-            $Script:testerEmail = "rob.simmers@flycastpartners.com"
+            $Script:testerEmail = $env:PSFreshservice_Instance_Admin_Email
 
 
             $newFreshServiceConnectionSplat = @{

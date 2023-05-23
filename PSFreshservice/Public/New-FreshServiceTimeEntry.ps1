@@ -80,7 +80,8 @@
     This module was developed and tested with Freshservice REST API v2.
 #>
 function New-FreshServiceTimeEntry {
-         [CmdletBinding(SupportsShouldProcess=$true, ConfirmImpact='Medium')]
+    [CmdletBinding(SupportsShouldProcess=$true, ConfirmImpact='Medium')]
+
     param (
         [Parameter(
             Mandatory = $true,
@@ -166,7 +167,7 @@ function New-FreshServiceTimeEntry {
         }
 
         try {
-            if ($PSCmdlet.ShouldProcess($parent_id)) {
+            if ($PSCmdlet.ShouldProcess($uri.Uri.AbsoluteUri)) {
 
                 $params = @{
                     Uri         = $uri.Uri.AbsoluteUri

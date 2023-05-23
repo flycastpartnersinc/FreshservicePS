@@ -13,7 +13,7 @@ Creates Freshservice Relationship.
 ## SYNTAX
 
 ```
-New-FreshServiceRelationship [-relationship_item] <Object> [-WhatIf] [-Confirm] [<CommonParameters>]
+New-FreshServiceRelationship [-relationship_item] <Object[]> [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -56,7 +56,7 @@ Helper function New-FreshServiceRelationshipItem
 can be used to create records based on documentation here: https://api.freshservice.com/#create_relationships
 
 ```yaml
-Type: Object
+Type: Object[]
 Parameter Sets: (All)
 Aliases: ri
 

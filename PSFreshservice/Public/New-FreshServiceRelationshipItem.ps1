@@ -45,7 +45,8 @@
     This module was developed and tested with Freshservice REST API v2.
 #>
 function New-FreshServiceRelationshipItem {
-         [CmdletBinding(SupportsShouldProcess=$true, ConfirmImpact='Medium')]
+    [CmdletBinding(SupportsShouldProcess=$true, ConfirmImpact='Medium')]
+
 
     param (
         [Parameter(
@@ -93,7 +94,7 @@ function New-FreshServiceRelationshipItem {
                 $jsonBody[$PSItem.ToLower()] = $PSBoundParameters[$PSItem]
             }
 
-            [pscustomobject]$jsonBody
+            [pscustomobject[]]$jsonBody
         }
     }
     end {}

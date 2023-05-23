@@ -33,7 +33,7 @@
     This module was developed and tested with Freshservice REST API v2.
 #>
 function Remove-FreshServiceTask {
-         [CmdletBinding(SupportsShouldProcess=$true, ConfirmImpact='Medium')]
+    [CmdletBinding(SupportsShouldProcess=$true, ConfirmImpact='Medium')]
     param (
         [Parameter(
             Mandatory = $true,
@@ -67,7 +67,7 @@ function Remove-FreshServiceTask {
     process {
 
         try {
-                if ($PSCmdlet.ShouldProcess($id)) {
+                if ($PSCmdlet.ShouldProcess($uri.Uri.AbsoluteUri)) {
 
                 $uri = [System.UriBuilder]('{0}/{1}s/{2}/tasks/{3}' -f $PrivateData['FreshserviceBaseUri'], $type.ToLower(),$parent_id,$id)
 

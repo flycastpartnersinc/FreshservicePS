@@ -33,7 +33,8 @@
     This module was developed and tested with Freshservice REST API v2.
 #>
 function New-FreshServiceCustomObjectRecord {
-         [CmdletBinding(SupportsShouldProcess=$true, ConfirmImpact='Medium')]
+    [CmdletBinding(SupportsShouldProcess=$true, ConfirmImpact='Medium')]
+
     param (
         [Parameter(
             Mandatory = $true,
@@ -75,7 +76,7 @@ function New-FreshServiceCustomObjectRecord {
         }
 
         try {
-            if ($PSCmdlet.ShouldProcess($custom_object_id)) {
+            if ($PSCmdlet.ShouldProcess($uri.Uri.AbsoluteUri)) {
                 $params = @{
                     Uri         = $uri.Uri.AbsoluteUri
                     Method      = 'POST'

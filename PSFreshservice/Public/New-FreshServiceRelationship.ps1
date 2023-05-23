@@ -45,7 +45,7 @@ function New-FreshServiceRelationship {
             HelpMessage = 'Object containing the relationship items'
         )]
         [Alias('ri')]
-        [object]$relationship_item
+        [object[]]$relationship_item
     )
     begin {
 
@@ -64,7 +64,7 @@ function New-FreshServiceRelationship {
 
         try {
 
-            if ($PSCmdlet.ShouldProcess($relationship_item[0].relationship_type_id)) {
+            if ($PSCmdlet.ShouldProcess($uri.Uri.AbsoluteUri)) {
 
                 $params = @{
                     Uri         = $uri.Uri.AbsoluteUri

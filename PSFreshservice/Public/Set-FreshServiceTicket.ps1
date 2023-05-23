@@ -293,7 +293,7 @@ function Set-FreshServiceTicket {
             ParameterSetName = 'default',
             Position = 12
         )]
-        [object]$custom_fields,
+        [object[]]$custom_fields,
         [Parameter(
             Mandatory = $false,
             HelpMessage = 'Timestamp that denotes when the ticket is due to be resolved.',
@@ -350,7 +350,7 @@ function Set-FreshServiceTicket {
             ParameterSetName = 'default',
             Position = 19
         )]
-        [object]$assets,
+        [object[]]$assets,
         [Parameter(
             Mandatory = $false,
             HelpMessage = 'Ticket urgency',
@@ -406,7 +406,7 @@ function Set-FreshServiceTicket {
             ParameterSetName = 'default',
             Position = 26
         )]
-        [object]$problem,
+        [object[]]$problem,
         [Parameter(
             Mandatory = $false,
             HelpMessage = 'Change causing the ticket that needs to be associated with ticket (change display id)',
@@ -414,7 +414,7 @@ function Set-FreshServiceTicket {
             ParameterSetName = 'default',
             Position = 27
         )]
-        [object]$change_initiating_ticket,
+        [object[]]$change_initiating_ticket,
         [Parameter(
             Mandatory = $false,
             HelpMessage = 'Change needed for the ticket to be fixed that needs to be associated with ticket (change display id)',
@@ -422,7 +422,7 @@ function Set-FreshServiceTicket {
             ParameterSetName = 'default',
             Position = 28
         )]
-        [object]$change_initiated_by_ticket
+        [object[]]$change_initiated_by_ticket
 
     )
     begin {
@@ -442,11 +442,6 @@ function Set-FreshServiceTicket {
             [void]$PSBoundParameters.Remove('id')
         }
 
-        if ($create_child_ticket) {
-            $uri.Path = "{0}/create_child_ticket" -f $uri.Path
-            [void]$PSBoundParameters.Remove('create_child_ticket')
-        }
-
         $jsonBody = @{}
         $PSBoundParameters.keys.where{
             $PSItem -notin $PrivateData.FreshserviceBodyExclusions
@@ -460,7 +455,7 @@ function Set-FreshServiceTicket {
         }
 
         try {
-            if ($PSCmdlet.ShouldProcess($id)) {
+            if ($PSCmdlet.ShouldProcess($uri.Uri.AbsoluteUri)) {
 
                 $params = @{
                     Uri         = $uri.Uri.AbsoluteUri

@@ -101,7 +101,7 @@ function Invoke-FreshworksRestMethod {
                        ParameterSetName = 'default',
                        Position = 4
             )]
-            [object]$Body,
+            [object[]]$Body,
             [Parameter(Mandatory = $False,
                        ValueFromPipelineByPropertyName = $True,
                        HelpMessage = 'ContentType of passed Body for REST header',
@@ -189,42 +189,24 @@ function Invoke-FreshworksRestMethod {
                 Write-Verbose -Message ('Current FreshService minute rate limit is {0} with {1} calls remaining.' -f ($results.Headers['X-Ratelimit-Total'][0]),($results.Headers['X-Ratelimit-Remaining'][0]))
             }
             catch [System.Net.WebException] {
-
+                Write-Verbose -Message ("Catching System.Net.WebException of with status code {0}" -f $_.Exception.Response.StatusCode)
                 switch ($_.Exception.Response.StatusCode) {
                     429 {
                         $sleepInSecs = $_.Exception.Response.Headers.GetValues('Retry-After')[0]
-                        Write-Verbose ('Throttle Limit reached [ 429 ] Sleeping for [ {0} ] seconds.' -f $sleepInSecs)
+                        Write-Warning -Message ('Throttle Limit reached [ 429 ] Sleeping for [ {0} ] seconds.' -f $sleepInSecs)
+                        Write-Verbose -Message ('Throttle Limit reached [ 429 ] Sleeping for [ {0} ] seconds.' -f $sleepInSecs)
                         Start-Sleep -Seconds $sleepInSecs
                     }
                     default {
-                        Write-Verbose -Message ("Default System.Net.Exception")
+                        Write-Verbose -Message ("Default System.Net.Exception with status code {0}" -f $_.Exception.Response.StatusCode)
                         Throw $_
                     }
                 }
 
             }
             catch {
-
+                Write-Verbose -Message ("Throwing Default exception of type {0}" -f $_.Exception.GetType().Name)
                 $ex = $_
-
-                # if (Test-Json -Json $ex.ErrorDetails.Message.ToString()) {
-
-                #     $msg = $ex.ErrorDetails.Message |
-                #                 ConvertFrom-Json -Depth 5
-
-                #     $ce = [PSCustomObject]@{
-                #         Description = $msg.description
-                #         Detail = $msg.errors
-                #         Message = $ex.Exception.Message
-                #         Full = $ex
-                #     }
-
-                #     $ex = $ce
-
-                #     $errorRecord = New-ErrorRecord InvalidOperationException FileIsEmpty InvalidOperation $_path -Message "File '$_path' is empty."
-                #     $PSCmdlet.ThrowTerminatingError($errorRecord)
-
-                # }
 
                 Throw $ex
 

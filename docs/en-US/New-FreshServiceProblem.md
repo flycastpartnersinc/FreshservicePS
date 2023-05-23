@@ -17,7 +17,7 @@ New-FreshServiceProblem [[-workspace_id] <Int64>] [[-agent_id] <Int64>] [-reques
  [[-group_id] <Int64>] [-description] <String> [[-priority] <Int32>] [-status] <Int32> [-impact] <Int32>
  [[-known_error] <Boolean>] [-subject] <String> [-due_by] <DateTime> [[-department_id] <Int64>]
  [[-category] <String>] [[-sub_category] <String>] [[-item_category] <String>] [[-custom_fields] <Hashtable>]
- [[-assets] <Object>] [[-attachments] <FileInfo[]>] [[-problem_cause] <String>] [[-problem_symptom] <String>]
+ [[-assets] <Object[]>] [[-attachments] <FileInfo[]>] [[-problem_cause] <String>] [[-problem_symptom] <String>]
  [[-problem_impact] <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
@@ -310,7 +310,7 @@ Accept wildcard characters: False
 List of assets associated with the problem.
 
 ```yaml
-Type: Object
+Type: Object[]
 Parameter Sets: (All)
 Aliases:
 

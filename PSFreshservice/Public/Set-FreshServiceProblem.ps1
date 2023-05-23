@@ -262,7 +262,7 @@ function Set-FreshServiceProblem {
             ParameterSetName = 'default',
             Position = 16
         )]
-        [object]$assets,
+        [object[]]$assets,
         [Parameter(
             Mandatory = $false,
             HelpMessage = 'Ticket attachments. The total size of these attachments cannot exceed 15MB.',
@@ -357,7 +357,7 @@ function Set-FreshServiceProblem {
         }
 
         try {
-            if ($PSCmdlet.ShouldProcess($id)) {
+            if ($PSCmdlet.ShouldProcess($uri.Uri.AbsoluteUri)) {
 
                 $params = @{
                     Uri         = $uri.Uri.AbsoluteUri

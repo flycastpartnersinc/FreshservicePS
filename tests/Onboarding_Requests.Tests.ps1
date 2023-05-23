@@ -5,7 +5,7 @@ Describe "Onboarding Requests" {
          BeforeDiscovery {
             Connect-Freshservice -Name ItsFine_Prod -NoBanner
             $Script:onboarding_request_test_guid = New-Guid
-            # $Script:testerEmail = 'rob.simmers@flycastpartners.com'
+            # $Script:testerEmail = $env:PSFreshservice_Instance_Admin_Email
 
             $location_id = Get-FreshServiceLocation -Name 'America' |
                                 Select-Object -ExpandProperty id

@@ -45,7 +45,7 @@ function Restore-FreshServiceAsset {
         }
 
         try {
-            if ($PSCmdlet.ShouldProcess($display_id)) {
+            if ($PSCmdlet.ShouldProcess($uri.Uri.AbsoluteUri)) {
 
                 $params = @{
                     Uri         = $uri.Uri.AbsoluteUri

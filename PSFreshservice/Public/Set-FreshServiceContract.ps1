@@ -355,7 +355,7 @@ function Set-FreshServiceContract {
             ParameterSetName = 'default',
             Position = 18
         )]
-        [object]$item_cost_details,
+        [object[]]$item_cost_details,
         [Parameter(
             Mandatory = $false,
             HelpMessage = 'Represents the contract term period. Default is one_time',
@@ -478,7 +478,7 @@ function Set-FreshServiceContract {
         }
 
         try {
-            if ($PSCmdlet.ShouldProcess($id)) {
+            if ($PSCmdlet.ShouldProcess($uri.Uri.AbsoluteUri)) {
 
                 $params = @{
                     Uri         = $uri.Uri.AbsoluteUri

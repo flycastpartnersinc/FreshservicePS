@@ -34,7 +34,7 @@ Set-FreshServiceContract [-id] <Int64> [[-name] <String>] [[-description] <Strin
  [[-auto_renew] <Boolean>] [[-notify_expiry] <Boolean>] [[-notify_before] <Int64>] [[-approver_id] <Int64>]
  [[-start_date] <DateTime>] [[-end_date] <DateTime>] [[-cost] <Int64>] [[-contract_number] <String>]
  [[-contract_type_id] <Int64>] [[-visible_to_id] <Int64>] [[-software_id] <Int64>] [[-notify_to] <String[]>]
- [[-custom_fields] <Hashtable>] [[-item_cost_details] <Object>] [[-billing_cycle] <String>]
+ [[-custom_fields] <Hashtable>] [[-item_cost_details] <Object[]>] [[-billing_cycle] <String>]
  [[-attachments] <FileInfo[]>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
@@ -429,7 +429,7 @@ Item cost detail is an object array containing item cost details.
 See helper function: New-FreshServiceContractItem
 
 ```yaml
-Type: Object
+Type: Object[]
 Parameter Sets: default
 Aliases:
 

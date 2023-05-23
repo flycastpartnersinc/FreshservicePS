@@ -15,12 +15,12 @@ Creates a Freshservice Ticket.
 ```
 New-FreshServiceTicket [[-name] <String>] [[-workspace_id] <Int64>] [[-requester_id] <Int64>] [-email] <String>
  [[-phone] <String>] [[-subject] <String>] [[-type] <String>] [-status] <Int32> [-priority] <Int32>
- [[-description] <String>] [[-responder_id] <Int64>] [[-attachments] <FileInfo[]>] [[-custom_fields] <Object>]
- [[-due_by] <DateTime>] [[-email_config_id] <Int64>] [[-fr_due_by] <DateTime>] [[-group_id] <Int64>]
- [[-source] <String>] [[-tags] <String[]>] [[-assets] <Object>] [[-urgency] <Int32>] [[-impact] <Int32>]
- [[-category] <String>] [[-sub_category] <String>] [[-item_category] <String>] [[-department_id] <Int64>]
- [[-problem] <Object>] [[-change_initiating_ticket] <Object>] [[-change_initiated_by_ticket] <Object>]
- [[-parent_id] <Int64>] [-WhatIf] [-Confirm] [<CommonParameters>]
+ [[-description] <String>] [[-responder_id] <Int64>] [[-attachments] <FileInfo[]>]
+ [[-custom_fields] <Object[]>] [[-due_by] <DateTime>] [[-email_config_id] <Int64>] [[-fr_due_by] <DateTime>]
+ [[-group_id] <Int64>] [[-source] <String>] [[-tags] <String[]>] [[-assets] <Object[]>] [[-urgency] <Int32>]
+ [[-impact] <Int32>] [[-category] <String>] [[-sub_category] <String>] [[-item_category] <String>]
+ [[-department_id] <Int64>] [[-problem] <Object[]>] [[-change_initiating_ticket] <Object[]>]
+ [[-change_initiated_by_ticket] <Object[]>] [[-parent_id] <Int64>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -32,7 +32,7 @@ https://api.freshservice.com/#create_ticket
 
 ### EXAMPLE 1
 ```
-New-FreshServiceTicket -email "rob.simmers@company.com" -subject "VPN no worky" -description "Getting an error that VPN version not supported." -priority 2 -status 2 -tags 'VPN',"Version"
+New-FreshServiceTicket -email "rob.smith@company.com" -subject "VPN no worky" -description "Getting an error that VPN version not supported." -priority 2 -status 2 -tags 'VPN',"Version"
 ```
 
 cc_emails        : {}
@@ -67,11 +67,11 @@ updated_at       : 12/27/2022 8:29:51 PM
 tags             : {VPN, Version}
 attachments      : {}
 
-Creates a new ticket for requester rob.simmers@company.com with a Priority of 2 and Status of 2 with tags VPN and Version.
+Creates a new ticket for requester rob.smith@company.com with a Priority of 2 and Status of 2 with tags VPN and Version.
 
 ### EXAMPLE 2
 ```
-New-FreshServiceTicket -email "rob.simmers@company.com" -subject "Need help with HR forms" -description "What is a W4?" -priority 3 -status 3 -workspace_id 3
+New-FreshServiceTicket -email "rob.smith@company.com" -subject "Need help with HR forms" -description "What is a W4?" -priority 3 -status 3 -workspace_id 3
 ```
 
 cc_emails          : {}
@@ -320,7 +320,7 @@ Key value pairs containing the names and values of custom fields.
 Read more here.
 
 ```yaml
-Type: Object
+Type: Object[]
 Parameter Sets: (All)
 Aliases:
 
@@ -440,7 +440,7 @@ Accept wildcard characters: False
 List of assets associated with the ticket
 
 ```yaml
-Type: Object
+Type: Object[]
 Parameter Sets: (All)
 Aliases:
 
@@ -545,7 +545,7 @@ Accept wildcard characters: False
 Problem that need to be associated with ticket (problem display id)
 
 ```yaml
-Type: Object
+Type: Object[]
 Parameter Sets: (All)
 Aliases:
 
@@ -560,7 +560,7 @@ Accept wildcard characters: False
 Change causing the ticket that needs to be associated with ticket (change display id)
 
 ```yaml
-Type: Object
+Type: Object[]
 Parameter Sets: (All)
 Aliases:
 
@@ -575,7 +575,7 @@ Accept wildcard characters: False
 Change needed for the ticket to be fixed that needs to be associated with ticket (change display id)
 
 ```yaml
-Type: Object
+Type: Object[]
 Parameter Sets: (All)
 Aliases:
 

@@ -5,6 +5,10 @@
 .DESCRIPTION
     Returns a Freshservice information via REST API.
 
+    This is a test\helper command to see what tenant is currently connected and show the consumption of API throttle limits. Ideally,
+    there would be an endpoint to GET basic tenant information like owners, licensing details, etc. that could be used.  There is
+    and alias 'whofs' to validate connection quickly and cmdlets support -WhatIf and will show impacted url.
+
 .EXAMPLE
     Get-FreshServiceInfo
 

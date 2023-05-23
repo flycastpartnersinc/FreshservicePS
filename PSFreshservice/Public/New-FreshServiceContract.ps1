@@ -109,7 +109,8 @@
     This module was developed and tested with Freshservice REST API v2.
 #>
 function New-FreshServiceContract {
-         [CmdletBinding(SupportsShouldProcess=$true, ConfirmImpact='Medium')]
+    [CmdletBinding(SupportsShouldProcess=$true, ConfirmImpact='Medium')]
+
     param (
         [Parameter(
             Mandatory = $true,
@@ -195,7 +196,7 @@ function New-FreshServiceContract {
             Mandatory = $false,
             HelpMessage = 'Key value pairs containing the names and values of item cost details'
         )]
-        [object]$item_cost_details,
+        [object[]]$item_cost_details,
         [Parameter(
             Mandatory = $false,
             HelpMessage = 'Represents the contract term period. Default is one_time'
@@ -255,7 +256,7 @@ function New-FreshServiceContract {
         }
 
         try {
-            if ($PSCmdlet.ShouldProcess($name)) {
+            if ($PSCmdlet.ShouldProcess($uri.Uri.AbsoluteUri)) {
 
                 $params = @{
                     Uri         = $uri.Uri.AbsoluteUri

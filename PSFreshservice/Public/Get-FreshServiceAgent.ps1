@@ -81,16 +81,16 @@
     custom_fields                                   :
     department_ids                                  : {}
     department_names                                :
-    email                                           : rob.simmers@flycastpartners.com
+    email                                           : alex@example.com
     external_id                                     :
-    first_name                                      : Rob
+    first_name                                      : Alex
     has_logged_in                                   : True
     id                                              : 21000418005
     job_title                                       :
     language                                        : en
     last_active_at                                  : 11/2/2022 1:40:09 AM
     last_login_at                                   : 9/29/2022 12:49:59 PM
-    last_name                                       : Simmers
+    last_name                                       : Smith
     location_id                                     :
     location_name                                   :
     mobile_phone_number                             :
@@ -128,16 +128,16 @@
     custom_fields                                   :
     department_ids                                  : {}
     department_names                                :
-    email                                           : rob.simmers@flycastpartners.com
+    email                                           : alex@example.com
     external_id                                     :
-    first_name                                      : Rob
+    first_name                                      : Alex
     has_logged_in                                   : True
     id                                              : 21000418005
     job_title                                       :
     language                                        : en
     last_active_at                                  : 11/2/2022 1:40:09 AM
     last_login_at                                   : 9/29/2022 12:49:59 PM
-    last_name                                       : Simmers
+    last_name                                       : Smith
     location_id                                     :
     location_name                                   :
     mobile_phone_number                             :
@@ -164,7 +164,7 @@
     Returns a Freshservice Agent by Id.
 
 .EXAMPLE
-    Get-FreshserviceAgent -Filter "email:'rob.simmers@flycastpartners.com'"
+    Get-FreshserviceAgent -Filter "email:'alex@example.com'"
 
     active                                          : True
     address                                         :
@@ -176,16 +176,16 @@
     custom_fields                                   :
     department_ids                                  : {}
     department_names                                :
-    email                                           : rob.simmers@flycastpartners.com
+    email                                           : alex@example.com
     external_id                                     :
-    first_name                                      : Rob
+    first_name                                      : Alex
     has_logged_in                                   : True
     id                                              : 21000418005
     job_title                                       :
     language                                        : en
     last_active_at                                  : 11/2/2022 1:40:09 AM
     last_login_at                                   : 9/29/2022 12:49:59 PM
-    last_name                                       : Simmers
+    last_name                                       : Smith
     location_id                                     :
     location_name                                   :
     mobile_phone_number                             :
@@ -268,16 +268,16 @@
     custom_fields                                   :
     department_ids                                  : {}
     department_names                                :
-    email                                           : rob.simmers@flycastpartners.com
+    email                                           : alex@example.com
     external_id                                     :
-    first_name                                      : Rob
+    first_name                                      : Alex
     has_logged_in                                   : True
     id                                              : 21000418005
     job_title                                       :
     language                                        : en
     last_active_at                                  : 11/2/2022 1:40:09 AM
     last_login_at                                   : 9/29/2022 12:49:59 PM
-    last_name                                       : Simmers
+    last_name                                       : Smith
     location_id                                     :
     location_name                                   :
     mobile_phone_number                             :

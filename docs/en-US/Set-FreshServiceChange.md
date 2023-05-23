@@ -18,7 +18,7 @@ Set-FreshServiceChange [-id] <Int64> [[-agent_id] <Int64>] [[-description] <Stri
  [[-change_type] <Int64>] [[-approval_status] <Int64>] [[-planned_start_date] <DateTime>]
  [[-planned_end_date] <DateTime>] [[-subject] <String>] [[-department_id] <Int64>] [[-category] <String>]
  [[-sub_category] <String>] [[-item_category] <String>] [[-custom_fields] <Hashtable>]
- [[-maintenance_window] <Hashtable>] [[-assets] <Object>] [[-impacted_services] <Hashtable>]
+ [[-maintenance_window] <Hashtable>] [[-assets] <Object[]>] [[-impacted_services] <Hashtable>]
  [[-attachments] <FileInfo[]>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
@@ -398,7 +398,7 @@ Accept wildcard characters: False
 List of assets associated with the change
 
 ```yaml
-Type: Object
+Type: Object[]
 Parameter Sets: (All)
 Aliases:
 

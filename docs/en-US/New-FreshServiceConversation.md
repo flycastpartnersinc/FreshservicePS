@@ -41,7 +41,7 @@ New-FreshServiceConversation -Id 9 -As Reply -body 'A reply to a ticket'
 
 id          : 21005968159
 user_id     : 21000418005
-to_emails   : {rob.simmers@flycastpartners.com}
+to_emails   : {alex@example.com}
 body        : \<div\>A reply to a ticket\</div\>
 body_text   : A reply to a ticket
 ticket_id   : 9

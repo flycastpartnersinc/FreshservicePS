@@ -34,7 +34,8 @@
     This module was developed and tested with Freshservice REST API v2.
 #>
 function Remove-FreshServiceNote {
-         [CmdletBinding(SupportsShouldProcess=$true, ConfirmImpact='Medium')]
+    [CmdletBinding(SupportsShouldProcess=$true, ConfirmImpact='Medium')]
+
     param (
         [Parameter(
             Mandatory = $true,
@@ -70,7 +71,7 @@ function Remove-FreshServiceNote {
         $uri = [System.UriBuilder]('{0}/{1}s/{2}/notes/{3}' -f $PrivateData['FreshserviceBaseUri'], $type.ToLower(),$parent_id,$id)
 
         try {
-            if ($PSCmdlet.ShouldProcess($id)) {
+            if ($PSCmdlet.ShouldProcess($uri.Uri.AbsoluteUri)) {
 
                 $params = @{
                     Uri         = $uri.Uri.AbsoluteUri

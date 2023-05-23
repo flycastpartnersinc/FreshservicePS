@@ -83,7 +83,7 @@ This free Powershell module is provided by Flycast Partners to the Freshworks Fr
 with your Freshservice instance(s) or initiative, give us a shout or check out our website for current offerings:
 
 Website:  www.flycastpartners.com
-Email:    sales@flycastpartners.com
+Email:    sales@example.com
 Linkedin: www.linkedin.com/flycast
 Twitter:  www.twitter.com/flycast
 

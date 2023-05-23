@@ -4,7 +4,7 @@ Describe "Release" {
          BeforeDiscovery {
             Connect-Freshservice -Name ItsFine_Prod -NoBanner
             $Script:release_test_guid = New-Guid
-            $Script:testerEmail = "rob.simmers@flycastpartners.com"
+            $Script:testerEmail = $env:PSFreshservice_Instance_Admin_Email
 
             $agent_id = Get-FreshServiceAgent -Filter "email:'$testerEmail'" |
                             Select-Object -ExpandProperty id
@@ -16,7 +16,7 @@ Describe "Release" {
                             Where-Object -FilterScript {$_.Name -eq 'Hardware Team'} |
                                 Select-Object -ExpandProperty id
 
-            $addAgentToGroup = Add-FreshServiceAgentGroupMember -id $group_id -members $agent_id
+            $null = Add-FreshServiceAgentGroupMember -id $group_id -members $agent_id
 
             $newFreshServiceReleaseSplat = @{
                 subject            = "Release from Pester: {0}" -f $release_test_guid

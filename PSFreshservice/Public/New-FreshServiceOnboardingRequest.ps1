@@ -31,7 +31,8 @@
     This module was developed and tested with Freshservice REST API v2.
 #>
 function New-FreshServiceOnboardingRequest {
-         [CmdletBinding(SupportsShouldProcess=$true, ConfirmImpact='Medium')]
+    [CmdletBinding(SupportsShouldProcess=$true, ConfirmImpact='Medium')]
+
     param (
         [Parameter(
             Mandatory = $true,
@@ -63,7 +64,7 @@ function New-FreshServiceOnboardingRequest {
     }
     end {
         try {
-            if ($PSCmdlet.ShouldProcess($fields)) {
+            if ($PSCmdlet.ShouldProcess($uri.Uri.AbsoluteUri)) {
 
                 $params = @{
                     Uri         = $uri.Uri.AbsoluteUri

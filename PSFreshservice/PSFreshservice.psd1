@@ -27,13 +27,13 @@ Author = 'Rob Simmers'
 CompanyName = 'Freshworks'
 
 # Copyright statement for this module
-Copyright = '(c) Rob Simmers. All rights reserved.'
+Copyright = '(c) Flycast Partners, Inc. All rights reserved.'
 
 # Description of the functionality provided by this module
 Description = 'A Powershell module to interface with the Freshservice REST API interface.'
 
 # Minimum version of the PowerShell engine required by this module
-# PowerShellVersion = ''
+PowerShellVersion = '5.1'
 
 # Name of the PowerShell host required by this module
 # PowerShellHostName = ''

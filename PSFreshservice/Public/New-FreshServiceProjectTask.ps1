@@ -261,7 +261,7 @@ function New-FreshServiceProjectTask {
         }
 
         try {
-            if ($PSCmdlet.ShouldProcess($title)) {
+            if ($PSCmdlet.ShouldProcess($uri.Uri.AbsoluteUri)) {
 
                 $params = @{
                     Uri         = $uri.Uri.AbsoluteUri

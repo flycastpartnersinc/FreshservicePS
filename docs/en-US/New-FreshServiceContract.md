@@ -17,7 +17,7 @@ New-FreshServiceContract [-name] <String> [[-description] <String>] [-vendor_id]
  [[-auto_renew] <Boolean>] [[-notify_expiry] <Boolean>] [[-notify_before] <Int64>] [-approver_id] <Int64>
  [-start_date] <DateTime> [-end_date] <DateTime> [-cost] <Int64> [-contract_number] <String>
  [-contract_type_id] <Int64> [[-visible_to_id] <Int64>] [[-software_id] <Int64>] [[-notify_to] <String[]>]
- [[-custom_fields] <Hashtable>] [[-item_cost_details] <Object>] [[-billing_cycle] <String>]
+ [[-custom_fields] <Hashtable>] [[-item_cost_details] <Object[]>] [[-billing_cycle] <String>]
  [[-associated_asset_ids] <Int32[]>] [[-attachments] <FileInfo[]>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
@@ -316,7 +316,7 @@ Key value pairs containing the names and values of item cost details.
 See helper function New-FreshServiceContractItem.
 
 ```yaml
-Type: Object
+Type: Object[]
 Parameter Sets: (All)
 Aliases:
 

@@ -18,7 +18,7 @@ New-FreshServiceChange [[-workspace_id] <Int64>] [[-agent_id] <Int64>] [[-descri
  [[-risk] <Int64>] [[-change_type] <Int64>] [[-approval_status] <Int64>] [[-planned_start_date] <DateTime>]
  [[-planned_end_date] <DateTime>] [[-subject] <String>] [[-department_id] <Int64>] [[-category] <String>]
  [[-sub_category] <String>] [[-item_category] <String>] [[-custom_fields] <Hashtable>]
- [[-maintenance_window] <Hashtable>] [[-assets] <Object>] [[-impacted_services] <Hashtable>]
+ [[-maintenance_window] <Hashtable>] [[-assets] <Object[]>] [[-impacted_services] <Hashtable>]
  [[-attachments] <FileInfo[]>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
@@ -31,10 +31,10 @@ https://api.freshservice.com/#create_change
 
 ### EXAMPLE 1
 ```
-Creates a new change for requester rob.simmers@company.com with a Priority of 2 and Status of 2 with tags VPN and Version.
+Creates a new change for requester rob.smith@company.com with a Priority of 2 and Status of 2 with tags VPN and Version.
 ```
 
-New-FreshServiceChange -email "rob.simmers@company.com" -subject "VPN no worky" -description "Getting an error that VPN version not supported." -priority 2 -status 2 -tags 'VPN',"Version"
+New-FreshServiceChange -email "rob.smith@company.com" -subject "VPN no worky" -description "Getting an error that VPN version not supported." -priority 2 -status 2 -tags 'VPN',"Version"
 
 ## PARAMETERS
 
@@ -371,7 +371,7 @@ Accept wildcard characters: False
 List of assets associated with the change
 
 ```yaml
-Type: Object
+Type: Object[]
 Parameter Sets: (All)
 Aliases:
 

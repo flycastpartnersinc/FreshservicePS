@@ -19,8 +19,8 @@ New-FreshServiceRequester [-external_id] <String> [-first_name] <String> [[-last
  [[-can_see_all_changes_from_associated_departments] <Boolean>]
  [[-can_see_all_tickets_from_associated_departments] <Boolean>] [[-reporting_manager_id] <Int32>]
  [[-address] <String>] [[-time_zone] <String>] [[-time_format] <String>] [[-language] <String>]
- [[-location_id] <Int32>] [[-background_information] <String>] [[-custom_fields] <Object>] [-WhatIf] [-Confirm]
- [<CommonParameters>]
+ [[-location_id] <Int32>] [[-background_information] <String>] [[-custom_fields] <Object[]>] [-WhatIf]
+ [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -340,7 +340,7 @@ Accept wildcard characters: False
 Key-value pair containing the names and values of the (custom) requester fields.
 
 ```yaml
-Type: Object
+Type: Object[]
 Parameter Sets: (All)
 Aliases:
 

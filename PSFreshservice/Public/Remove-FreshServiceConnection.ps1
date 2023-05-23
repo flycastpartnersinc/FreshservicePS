@@ -27,7 +27,8 @@
     This module was developed and tested with Freshservice REST API v2.
 #>
 function Remove-FreshServiceConnection {
-         [CmdletBinding(SupportsShouldProcess=$true, ConfirmImpact='Medium')]
+    [OutputType('System.Object[]')]
+    [CmdletBinding(SupportsShouldProcess=$true, ConfirmImpact='Medium')]
     param (
         [Parameter(
             Mandatory = $true,
@@ -44,7 +45,7 @@ function Remove-FreshServiceConnection {
     }
     process {
         try {
-            if ($PSCmdlet.ShouldProcess($Name)) {
+            if ($PSCmdlet.ShouldProcess($uri.Uri.AbsoluteUri)) {
 
                 Write-Verbose -Message ('Connecting to configuration file {0}.' -f $FreshServiceConfigPath)
 

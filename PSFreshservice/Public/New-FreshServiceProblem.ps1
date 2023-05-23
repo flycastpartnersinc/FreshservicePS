@@ -102,7 +102,8 @@
     This module was developed and tested with Freshservice REST API v2.
 #>
 function New-FreshServiceProblem {
-         [CmdletBinding(SupportsShouldProcess=$true, ConfirmImpact='Medium')]
+    [CmdletBinding(SupportsShouldProcess=$true, ConfirmImpact='Medium')]
+
     param (
         [Parameter(
             Mandatory = $false,
@@ -214,7 +215,7 @@ function New-FreshServiceProblem {
             HelpMessage = 'List of assets associated with the problem',
             ValueFromPipelineByPropertyName = $true
         )]
-        [object]$assets,
+        [object[]]$assets,
         [Parameter(
             Mandatory = $false,
             HelpMessage = 'Ticket attachments. The total size of these attachments cannot exceed 15MB.',
@@ -297,7 +298,7 @@ function New-FreshServiceProblem {
         }
 
         try {
-            if ($PSCmdlet.ShouldProcess($subject)) {
+            if ($PSCmdlet.ShouldProcess($uri.Uri.AbsoluteUri)) {
 
                 $params = @{
                     Uri         = $uri.Uri.AbsoluteUri

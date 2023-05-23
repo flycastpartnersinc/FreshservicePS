@@ -61,9 +61,9 @@
         Nesting of a child Service Request under another child Service Request is not supported.
 
 .EXAMPLE
-    New-FreshServiceRequest -display_id 2 -email 'rob.simmers@flycastpartners.com'
+    New-FreshServiceRequest -display_id 2 -email 'alex@example.com'
 
-    subject              : Request for Rob Simmers : Windows Laptop
+    subject              : Request for Alex : Windows Laptop
     group_id             :
     department_id        :
     category             :
@@ -102,9 +102,9 @@
     Creates a new Freshservice Service Request.
 
 .EXAMPLE
-    New-FreshServiceRequest -parent_ticket_id 221 -display_id 3 -quantity 2 -email 'rob.simmers@flycastpartners.com'
+    New-FreshServiceRequest -parent_ticket_id 221 -display_id 3 -quantity 2 -email 'alex@example.com'
 
-    subject              : Request for Rob Simmers : Microsoft Office 2013
+    subject              : Request for Alex : Microsoft Office 2013
     group_id             :
     department_id        :
     category             :
@@ -155,7 +155,8 @@
     This module was developed and tested with Freshservice REST API v2.
 #>
 function New-FreshServiceRequest {
-         [CmdletBinding(SupportsShouldProcess=$true, ConfirmImpact='Medium')]
+    [CmdletBinding(SupportsShouldProcess=$true, ConfirmImpact='Medium')]
+
     param (
         [Parameter(
             Mandatory = $true,
@@ -193,7 +194,7 @@ function New-FreshServiceRequest {
             HelpMessage = 'Values of custom fields present in the service item form',
             ValueFromPipelineByPropertyName = $true
         )]
-        [object]$custom_fields,
+        [object[]]$custom_fields,
         [Parameter(
             Mandatory = $false,
             HelpMessage = 'Create as a child request. Display Id of the Service Request.',
@@ -228,7 +229,7 @@ function New-FreshServiceRequest {
         }
 
         try {
-            if ($PSCmdlet.ShouldProcess($display_id)) {
+            if ($PSCmdlet.ShouldProcess($uri.Uri.AbsoluteUri)) {
 
                 $params = @{
                     Uri         = $uri.Uri.AbsoluteUri

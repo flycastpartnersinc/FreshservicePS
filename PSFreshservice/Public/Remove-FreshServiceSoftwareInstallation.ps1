@@ -27,7 +27,7 @@
     This module was developed and tested with Freshservice REST API v2.
 #>
 function Remove-FreshServiceSoftwareInstallation {
-         [CmdletBinding(SupportsShouldProcess=$true, ConfirmImpact='Medium')]
+    [CmdletBinding(SupportsShouldProcess=$true, ConfirmImpact='Medium')]
     param (
         [Parameter(
             Mandatory = $true,
@@ -64,7 +64,7 @@ function Remove-FreshServiceSoftwareInstallation {
         }
 
         try {
-            if ($PSCmdlet.ShouldProcess($id)) {
+            if ($PSCmdlet.ShouldProcess($uri.Uri.AbsoluteUri)) {
 
                 if ($installation_id.Count -gt 1) {
                     $qry.Add('device_ids', ($installation_machine_id -join ',') )

@@ -231,7 +231,7 @@ function Set-FreshServiceRelease {
             HelpMessage = 'List of assets associated with the release',
             ValueFromPipelineByPropertyName = $true
         )]
-        [object]$assets,
+        [object[]]$assets,
         [Parameter(
             Mandatory = $false,
             HelpMessage = 'Release attachments. The total size of these attachments cannot exceed 15MB.',
@@ -310,7 +310,7 @@ function Set-FreshServiceRelease {
             }
         }
         try {
-            if ($PSCmdlet.ShouldProcess($id)) {
+            if ($PSCmdlet.ShouldProcess($uri.Uri.AbsoluteUri)) {
 
                 $params = @{
                     Uri         = $uri.Uri.AbsoluteUri

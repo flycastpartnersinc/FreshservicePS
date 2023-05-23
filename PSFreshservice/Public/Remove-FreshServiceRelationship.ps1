@@ -24,7 +24,8 @@
     This module was developed and tested with Freshservice REST API v2.
 #>
 function Remove-FreshServiceRelationship {
-         [CmdletBinding(SupportsShouldProcess=$true, ConfirmImpact='Medium')]
+    [CmdletBinding(SupportsShouldProcess=$true, ConfirmImpact='Medium')]
+
     param (
         [Parameter(
             Mandatory = $true,
@@ -53,7 +54,7 @@ function Remove-FreshServiceRelationship {
         $uri.Query = $qry.ToString()
 
         try {
-            if ($PSCmdlet.ShouldProcess($id)) {
+            if ($PSCmdlet.ShouldProcess($uri.Uri.AbsoluteUri)) {
 
                 $params = @{
                     Uri         = $uri.Uri.AbsoluteUri

@@ -16,12 +16,12 @@ Updates a Freshservice Ticket.
 ```
 Set-FreshServiceTicket [-id] <Int64> [[-name] <String>] [[-requester_id] <Int64>] [[-email] <String>]
  [[-phone] <String>] [[-subject] <String>] [[-type] <String>] [[-status] <Int32>] [[-priority] <Int32>]
- [[-description] <String>] [[-responder_id] <Int64>] [[-attachments] <FileInfo[]>] [[-custom_fields] <Object>]
- [[-due_by] <DateTime>] [[-email_config_id] <Int64>] [[-fr_due_by] <DateTime>] [[-group_id] <Int64>]
- [[-source] <String>] [[-tags] <String[]>] [[-assets] <Object>] [[-urgency] <Int32>] [[-impact] <Int32>]
- [[-category] <String>] [[-sub_category] <String>] [[-item_category] <String>] [[-department_id] <Int64>]
- [[-problem] <Object>] [[-change_initiating_ticket] <Object>] [[-change_initiated_by_ticket] <Object>]
- [-WhatIf] [-Confirm] [<CommonParameters>]
+ [[-description] <String>] [[-responder_id] <Int64>] [[-attachments] <FileInfo[]>]
+ [[-custom_fields] <Object[]>] [[-due_by] <DateTime>] [[-email_config_id] <Int64>] [[-fr_due_by] <DateTime>]
+ [[-group_id] <Int64>] [[-source] <String>] [[-tags] <String[]>] [[-assets] <Object[]>] [[-urgency] <Int32>]
+ [[-impact] <Int32>] [[-category] <String>] [[-sub_category] <String>] [[-item_category] <String>]
+ [[-department_id] <Int64>] [[-problem] <Object[]>] [[-change_initiating_ticket] <Object[]>]
+ [[-change_initiated_by_ticket] <Object[]>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ### Restore
@@ -283,7 +283,7 @@ Key value pairs containing the names and values of custom fields.
 Read more here.
 
 ```yaml
-Type: Object
+Type: Object[]
 Parameter Sets: default
 Aliases:
 
@@ -403,7 +403,7 @@ Accept wildcard characters: False
 List of assets associated with the ticket.
 
 ```yaml
-Type: Object
+Type: Object[]
 Parameter Sets: default
 Aliases:
 
@@ -508,7 +508,7 @@ Accept wildcard characters: False
 Problem that need to be associated with ticket (problem display id).
 
 ```yaml
-Type: Object
+Type: Object[]
 Parameter Sets: default
 Aliases:
 
@@ -523,7 +523,7 @@ Accept wildcard characters: False
 Change causing the ticket that needs to be associated with ticket (change display id).
 
 ```yaml
-Type: Object
+Type: Object[]
 Parameter Sets: default
 Aliases:
 
@@ -538,7 +538,7 @@ Accept wildcard characters: False
 Change needed for the ticket to be fixed that needs to be associated with ticket (change display id).
 
 ```yaml
-Type: Object
+Type: Object[]
 Parameter Sets: default
 Aliases:
 

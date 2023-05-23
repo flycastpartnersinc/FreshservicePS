@@ -98,9 +98,9 @@
 
     $newFreshServiceAgentSplat = @{
         first_name             = 'Ralph'
-        last_name              = 'Simmers'
+        last_name              = 'smith'
         job_title              = 'Code Monkey'
-        email                  = 'rasimmers.agent@gmail.com'
+        email                  = 'Alex.agent@example.com'
         background_information = 'Awesome helpdesk training'
         roles = $agentRoles
     }
@@ -117,7 +117,7 @@
     custom_fields                                   : @{employee_id=}
     department_ids                                  : {}
     department_names                                :
-    email                                           : rasimmers.agent2@gmail.com
+    email                                           : Alex.agent2@example.com
     external_id                                     :
     first_name                                      : Ralph
     has_logged_in                                   : False
@@ -126,7 +126,7 @@
     language                                        : en
     last_active_at                                  :
     last_login_at                                   :
-    last_name                                       : Simmers
+    last_name                                       : Smith
     location_id                                     :
     location_name                                   :
     mobile_phone_number                             :
@@ -160,8 +160,7 @@
 #>
 
 function New-FreshServiceAgent {
-         [CmdletBinding(SupportsShouldProcess=$true, ConfirmImpact='Medium')]
-
+    [CmdletBinding(SupportsShouldProcess=$true, ConfirmImpact='Medium')]
     param (
         [Parameter(
             Mandatory = $true,
@@ -298,7 +297,7 @@ function New-FreshServiceAgent {
             HelpMessage = 'Each individual role is a hash in the roles array that contains the attributes.role_id: Unique ID of the role assigned"assignment_scope: The scope in which the agent can use the permissions granted by this role. Possible values include entire_helpdesk (all plans)',
             ValueFromPipelineByPropertyName = $true
         )]
-        [object]$roles,
+        [object[]]$roles,
         [Parameter(
             Mandatory = $false,
             HelpMessage = 'Signature of the agent in HTML format.',
@@ -330,11 +329,19 @@ function New-FreshServiceAgent {
         $PSBoundParameters.keys.where{
             $PSItem -notin $PrivateData.FreshserviceBodyExclusions
         }.foreach{
-            $jsonBody[$PSItem.ToLower()] = $PSBoundParameters[$PSItem]
+            # switch ($PSItem) {
+            #     'roles' {
+            #         #Force into array for JSON
+            #         $jsonBody[$PSItem.ToLower()] = @($PSBoundParameters[$PSItem])
+            #     }
+                # default {
+                    $jsonBody[$PSItem.ToLower()] = $PSBoundParameters[$PSItem]
+            #     }
+            # }
         }
 
         try {
-            if ($PSCmdlet.ShouldProcess($id)) {
+            if ($PSCmdlet.ShouldProcess($uri.Uri.AbsoluteUri)) {
                 $params = @{
                     Uri         = $uri.Uri.AbsoluteUri
                     Method      = 'POST'

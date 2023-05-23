@@ -126,7 +126,7 @@ function Set-FreshServiceConnection {
     process {
 
         try {
-            if ($PSCmdlet.ShouldProcess($Name)) {
+            if ($PSCmdlet.ShouldProcess($uri.Uri.AbsoluteUri)) {
 
                 $environments += Get-FreshServiceConnection
                 Write-Verbose ('Found {0} environments' -f $environments.Count)

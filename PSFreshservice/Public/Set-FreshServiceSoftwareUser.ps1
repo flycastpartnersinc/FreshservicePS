@@ -119,12 +119,12 @@ function Set-FreshServiceSoftwareUser {
         }
 
        foreach ($id in $user_id) {
-            $newRecords += [PSCustomObject]$jsonBody
+            $newRecords += [PSCustomobject[]]$jsonBody
         }
     }
     end {
         try {
-            if ($PSCmdlet.ShouldProcess($id)) {
+            if ($PSCmdlet.ShouldProcess($uri.Uri.AbsoluteUri)) {
 
                 $params = @{
                     Uri         = $uri.Uri.AbsoluteUri

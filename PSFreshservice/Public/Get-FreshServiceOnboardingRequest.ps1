@@ -31,7 +31,7 @@
     status       : 3
     requester_id : 21000418005
     subject      : Employee Onboarding Request
-    fields       : @{cf_employee_name=John smith; cf_job_title=Analyst I; cf_date_of_joining=25-03-2023;
+    fields       : @{cf_employee_name=John Smith; cf_job_title=Analyst I; cf_date_of_joining=25-03-2023;
                 cf_department=21000097763; cf_location=21000159890}
 
     id           : 2
@@ -56,7 +56,7 @@
     subject       : Employee Onboarding Request
     ticket_id     : 192
     actors        : @{Employee=}
-    fields        : @{cf_employee_name=John smith; cf_job_title=Analyst I; cf_date_of_joining=25-03-2023;
+    fields        : @{cf_employee_name=John Smith; cf_job_title=Analyst I; cf_date_of_joining=25-03-2023;
                     cf_department=21000097763; cf_location=21000159890}
     lookup_values : @{cf_department=; cf_location=}
 

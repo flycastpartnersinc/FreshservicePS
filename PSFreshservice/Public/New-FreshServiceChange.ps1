@@ -103,15 +103,16 @@
     Path to attachment(s).
 
 .EXAMPLE
-    Creates a new change for requester rob.simmers@company.com with a Priority of 2 and Status of 2 with tags VPN and Version.
+    Creates a new change for requester rob.smith@company.com with a Priority of 2 and Status of 2 with tags VPN and Version.
 
-New-FreshServiceChange -email "rob.simmers@company.com" -subject "VPN no worky" -description "Getting an error that VPN version not supported." -priority 2 -status 2 -tags 'VPN',"Version"
+New-FreshServiceChange -email "rob.smith@company.com" -subject "VPN no worky" -description "Getting an error that VPN version not supported." -priority 2 -status 2 -tags 'VPN',"Version"
 
 .NOTES
     This module was developed and tested with Freshservice REST API v2.
 #>
 function New-FreshServiceChange {
-         [CmdletBinding(SupportsShouldProcess=$true, ConfirmImpact='Medium')]
+    [CmdletBinding(SupportsShouldProcess=$true, ConfirmImpact='Medium')]
+
     param (
         [Parameter(
             Mandatory = $false,
@@ -243,7 +244,7 @@ function New-FreshServiceChange {
             HelpMessage = 'List of assets associated with the change',
             ValueFromPipelineByPropertyName = $true
         )]
-        [object]$assets,
+        [object[]]$assets,
         [Parameter(
             Mandatory = $false,
             HelpMessage = 'List of Impacted Services associated with the change',
@@ -295,7 +296,7 @@ function New-FreshServiceChange {
         }
 
         try {
-            if ($PSCmdlet.ShouldProcess($id)) {
+            if ($PSCmdlet.ShouldProcess($uri.Uri.AbsoluteUri)) {
 
                 $params = @{
                     Uri         = $uri.Uri.AbsoluteUri

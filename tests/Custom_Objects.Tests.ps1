@@ -5,7 +5,7 @@ Describe "Custom Objects" {
             Connect-Freshservice -Name ItsFine_Prod -NoBanner
             $Script:custom_object_test_guid = New-Guid
 
-            $Script:testerEmail = "rob.simmers@flycastpartners.com"
+            $Script:testerEmail = $env:PSFreshservice_Instance_Admin_Email
 
             $Script:agent_id = Get-FreshServiceAgent -Filter "email:'$testerEmail'" |
                                     Select-Object -ExpandProperty id

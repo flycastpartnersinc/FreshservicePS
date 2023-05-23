@@ -4,7 +4,7 @@ Describe "Changes" {
          BeforeDiscovery {
             Connect-Freshservice -Name ItsFine_Prod -NoBanner
             $Script:change_test_guid = New-Guid
-            $Script:testerEmail = "rob.simmers@flycastpartners.com"
+            $Script:testerEmail = $env:PSFreshservice_Instance_Admin_Email
 
             $agent_id = Get-FreshServiceAgent -Filter "email:'$testerEmail'" |
                             Select-Object -ExpandProperty id
@@ -13,7 +13,7 @@ Describe "Changes" {
                             Where-Object -FilterScript {$_.Name -eq 'Hardware Team'} |
                                 Select-Object -ExpandProperty id
 
-            $addAgentToGroup = Add-FreshServiceAgentGroupMember -id $group_id -members $agent_id
+            $null = Add-FreshServiceAgentGroupMember -id $group_id -members $agent_id
 
             $assets = Get-FreshServiceAsset |
                             Select-Object -First 2 -Property display_id

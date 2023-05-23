@@ -49,7 +49,8 @@
     This module was developed and tested with Freshservice REST API v2.
 #>
 function New-FreshServiceSoftwareUser {
-         [CmdletBinding(SupportsShouldProcess=$true, ConfirmImpact='Medium')]
+    [CmdletBinding(SupportsShouldProcess=$true, ConfirmImpact='Medium')]
+
     param (
         [Parameter(
             Mandatory = $true,
@@ -127,12 +128,12 @@ function New-FreshServiceSoftwareUser {
         }
 
        foreach ($id in $user_id) {
-            $newRecords += [PSCustomObject]$jsonBody
+            $newRecords += [PSCustomobject[]]$jsonBody
         }
     }
     end {
         try {
-            if ($PSCmdlet.ShouldProcess($id)) {
+            if ($PSCmdlet.ShouldProcess($uri.Uri.AbsoluteUri)) {
 
                 $params = @{
                     Uri         = $uri.Uri.AbsoluteUri

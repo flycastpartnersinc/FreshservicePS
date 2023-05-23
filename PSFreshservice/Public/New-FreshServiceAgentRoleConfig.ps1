@@ -57,7 +57,8 @@
     This module was developed and tested with Freshservice REST API v2.
 #>
 function New-FreshServiceAgentRoleConfig {
-         [CmdletBinding(SupportsShouldProcess=$true, ConfirmImpact='Medium')]
+    [CmdletBinding(SupportsShouldProcess=$true, ConfirmImpact='Medium')]
+
     param (
         [Parameter(
             Mandatory = $true,
@@ -75,13 +76,12 @@ function New-FreshServiceAgentRoleConfig {
             HelpMessage = 'Unique IDs of Groups in which the permissions granted by the role applies. Mandatory only when the assignment_scope is specified_groups, and should be ignored otherwise.'
         )]
         [long[]]$groups
-
     )
     begin {
 
     }
     process {
-        if ($PSCmdlet.ShouldProcess($id)) {
+        if ($PSCmdlet.ShouldProcess($role_id)) {
 
             $jsonBody = @{}
             $PSBoundParameters.keys.where{
@@ -90,11 +90,11 @@ function New-FreshServiceAgentRoleConfig {
                 $jsonBody[$PSItem.ToLower()] = $PSBoundParameters[$PSItem]
             }
 
-            [pscustomobject]$jsonBody
+            [pscustomobject[]]$jsonBody
 
         }
     }
     end {
-        $results
+
     }
 }

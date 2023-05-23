@@ -84,7 +84,8 @@
     This module was developed and tested with Freshservice REST API v2.
 #>
 function New-FreshServicePurchaseOrder {
-         [CmdletBinding(SupportsShouldProcess=$true, ConfirmImpact='Medium')]
+    [CmdletBinding(SupportsShouldProcess=$true, ConfirmImpact='Medium')]
+
     param (
         [Parameter(
             Mandatory = $true,
@@ -181,7 +182,7 @@ function New-FreshServicePurchaseOrder {
             HelpMessage = 'Items to be ordered.',
             ValueFromPipelineByPropertyName = $true
         )]
-        [object]$purchase_items
+        [object[]]$purchase_items
     )
     begin {
 
@@ -212,7 +213,7 @@ function New-FreshServicePurchaseOrder {
         }
 
         try {
-            if ($PSCmdlet.ShouldProcess($name)) {
+            if ($PSCmdlet.ShouldProcess($uri.Uri.AbsoluteUri)) {
 
                 $params = @{
                     Uri         = $uri.Uri.AbsoluteUri

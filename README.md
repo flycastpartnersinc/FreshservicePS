@@ -4,12 +4,29 @@ permalink: /module/PSFreshservice/
 ---
 # [PSFreshservice](https://www.flycastpartners.com/PSFreshservice)
 
-<!-- [![GitHub release](https://img.shields.io/github/release/flycastpartnersinc/PSFreshservice.svg?style=for-the-badge)](https://github.com/flycastpartnersinc/PSFreshservice/releases/latest)
-[![Build Status](https://img.shields.io/vso/build/flycastpartnersinc/PSFreshservice/11/master.svg?style=for-the-badge)](https://dev.azure.com/flycastpartnersinc/PSFreshservice/_build/latest?definitionId=11)
-[![PowerShell Gallery](https://img.shields.io/powershellgallery/dt/PSFreshService.svg?style=for-the-badge)](https://www.powershellgallery.com/packages/PSFreshService)
-![License](https://img.shields.io/badge/license-MIT-blue.svg?style=for-the-badge) -->
+<!-- [![PowerShell Gallery](https://img.shields.io/powershellgallery/dt/PSFreshService.svg?style=for-the-badge)](https://www.powershellgallery.com/packages/PSFreshService) -->
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-PSFreshservice is a Windows PowerShell module to interact with Freshworks Freshservice via a REST API, while maintaining a consistent PowerShell look, feel, and aligns closely with Freshservice API documentation.
+## About
+From our continued success as a Platinum-level partner, [Flycast Partners] is considered Freshworks’ preferred partner for complex Freshservice ITSM implementations/integrations as well as a leading source of Freshservice knowledge and services. As part of our commitment to delivering high-quality services, our team of ITIL- and Freshworks-certified ITSM Consultants has created PSFreshservice, a comprehensive Freshservice PowerShell API Library, for diverse operational needs.  
+
+Built by the team who garnered Freshworks Global ITSM Strategic Partner of the Year, Flycast Partners believes in contributing to the Freshworks community. Our PowerShell Modules provide organizations with a versatile solution to administer, build, and streamline their Freshservice environment. By offering our expertise and experience to fellow users, we hope to foster a culture of collaboration and knowledge-sharing that empowers this community to succeed and thrive!
+
+With our PSFreshservice PowerShell Modules, Freshservice Admins have the ability to:
+
+- Make the Freshservice API simple to use with a command-line interface
+- Manage Freshservice Ticket, Problems, Changes, Releases, Requesters, and more using simple commands
+- Provide additional reporting and filtering capabilities
+- Automate re-occurring tasks in Freshservice tenants
+- Move data between Freshservice tenants
+- Support DevOps and build, test, and deploy solutions in CI/CD operations
+
+The PSFreshservice module aligns closely with the [Freshservice API] documentation, so be sure to reference notes, throttling and other import aspects of the Freshservice API.
+
+## Status - Work in progress
+
+> This project is a **work in progress** and may change significantly before reaching stability based on feedback from the community.
+> **Please do not base critical processes on this project** until it has been further refined.
 
 <!-- Join the conversation on [![SlackLogo][] AtlassianPS.Slack.com](https://atlassianps.org/slack) -->
 
@@ -22,7 +39,7 @@ PSFreshservice is a Windows PowerShell module to interact with Freshworks Freshs
 
 ### Installation
 
-Install PSFreshService from the [PowerShell Gallery]! `Install-Module` requires PowerShellGet (included in PS v5, or download for v3/v4 via the gallery link)
+Install PSFreshService from the [PowerShell Gallery]! `Install-Module` requires PowerShellGet.
 
 ```powershell
 # One time only install:
@@ -34,64 +51,63 @@ Update-Module PSFreshService
 
 ### Usage
 
+Create a connection profile for PSFreshservice.
+
 ```powershell
-# To create a configuration to Freshservice, this would :
+# To create a configuration to Freshservice:
+
+# Import the module
 Import-Module PSFreshService
-#Configuration to connect to https://acme-corp.freshservice.com API and use as the default connection (automatically connect when importing the module):
+
+# Create a configuration to connect to the Production instance (i.e. https://acme-corp.freshservice.com)
+# API and set as the Default connection (automatically connect when importing the module):
+
 New-FreshServiceConnection -Name acme_prod -ApiKey 'gsfdgjkhdfs73jdsbd' -Tenant 'acme-corp' -Environment Production -Default $true
-#Configuration to connect to https://its-fine-fs-sandbox.freshservice.com API and use as the default connection (automatically connect when importing the module):
+
+# Create a configuration to connect to the Sandbox (i.e. https://its-fine-fs-sandbox.freshservice.com) 
+# API to switch connections using Connect-Freshservice:
+
 New-FreshServiceConnection -Name acme_sbx -ApiKey 'gsfdgjkhdfs73jdsbd' -Tenant 'acme-corp' -Environment Sandbox -Default $false
 ```
 
+Connect to an environment and execute commands:
 
 ```powershell
-# To connect each session, automatically connects to 'acme_prod' as default:
+# When importing the module, it will automatically connect to the default instance 
+# (defined with the -Default switch with 'acme_prod'):
 Import-Module PSFreshService
-# To connect to another environment (e.g. Sandbox) or set the connection parameters:
+
+# To switch to another connection, use the Connect-Freshservice cmdlet:
 Connect-Freshservice -Name acme_sbx 
 ```
 
 You can find the full documentation [here](https://flycastpartners.com/PSFreshService) and in the console.
 
 ```powershell
-# Review the help at any time!
+#Review the help at any time!
 Get-Help about_PSFreshService
 Get-Command -Module PSFreshService
-Get-Help Get-JiraIssue -Full # or any other command
+Get-Help Get-FreshServiceTicket -Full # or any other command
 ```
 
 For more information on how to use PSFreshService, tips, blogs and more, check out the [Documentation](https://flycastpartners.com/PSFreshService).
 
-### Contribute
+<!-- ### Contribute
 
 Want to contribute to PSFreshservice? Great!
-We appreciate who invests their time to make our modules the best they can be.
+We appreciate who invests their time to make our modules the best they can be. -->
 
 <!-- Check out our guidelines on [Contributing] to our modules and documentation. -->
 
-<!-- ## Tested on
-
-|Configuration|Status|
-|-------------|------|
-|Windows Powershell v3||
-|Windows Powershell v4||
-|Windows Powershell v5.1|[![Build Status](https://img.shields.io/vso/build/flycastpartnersinc/PSFreshservice/11/master.svg?style=for-the-badge)](https://dev.azure.com/flycastpartnersinc/PSFreshservice/_build/latest?definitionId=11)|
-|Powershell Core (latest) on Windows|[![Build Status](https://img.shields.io/vso/build/flycastpartnersinc/PSFreshservice/11/master.svg?style=for-the-badge)](https://dev.azure.com/flycastpartnersinc/PSFreshservice/_build/latest?definitionId=11)|
-|Powershell Core (latest) on Ubuntu|[![Build Status](https://img.shields.io/vso/build/flycastpartnersinc/PSFreshservice/11/master.svg?style=for-the-badge)](https://dev.azure.com/flycastpartnersinc/PSFreshservice/_build/latest?definitionId=11)|
-|Powershell Core (latest) on MacOS|[![Build Status](https://img.shields.io/vso/build/flycastpartnersinc/PSFreshservice/11/master.svg?style=for-the-badge)](https://dev.azure.com/flycastpartnersinc/PSFreshservice/_build/latest?definitionId=11)| -->
-
-<!-- ## Acknowledgements
-
-* Thanks to [replicaJunction] for getting this module on it's feet
-* Thanks to everyone ([Our Contributors](https://atlassianps.org/#people)) that helped with this module -->
-
 ## Useful links
 
-* [Source Code]
-* [Latest Release]
-* [Submit an Issue]
-* [Contributing]
-* How you can help us: [List of Issues](https://github.com/flycastpartnersinc/PSFreshservice/issues?q=is%3Aissue+is%3Aopen+label%3Aup-for-grabs)
+- [Flycast Partners]
+- [Freshservice API]
+- [Source Code]
+- [Latest Release]
+- [Submit an Issue]
+
+- How you can help us: [List of Issues](https://github.com/flycastpartnersinc/PSFreshservice/issues?q=is%3Aissue+is%3Aopen+label%3Aup-for-grabs)
 
 ## Disclaimer
 
@@ -100,11 +116,10 @@ Hopefully this is obvious, but:
 > This is an open source project (under the [MIT license]), and all contributors are volunteers. All commands are executed at your own risk. Please have good backups before you start, because you can delete a lot of stuff if you're not careful.
 
 <!-- reference-style links -->
-  <!-- [JIRA]: https://www.atlassian.com/software/jira -->
+  [Flycast Partners]: https://www.flycastpartners.com/
+  [Freshservice API]: https://api.freshservice.com/
   [PowerShell Gallery]: https://www.powershellgallery.com/
   [Source Code]: https://github.com/flycastpartnersinc/PSFreshservice
   [Latest Release]: https://github.com/flycastpartnersinc/PSFreshservice/releases/latest
   [Submit an Issue]: https://github.com/flycastpartnersinc/PSFreshservice/issues/new
-  <!-- [replicaJunction]: https://github.com/replicaJunction -->
   [MIT license]: https://github.com/flycastpartnersinc/PSFreshservice/blob/main/LICENSE
-  <!-- [Contributing]: http://atlassianps.org/docs/Contributing -->

@@ -128,7 +128,7 @@
     The parent id to create a child ticket.  Create child ticket under parent ticket X.
 
 .EXAMPLE
-    New-FreshServiceTicket -email "rob.simmers@company.com" -subject "VPN no worky" -description "Getting an error that VPN version not supported." -priority 2 -status 2 -tags 'VPN',"Version"
+    New-FreshServiceTicket -email "rob.smith@company.com" -subject "VPN no worky" -description "Getting an error that VPN version not supported." -priority 2 -status 2 -tags 'VPN',"Version"
 
     cc_emails        : {}
     fwd_emails       : {}
@@ -162,10 +162,10 @@
     tags             : {VPN, Version}
     attachments      : {}
 
-    Creates a new ticket for requester rob.simmers@company.com with a Priority of 2 and Status of 2 with tags VPN and Version.
+    Creates a new ticket for requester rob.smith@company.com with a Priority of 2 and Status of 2 with tags VPN and Version.
 
 .EXAMPLE
-    New-FreshServiceTicket -email "rob.simmers@company.com" -subject "Need help with HR forms" -description "What is a W4?" -priority 3 -status 3 -workspace_id 3
+    New-FreshServiceTicket -email "rob.smith@company.com" -subject "Need help with HR forms" -description "What is a W4?" -priority 3 -status 3 -workspace_id 3
 
     cc_emails          : {}
     fwd_emails         : {}
@@ -209,7 +209,8 @@
     This module was developed and tested with Freshservice REST API v2.
 #>
 function New-FreshServiceTicket {
-         [CmdletBinding(SupportsShouldProcess=$true, ConfirmImpact='Medium')]
+    [CmdletBinding(SupportsShouldProcess=$true, ConfirmImpact='Medium')]
+
     param (
         [Parameter(
             Mandatory = $false,
@@ -303,7 +304,7 @@ function New-FreshServiceTicket {
             HelpMessage = 'Key value pairs containing the names and values of custom fields. Read more here.',
             ValueFromPipelineByPropertyName = $true
         )]
-        [object]$custom_fields,
+        [object[]]$custom_fields,
         [Parameter(
             Mandatory = $false,
             HelpMessage = 'Timestamp that denotes when the ticket is due to be resolved.',
@@ -346,7 +347,7 @@ function New-FreshServiceTicket {
             HelpMessage = 'List of assets associated with the ticket',
             ValueFromPipelineByPropertyName = $true
         )]
-        [object]$assets,
+        [object[]]$assets,
         [Parameter(
             Mandatory = $false,
             HelpMessage = 'Ticket urgency',
@@ -388,19 +389,19 @@ function New-FreshServiceTicket {
             HelpMessage = 'Problem that need to be associated with ticket (problem display id)',
             ValueFromPipelineByPropertyName = $true
         )]
-        [object]$problem,
+        [object[]]$problem,
         [Parameter(
             Mandatory = $false,
             HelpMessage = 'Change causing the ticket that needs to be associated with ticket (change display id)',
             ValueFromPipelineByPropertyName = $true
         )]
-        [object]$change_initiating_ticket,
+        [object[]]$change_initiating_ticket,
         [Parameter(
             Mandatory = $false,
             HelpMessage = 'Change needed for the ticket to be fixed that needs to be associated with ticket (change display id)',
             ValueFromPipelineByPropertyName = $true
         )]
-        [object]$change_initiated_by_ticket,
+        [object[]]$change_initiated_by_ticket,
         [Parameter(
             Mandatory = $false,
             HelpMessage = 'Create as child ticket of Parent Id',
@@ -440,7 +441,7 @@ function New-FreshServiceTicket {
         }
 
         try {
-            if ($PSCmdlet.ShouldProcess($subject)) {
+            if ($PSCmdlet.ShouldProcess($uri.Uri.AbsoluteUri)) {
 
                 $params = @{
                     Uri         = $uri.Uri.AbsoluteUri

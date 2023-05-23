@@ -4,6 +4,9 @@ properties {
     $PSBPreference.Help.DefaultLocale = 'en-US'
     $PSBPreference.Test.OutputFile = 'out/testResults.xml'
     $PSBPreference.Test.ImportModule   = $true
+    $PSBPreference.Publish.PSRepository = 'PSGallery'
+    $PSBPreference.Publish.PSRepositoryApiKey = $env:PSGALLERY_API_KEY
+
 }
 
 task Default -depends Test

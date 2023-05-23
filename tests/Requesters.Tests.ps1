@@ -6,7 +6,7 @@ Describe "Requesters" {
             $Script:requester_test_guid = New-Guid
             $Script:requester_test_guid2 = New-Guid
 
-            $Script:testerEmail = "rob.simmers@flycastpartners.com"
+            $Script:testerEmail = $env:PSFreshservice_Instance_Admin_Email
 
             $department_ids = Get-FreshServiceDepartment |
                                 Select-Object -First 2 -ExpandProperty id
@@ -15,13 +15,13 @@ Describe "Requesters" {
 
             $newFreshServiceRequesterSplat = @{
                 external_id            = $requester_test_guid
-                first_name             = 'Rob'
-                last_name              = 'Simmers'
+                first_name             = 'Alex'
+                last_name              = 'Smith'
                 job_title              = $job_title
-                primary_email          = 'rasimmers.{0}@gmail.com' -f $requester_test_guid
+                primary_email          = 'requester.{0}@mailinator.com' -f (Get-Date).TimeOfDay.Ticks
                 # secondary_emails       = 'rs1@hotmail.com', 'rs1@yahoo.com'
-                # work_phone_number      = '888-555-1234'
-                # mobile_phone_number    = '888-555-4321'
+                work_phone_number      = '888-555-1234'
+                mobile_phone_number    = '888-555-4321'
                 can_see_all_tickets_from_associated_departments = $true
                 address                = '123 Anywhere Lane'
                 time_zone              = 'Eastern Time (US & Canada)'
@@ -39,15 +39,15 @@ Describe "Requesters" {
 
             $secFreshServiceRequesterSplat = @{
                 external_id            = $requester_test_guid2
-                first_name             = 'Rob'
-                last_name              = 'Simmers'
+                first_name             = 'Tom'
+                last_name              = 'Johnson'
                 job_title              = $job_title
-                primary_email          = 'rasimmers.{0}@gmail.com' -f $requester_test_guid2
+                primary_email          = 'requester.{0}@mailinator.com' -f (Get-Date).TimeOfDay.Ticks
                 # secondary_emails       = 'rs2@hotmail.com', 'rs2@yahoo.com'
                 # work_phone_number      = '888-555-1111'
                 # mobile_phone_number    = '888-555-2222'
                 can_see_all_tickets_from_associated_departments = $true
-                address                = '123 Nowhere Drive'
+                address                = '987 Nowhere Drive'
                 time_zone              = 'Eastern Time (US & Canada)'
                 language               = 'en'
                 background_information = "Technical Wizard Lvl 1000."

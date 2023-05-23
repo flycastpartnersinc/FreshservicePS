@@ -273,7 +273,7 @@ function Set-FreshServiceChange {
             HelpMessage = 'List of assets associated with the change',
             ValueFromPipelineByPropertyName = $true
         )]
-        [object]$assets,
+        [object[]]$assets,
         [Parameter(
             Mandatory = $false,
             HelpMessage = 'List of Impacted Services associated with the change',
@@ -329,7 +329,7 @@ function Set-FreshServiceChange {
         }
 
         try {
-            if ($PSCmdlet.ShouldProcess($id)) {
+            if ($PSCmdlet.ShouldProcess($uri.Uri.AbsoluteUri)) {
 
                 $params = @{
                     Uri         = $uri.Uri.AbsoluteUri

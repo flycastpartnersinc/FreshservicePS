@@ -18,7 +18,7 @@ New-FreshServiceAgent [-first_name] <String> [[-last_name] <String>] [[-occasion
  [[-department_ids] <Int64[]>] [[-can_see_all_tickets_from_associated_departments] <Boolean>]
  [[-reporting_manager_id] <Int64>] [[-address] <String>] [[-time_zone] <String>] [[-time_format] <String>]
  [[-language] <String>] [[-location_id] <Int64>] [[-background_information] <String>]
- [[-scoreboard_level_id] <Int32>] [[-member_of] <Int64[]>] [[-observer_of] <Int64[]>] [-roles] <Object>
+ [[-scoreboard_level_id] <Int32>] [[-member_of] <Int64[]>] [[-observer_of] <Int64[]>] [-roles] <Object[]>
  [[-signature] <String>] [[-custom_fields] <Hashtable>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
@@ -50,9 +50,9 @@ $agentRoles = foreach ($splat in @($newFreshServiceAgentRoleConfigSplat1, $newFr
 
 $newFreshServiceAgentSplat = @{
    first_name             = 'Ralph'
-   last_name              = 'Simmers'
+   last_name              = 'smith'
    job_title              = 'Code Monkey'
-   email                  = 'rasimmers.agent@gmail.com'
+   email                  = 'Alex.agent@example.com'
    background_information = 'Awesome helpdesk training'
    roles = $agentRoles
 }
@@ -69,7 +69,7 @@ created_at                                      : 3/27/2023 5:10:31 PM
 custom_fields                                   : @{employee_id=}
 department_ids                                  : {}
 department_names                                :
-email                                           : rasimmers.agent2@gmail.com
+email                                           : Alex.agent2@example.com
 external_id                                     :
 first_name                                      : Ralph
 has_logged_in                                   : False
@@ -78,7 +78,7 @@ job_title                                       : Code Monkey
 language                                        : en
 last_active_at                                  :
 last_login_at                                   :
-last_name                                       : Simmers
+last_name                                       : Smith
 location_id                                     :
 location_name                                   :
 mobile_phone_number                             :
@@ -414,7 +414,7 @@ agent can use the permissions granted by this role.
 Possible values include entire_helpdesk (all plans)
 
 ```yaml
-Type: Object
+Type: Object[]
 Parameter Sets: (All)
 Aliases:
 

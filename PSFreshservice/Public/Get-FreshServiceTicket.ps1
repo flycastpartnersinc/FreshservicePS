@@ -372,7 +372,7 @@
 .EXAMPLE
     Get-FreshServiceTicket -type 'Service Request'
 
-    subject          : Request for Rob Simmers : Windows Laptop
+    subject          : Request for Alex : Windows Laptop
     group_id         :
     department_id    :
     category         :
@@ -403,7 +403,7 @@
     description_text :
     custom_fields    : @{weather_server=}
 
-    subject          : Request for Rob Simmers : Windows Laptop
+    subject          : Request for Alex : Windows Laptop
     group_id         :
     department_id    :
     category         :
@@ -434,7 +434,7 @@
     description_text :
     custom_fields    : @{weather_server=}
 
-    subject          : Request for Rob Simmers : Windows Laptop
+    subject          : Request for Alex : Windows Laptop
     group_id         :
     department_id    :
     category         :

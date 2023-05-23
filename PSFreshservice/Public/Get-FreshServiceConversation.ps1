@@ -38,14 +38,14 @@
 
     id            : 21004158695
     user_id       : 21000418005
-    to_emails     : {rob.simmers@flycastpartners.com}
+    to_emails     : {alex@example.com}
     body          : <div style="font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif; font-size: 14px; ">
-                    <div>Hi Rob Simmers,<br><br>Ticket: <a href="https://its-fine.freshservice.com/helpdesk/tickets/5" rel="noreferrer">https://its-fine.freshservice.com/helpdesk/tickets/5</a>
+                    <div>Hi Alex,<br><br>Ticket: <a href="https://its-fine.freshservice.com/helpdesk/tickets/5" rel="noreferrer">https://its-fine.freshservice.com/helpdesk/tickets/5</a>
                     </div>
                     <div><br></div>
                     <div>Working on this</div>
                     </div>
-    body_text     : Hi Rob Simmers,  Ticket: https://its-fine.freshservice.com/helpdesk/tickets/5     Working on this
+    body_text     : Hi Alex,  Ticket: https://its-fine.freshservice.com/helpdesk/tickets/5     Working on this
     ticket_id     : 5
     created_at    : 11/17/2022 8:18:18 PM
     updated_at    : 11/17/2022 8:18:18 PM

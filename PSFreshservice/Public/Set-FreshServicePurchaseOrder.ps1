@@ -177,7 +177,7 @@ function Set-FreshServicePurchaseOrder {
             Mandatory = $false,
             HelpMessage = 'Items to be ordered.'
         )]
-        [object]$purchase_items
+        [object[]]$purchase_items
     )
     begin {
         $PrivateData  = $MyInvocation.MyCommand.Module.PrivateData
@@ -212,7 +212,7 @@ function Set-FreshServicePurchaseOrder {
         }
 
         try {
-            if ($PSCmdlet.ShouldProcess($id)) {
+            if ($PSCmdlet.ShouldProcess($uri.Uri.AbsoluteUri)) {
 
                 $params = @{
                     Uri         = $uri.Uri.AbsoluteUri

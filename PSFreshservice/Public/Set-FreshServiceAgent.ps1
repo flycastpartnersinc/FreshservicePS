@@ -102,16 +102,16 @@
     custom_fields                                   : @{employee_id=}
     department_ids                                  : {}
     department_names                                :
-    email                                           : ian.abercrombie@flycastpartners.com
+    email                                           : dana@example.com
     external_id                                     :
-    first_name                                      : Ian
+    first_name                                      : Dana
     has_logged_in                                   : True
     id                                              : 21001392937
     job_title                                       : Purveyor of code
     language                                        : en
     last_active_at                                  : 3/28/2023 11:31:21 PM
     last_login_at                                   : 2/28/2023 11:16:03 PM
-    last_name                                       : Abercrombie
+    last_name                                       : Franks
     location_id                                     :
     location_name                                   :
     mobile_phone_number                             :
@@ -152,7 +152,7 @@
     custom_fields                                   : @{employee_id=}
     department_ids                                  : {}
     department_names                                :
-    email                                           : rasimmers.agent2@gmail.com
+    email                                           : Alex.agent2@example.com
     external_id                                     :
     first_name                                      : Ralph
     has_logged_in                                   : False
@@ -161,7 +161,7 @@
     language                                        : en
     last_active_at                                  :
     last_login_at                                   :
-    last_name                                       : Simmers
+    last_name                                       : Smith
     location_id                                     :
     location_name                                   :
     mobile_phone_number                             :
@@ -207,11 +207,11 @@
     is_agent                                        : False
     job_title                                       : Code Monkey
     language                                        : en
-    last_name                                       : Simmers
+    last_name                                       : Smith
     location_id                                     :
     location_name                                   :
     mobile_phone_number                             :
-    primary_email                                   : rasimmers.agent2@gmail.com
+    primary_email                                   : Alex.agent2@example.com
     reporting_manager_id                            :
     secondary_emails                                : {}
     time_format                                     : 12h
@@ -403,7 +403,7 @@ function Set-FreshServiceAgent {
             HelpMessage = 'Each individual role is a hash in the roles array that contains the attributes.role_id: Unique ID of the role assigned"assignment_scope: The scope in which the agent can use the permissions granted by this role. Possible values include entire_helpdesk (all plans)',
             ValueFromPipelineByPropertyName = $true
         )]
-        [object]$roles,
+        [object[]]$roles,
         [Parameter(
             Mandatory = $false,
             ParameterSetName = 'default',
@@ -467,7 +467,7 @@ function Set-FreshServiceAgent {
         }
 
         try {
-            if ($PSCmdlet.ShouldProcess($id)) {
+            if ($PSCmdlet.ShouldProcess($uri.Uri.AbsoluteUri)) {
 
                 $params = @{
                     Uri         = $uri.Uri.AbsoluteUri
