@@ -26,12 +26,10 @@ The PSFreshservice module aligns closely with the [Freshservice API] documentati
 ## Status - Work in progress
 
 > This project is a **work in progress** and may change significantly before reaching stability based on feedback from the community.
-> **Please do not base critical processes on this project** until it has been further refined.
+> **Please do not base critical processes on this project** until it has been further refined.  Links to other content may not be working
+just yet as we are building content to support this project.
 
-<!-- Join the conversation on [![SlackLogo][] AtlassianPS.Slack.com](https://atlassianps.org/slack) -->
-
-<!-- [SlackLogo]: https://atlassianps.org/assets/img/Slack_Mark_Web_28x28.png -->
-<!--more-->
+Join the conversation on [psfreshservice.slack.com](https://join.slack.com/t/psfreshservice/shared_invite/zt-1vs492no4-A8POa73T~0a8C9mgfB7odQ) -->
 
 ---
 
@@ -90,7 +88,7 @@ Get-Command -Module PSFreshService
 Get-Help Get-FreshServiceTicket -Full # or any other command
 ```
 
-For more information on how to use PSFreshService, tips, blogs and more, check out the [Documentation](https://flycastpartners.com/PSFreshService).
+For more information on how to use PSFreshService, tips, blogs and more, check out (COMING SOON!!).
 
 <!-- ### Contribute
 
@@ -113,7 +111,7 @@ We appreciate who invests their time to make our modules the best they can be. -
 
 Hopefully this is obvious, but:
 
-> This is an open source project (under the [MIT license]), and all contributors are volunteers. All commands are executed at your own risk. Please have good backups before you start, because you can delete a lot of stuff if you're not careful.
+> This is an open source project (under the [MIT license]), and all contributors are volunteers. All commands are executed at your own risk. **Please ensure have good backups before you start, because you can delete a lot of stuff if you're not careful.**
 
 <!-- reference-style links -->
   [Flycast Partners]: https://www.flycastpartners.com/
