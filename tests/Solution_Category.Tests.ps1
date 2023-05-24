@@ -1,6 +1,6 @@
 
 Describe "Solution Category" {
-    InModuleScope PSFreshservice {
+    InModuleScope FreshservicePS {
          BeforeDiscovery {
             Connect-Freshservice -Name ItsFine_Prod -NoBanner
             $Script:solution_category_test_guid = New-Guid

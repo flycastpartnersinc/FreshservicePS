@@ -1,6 +1,6 @@
 
 Describe "Vendors" {
-    InModuleScope PSFreshservice {
+    InModuleScope FreshservicePS {
          BeforeDiscovery {
             Connect-Freshservice -Name ItsFine_Prod -NoBanner
             $Script:vendor_test_guid = New-Guid

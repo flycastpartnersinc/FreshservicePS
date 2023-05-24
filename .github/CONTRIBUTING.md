@@ -1,6 +1,6 @@
 # How to contribute
 
-Contributions to PSFreshservice are highly encouraged and desired.
+Contributions to FreshservicePS are highly encouraged and desired.
 Below are some guidelines that will help make the process as smooth as possible.
 
 ## Getting Started
@@ -13,7 +13,7 @@ Below are some guidelines that will help make the process as smooth as possible.
 
 ## Suggesting Enhancements
 
-I want to know what you think is missing from PSFreshservice and how it can be made better.
+I want to know what you think is missing from FreshservicePS and how it can be made better.
 
 - When submitting an issue for an enhancement, please be as clear as possible about why you think the enhancement is needed and what the benefit of it would be.
 
@@ -59,4 +59,3 @@ In the highly unlikely event that that is _not_ the case, commits to update or a
 - [GitHub pull request documentation](https://help.github.com/send-pull-requests/)
 - [GitHub Flow guide](https://guides.github.com/introduction/flow/)
 - [GitHub's guide to contributing to open source projects](https://guides.github.com/activities/contributing-to-open-source/)
-

@@ -1,6 +1,6 @@
 
 Describe "Canned Responses" {
-    InModuleScope PSFreshservice {
+    InModuleScope FreshservicePS {
          BeforeDiscovery {
             Connect-Freshservice -Name ItsFine_Prod -NoBanner
             $Script:canned_response_test_guid = New-Guid

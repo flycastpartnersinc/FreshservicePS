@@ -1,6 +1,6 @@
 
 Describe "Purchase Orders" {
-    InModuleScope PSFreshservice {
+    InModuleScope FreshservicePS {
          BeforeDiscovery {
             Connect-Freshservice -Name ItsFine_Prod -NoBanner
             $Script:purchase_order_test_guid = New-Guid

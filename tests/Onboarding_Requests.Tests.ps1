@@ -1,11 +1,11 @@
 
 
 Describe "Onboarding Requests" {
-    InModuleScope PSFreshservice {
+    InModuleScope FreshservicePS {
          BeforeDiscovery {
             Connect-Freshservice -Name ItsFine_Prod -NoBanner
             $Script:onboarding_request_test_guid = New-Guid
-            # $Script:testerEmail = $env:PSFreshservice_Instance_Admin_Email
+            # $Script:testerEmail = $env:FreshservicePS_Instance_Admin_Email
 
             $location_id = Get-FreshServiceLocation -Name 'America' |
                                 Select-Object -ExpandProperty id

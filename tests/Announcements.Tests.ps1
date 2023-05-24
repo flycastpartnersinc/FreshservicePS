@@ -1,10 +1,10 @@
 
 Describe "Announcements" {
-    InModuleScope PSFreshservice {
+    InModuleScope FreshservicePS {
          BeforeDiscovery {
             Connect-Freshservice -Name ItsFine_Prod -NoBanner
             $Script:announcement_test_guid = New-Guid
-            $Script:testerEmail = $env:PSFreshservice_Instance_Admin_Email
+            $Script:testerEmail = $env:FreshservicePS_Instance_Admin_Email
 
             $newFreshServiceAnnouncementSplat = @{
                 title             = "SAP Outtage {0}" -f $announcement_test_guid

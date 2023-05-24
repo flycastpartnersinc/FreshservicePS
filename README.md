@@ -1,18 +1,18 @@
 ---
 layout: module
-permalink: /module/PSFreshservice/
+permalink: /module/FreshservicePS/
 ---
-# [PSFreshservice](https://www.flycastpartners.com/PSFreshservice)
+# [FreshservicePS](https://www.flycastpartners.com/FreshservicePS)
 
-<!-- [![PowerShell Gallery](https://img.shields.io/powershellgallery/dt/PSFreshService.svg?style=for-the-badge)](https://www.powershellgallery.com/packages/PSFreshService) -->
+<!-- [![PowerShell Gallery](https://img.shields.io/powershellgallery/dt/FreshservicePS.svg?style=for-the-badge)](https://www.powershellgallery.com/packages/FreshservicePS) -->
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ## About
-From our continued success as a Platinum-level partner, [Flycast Partners] is considered Freshworks’ preferred partner for complex Freshservice ITSM implementations/integrations as well as a leading source of Freshservice knowledge and services. As part of our commitment to delivering high-quality services, our team of ITIL- and Freshworks-certified ITSM Consultants has created PSFreshservice, a comprehensive Freshservice PowerShell API Library, for diverse operational needs.  
+From our continued success as a Platinum-level partner, [Flycast Partners] is considered Freshworks’ preferred partner for complex Freshservice ITSM implementations/integrations as well as a leading source of Freshservice knowledge and services. As part of our commitment to delivering high-quality services, our team of ITIL- and Freshworks-certified ITSM Consultants has created FreshservicePS, a comprehensive Freshservice PowerShell API Library, for diverse operational needs.  
 
 Built by the team who garnered Freshworks Global ITSM Strategic Partner of the Year, Flycast Partners believes in contributing to the Freshworks community. Our PowerShell Modules provide organizations with a versatile solution to administer, build, and streamline their Freshservice environment. By offering our expertise and experience to fellow users, we hope to foster a culture of collaboration and knowledge-sharing that empowers this community to succeed and thrive!
 
-With our PSFreshservice PowerShell Modules, Freshservice Admins have the ability to:
+With our FreshservicePS PowerShell Modules, Freshservice Admins have the ability to:
 
 - Make the Freshservice API simple to use with a command-line interface
 - Manage Freshservice Ticket, Problems, Changes, Releases, Requesters, and more using simple commands
@@ -21,7 +21,7 @@ With our PSFreshservice PowerShell Modules, Freshservice Admins have the ability
 - Move data between Freshservice tenants
 - Support DevOps and build, test, and deploy solutions in CI/CD operations
 
-The PSFreshservice module aligns closely with the [Freshservice API] documentation, so be sure to reference notes, throttling and other import aspects of the Freshservice API.
+The FreshservicePS module aligns closely with the [Freshservice API] documentation, so be sure to reference notes, throttling and other import aspects of the Freshservice API.
 
 ## Status - Work in progress
 
@@ -29,7 +29,7 @@ The PSFreshservice module aligns closely with the [Freshservice API] documentati
 > **Please do not base critical processes on this project** until it has been further refined.  Links to other content may not be working
 just yet as we are building content to support this project.
 
-Join the conversation on [psfreshservice.slack.com](https://join.slack.com/t/psfreshservice/shared_invite/zt-1vs492no4-A8POa73T~0a8C9mgfB7odQ) -->
+Join the conversation on [FreshservicePS.slack.com](https://join.slack.com/t/FreshservicePS/shared_invite/zt-1vs492no4-A8POa73T~0a8C9mgfB7odQ) -->
 
 ---
 
@@ -37,25 +37,25 @@ Join the conversation on [psfreshservice.slack.com](https://join.slack.com/t/psf
 
 ### Installation
 
-Install PSFreshService from the [PowerShell Gallery]! `Install-Module` requires PowerShellGet.
+Install FreshservicePS from the [PowerShell Gallery]! `Install-Module` requires PowerShellGet.
 
 ```powershell
 # One time only install:
-Install-Module PSFreshService -Scope CurrentUser
+Install-Module FreshservicePS -Scope CurrentUser
 
 # Check for updates occasionally:
-Update-Module PSFreshService
+Update-Module FreshservicePS
 ```
 
 ### Usage
 
-Create a connection profile for PSFreshservice.
+Create a connection profile for FreshservicePS.
 
 ```powershell
 # To create a configuration to Freshservice:
 
 # Import the module
-Import-Module PSFreshService
+Import-Module FreshservicePS
 
 # Create a configuration to connect to the Production instance (i.e. https://acme-corp.freshservice.com)
 # API and set as the Default connection (automatically connect when importing the module):
@@ -73,26 +73,26 @@ Connect to an environment and execute commands:
 ```powershell
 # When importing the module, it will automatically connect to the default instance 
 # (defined with the -Default switch with 'acme_prod'):
-Import-Module PSFreshService
+Import-Module FreshservicePS
 
 # To switch to another connection, use the Connect-Freshservice cmdlet:
 Connect-Freshservice -Name acme_sbx 
 ```
 
-You can find the full documentation [here](https://flycastpartners.com/PSFreshService) and in the console.
+You can find the full documentation [here](https://flycastpartners.com/FreshservicePS) and in the console.
 
 ```powershell
 #Review the help at any time!
-Get-Help about_PSFreshService
-Get-Command -Module PSFreshService
+Get-Help about_FreshservicePS
+Get-Command -Module FreshservicePS
 Get-Help Get-FreshServiceTicket -Full # or any other command
 ```
 
-For more information on how to use PSFreshService, tips, blogs and more, check out (COMING SOON!!).
+For more information on how to use FreshservicePS, tips, blogs and more, check out (COMING SOON!!).
 
 <!-- ### Contribute
 
-Want to contribute to PSFreshservice? Great!
+Want to contribute to FreshservicePS? Great!
 We appreciate who invests their time to make our modules the best they can be. -->
 
 <!-- Check out our guidelines on [Contributing] to our modules and documentation. -->
@@ -105,7 +105,7 @@ We appreciate who invests their time to make our modules the best they can be. -
 - [Latest Release]
 - [Submit an Issue]
 
-- How you can help us: [List of Issues](https://github.com/flycastpartnersinc/PSFreshservice/issues?q=is%3Aissue+is%3Aopen+label%3Aup-for-grabs)
+- How you can help us: [List of Issues](https://github.com/flycastpartnersinc/FreshservicePS/issues?q=is%3Aissue+is%3Aopen+label%3Aup-for-grabs)
 
 ## Disclaimer
 
@@ -117,7 +117,7 @@ Hopefully this is obvious, but:
   [Flycast Partners]: https://www.flycastpartners.com/
   [Freshservice API]: https://api.freshservice.com/
   [PowerShell Gallery]: https://www.powershellgallery.com/
-  [Source Code]: https://github.com/flycastpartnersinc/PSFreshservice
-  [Latest Release]: https://github.com/flycastpartnersinc/PSFreshservice/releases/latest
-  [Submit an Issue]: https://github.com/flycastpartnersinc/PSFreshservice/issues/new
-  [MIT license]: https://github.com/flycastpartnersinc/PSFreshservice/blob/main/LICENSE
+  [Source Code]: https://github.com/flycastpartnersinc/FreshservicePS
+  [Latest Release]: https://github.com/flycastpartnersinc/FreshservicePS/releases/latest
+  [Submit an Issue]: https://github.com/flycastpartnersinc/FreshservicePS/issues/new
+  [MIT license]: https://github.com/flycastpartnersinc/FreshservicePS/blob/main/LICENSE

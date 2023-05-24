@@ -1,6 +1,6 @@
 
 Describe "Requester Groups" {
-    InModuleScope PSFreshservice {
+    InModuleScope FreshservicePS {
          BeforeDiscovery {
             Connect-Freshservice -Name ItsFine_Prod -NoBanner
             $Script:requester_group_test_guid = New-Guid

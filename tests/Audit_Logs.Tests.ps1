@@ -1,6 +1,6 @@
 
 Describe "Audit Logs" {
-    InModuleScope PSFreshservice {
+    InModuleScope FreshservicePS {
          BeforeDiscovery {
             Connect-Freshservice -Name ItsFine_Prod -NoBanner
             $Script:audit_log_test_guid = New-Guid

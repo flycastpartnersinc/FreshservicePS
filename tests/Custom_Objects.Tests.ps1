@@ -1,11 +1,11 @@
 
 Describe "Custom Objects" {
-    InModuleScope PSFreshservice {
+    InModuleScope FreshservicePS {
          BeforeDiscovery {
             Connect-Freshservice -Name ItsFine_Prod -NoBanner
             $Script:custom_object_test_guid = New-Guid
 
-            $Script:testerEmail = $env:PSFreshservice_Instance_Admin_Email
+            $Script:testerEmail = $env:FreshservicePS_Instance_Admin_Email
 
             $Script:agent_id = Get-FreshServiceAgent -Filter "email:'$testerEmail'" |
                                     Select-Object -ExpandProperty id
