@@ -16,7 +16,7 @@ the tenant that will be used for cmdlet execution.
 ## SYNTAX
 
 ```
-Connect-Freshservice [-Name] <String> [-PassThru] [-NoBanner] [<CommonParameters>]
+Connect-Freshservice [-Name] <String> [-PassThru] [-NoBanner] [-NoThrottle] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -76,6 +76,31 @@ No banner for the hard working team building the module.
 Type: SwitchParameter
 Parameter Sets: (All)
 Aliases: LeaveMeAlone
+
+Required: False
+Position: Named
+Default value: False
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -NoThrottle
+Disable artificial throttling.
+
+**WARNING** The API rate limit is applied on an account wide basis irrespective of factors such as
+the number of agents or IP addresses used to make the calls.  There are numerous API calls that can consume multiple API calls
+for single get operations (e.g. Get-FSAsset -IncludeTypeFields = 3 API credits for each call). Throttling will slow
+the API calls down ggadually the closer the query gets to consuming all calls forcing a 429 Retry-After which affects all API
+calls to the account.  Here is the breakdown:
+
+Consumed calls greater than 70% = 5 seconds
+Consumed calls greater than 80% = 15 seconds
+Consumed calls greater than 90% = 30 seconds
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
 
 Required: False
 Position: Named

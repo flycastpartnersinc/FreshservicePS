@@ -58,8 +58,12 @@ function Get-FreshServiceBackgroundJob {
 
             $result = Invoke-FreshworksRestMethod @params
 
-            $content = $result.Content |
-                            ConvertFrom-Json
+            if ($result.Content) {
+                $content = $result.Content |
+                                ConvertFrom-Json
+
+
+            }
 
         }
         catch {

@@ -18,6 +18,19 @@
 .PARAMETER NoBanner
     No banner for the hard working team building the module. ;)
 
+.PARAMETER NoThrottle
+    Disable artificial throttling.
+
+    **WARNING** The API rate limit is applied on an account wide basis irrespective of factors such as
+    the number of agents or IP addresses used to make the calls.  There are numerous API calls that can consume multiple API calls
+    for single get operations (e.g. Get-FSAsset -IncludeTypeFields = 3 API credits for each call). Throttling will slow
+    the API calls down ggadually the closer the query gets to consuming all calls forcing a 429 Retry-After which affects all API
+    calls to the account.  Here is the breakdown:
+
+    Consumed calls greater than 70% = 5 seconds
+    Consumed calls greater than 80% = 15 seconds
+    Consumed calls greater than 90% = 30 seconds
+
 .EXAMPLE
     Connect-Freshservice -Name acme_prod
 
@@ -42,7 +55,11 @@ function Connect-Freshservice {
             Mandatory = $False,
             HelpMessage = 'No banner for the hard working team building the module. ;) ')]
         [Alias('LeaveMeAlone')]
-        [switch]$NoBanner
+        [switch]$NoBanner,
+        [Parameter(
+            Mandatory = $False,
+            HelpMessage = 'Disable artificial throttling.')]
+        [switch]$NoThrottle
     )
     begin {
         $PrivateData  = $MyInvocation.MyCommand.Module.PrivateData
@@ -62,6 +79,13 @@ function Connect-Freshservice {
             $PrivateData.FreshserviceBaseUri    = $environment.BaseUri
             $PrivateData.FreshserviceConnection = $Name
 
+            if ($NoThrottle) {
+                $PrivateData.FreshserviceThrottling = $false
+            }
+
+        }
+        catch [System.IO.FileNotFoundException] {
+            Throw 'Configuration file {0} does not exist. Use New-FreshServiceConnection to create and save a configuration.' -f $FreshServiceConfigPath
         }
         catch {
             Throw $_
@@ -80,12 +104,12 @@ function Connect-Freshservice {
 
 $aboutFlyCast = @"
 This free Powershell module is provided by Flycast Partners to the Freshworks Freshservice Community.  Flycast Partners specializes in ITSM solutions and is a Freshworks Platinum Partner. Need assistance
-with your Freshservice instance(s) or initiative, give us a shout or check out our website for current offerings:
+with your Freshservice instance(s) or initiative, contact us or check out our website for current offerings:
 
 Website:  www.flycastpartners.com
-Email:    sales@example.com
-Linkedin: www.linkedin.com/flycast
-Twitter:  www.twitter.com/flycast
+Email: info@FlycastPartners.com
+Linkedin: https://www.linkedin.com/company/2025923/
+Twitter: https://twitter.com/Flycast_
 
 Thank you to everyone for your support! Happy coding!
 "@

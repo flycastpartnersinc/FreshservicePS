@@ -11,6 +11,13 @@
     Hashtable containing the Onboarding Request fields.
 
 .EXAMPLE
+    $fields = @{
+        cf_employee_name   = "Frank Johnson"
+        cf_job_title       = "Analyst I"
+        cf_date_of_joining = (Get-Date -Format 'yyyy-MM-dd')
+        cf_department      = 'IT'
+        cf_location        = 21000159890
+    }
     New-FreshServiceOnboardingRequest -fields $fields
 
     id            : 10
@@ -75,10 +82,10 @@ function New-FreshServiceOnboardingRequest {
 
                 $result = Invoke-FreshworksRestMethod @params
 
-                $content = $result.Content |
-                                ConvertFrom-Json -Depth 5
+                if ($result.Content) {
+                    $content = $result.Content |
+                                    ConvertFrom-Json
 
-                if ($content) {
                     #API returns singluar or plural property based on the number of records, parse to get property returned.
                     $objProperty = $content[0].PSObject.Properties.Name
                     Write-Verbose -Message ("Returning {0} property with count {1}" -f $objProperty, $content."$($objProperty)".Count)

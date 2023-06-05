@@ -112,7 +112,7 @@ function Get-FreshServiceNote {
             $uri.Path = "{0}/conversations" -f $uri.Path, $Id
         }
         else {
-            $uri.Path = "{0}/notes" -f $uri.Path, $Id
+            $uri.Path = "{0}\notes" -f $uri.Path, $Id
         }
 
         if ($Id) {
@@ -141,10 +141,10 @@ function Get-FreshServiceNote {
 
                 $result = Invoke-FreshworksRestMethod @params
 
-                $content = $result.Content |
-                                ConvertFrom-Json
+                if ($result.Content) {
+                    $content = $result.Content |
+                                    ConvertFrom-Json
 
-                if ($content) {
                     #API returns singluar or plural property based on the number of records, parse to get property returned.
                     $objProperty = $content[0].PSObject.Properties.Name |
                                         Where-Object -FilterScript {$_ -like 'note*' -or $_ -like 'conversation*'}

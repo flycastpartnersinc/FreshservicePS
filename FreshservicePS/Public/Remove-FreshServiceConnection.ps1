@@ -40,8 +40,6 @@ function Remove-FreshServiceConnection {
     )
     begin {
 
-
-
     }
     process {
         $environments = @()

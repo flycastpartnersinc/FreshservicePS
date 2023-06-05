@@ -1,4 +1,3 @@
-
 Describe "Changes" {
     InModuleScope FreshservicePS {
          BeforeDiscovery {

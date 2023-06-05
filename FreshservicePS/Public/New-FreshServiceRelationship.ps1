@@ -14,8 +14,6 @@
 .EXAMPLE
     Create a new FreshService Relationship.
 
-
-
     $newFreshServiceRelationshipItemSplat = @{
         relationship_type_id = 21000356921 #Get-FreshServiceRelationshipType
         primary_id           = 42
@@ -75,8 +73,12 @@ function New-FreshServiceRelationship {
 
                 $result = Invoke-FreshworksRestMethod @params
 
-                $content = $result.Content |
-                                ConvertFrom-Json -Depth 5
+                if ($result.Content) {
+                    $content = $result.Content |
+                                    ConvertFrom-Json
+
+                }
+
 
             }
 

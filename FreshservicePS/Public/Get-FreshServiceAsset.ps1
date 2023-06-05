@@ -405,32 +405,30 @@
 
         if ($PSBoundParameters.ContainsKey('IncludeTypeFields')) {
             $qry.Add('include', 'type_fields')
-            $enablePagination = $false
         }
 
         if ($PSBoundParameters.ContainsKey('SearchTrash')) {
             $qry.Add('trashed', 'true' )
-            $enablePagination = $false
         }
 
         if ($PSBoundParameters.ContainsKey('components')) {
             $uri.Path = "{0}/components" -f $uri.Path
-            $enablePagination = $false
+            $enablePagination = $true
         }
 
         if ($PSBoundParameters.ContainsKey('requests')) {
             $uri.Path = "{0}/requests" -f $uri.Path
-            $enablePagination = $false
+            $enablePagination = $true
         }
 
         if ($PSBoundParameters.ContainsKey('contracts')) {
             $uri.Path = "{0}/contracts" -f $uri.Path
-            $enablePagination = $false
+            $enablePagination = $true
         }
 
         if ($PSBoundParameters.ContainsKey('relationships')) {
             $uri.Path = "{0}/relationships" -f $uri.Path
-            $enablePagination = $false
+            $enablePagination = $true
         }
 
     }
@@ -457,10 +455,11 @@
 
                 $result = Invoke-FreshworksRestMethod @params
 
-                $content = $result.Content |
-                                ConvertFrom-Json
+                if ($result.Content) {
+                    $content = $result.Content |
+                                    ConvertFrom-Json
 
-                if ($content) {
+
                     #API returns singluar or plural property based on the number of records, parse to get property returned.
                     $objProperty = $content[0].PSObject.Properties.Name
                     Write-Verbose -Message ("Returning {0} property with count {1}" -f $objProperty, $content."$($objProperty)".Count)

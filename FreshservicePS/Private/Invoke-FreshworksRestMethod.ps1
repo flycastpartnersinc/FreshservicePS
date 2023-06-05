@@ -126,6 +126,7 @@ function Invoke-FreshworksRestMethod {
         )
         begin {
             $stopwatch = [System.Diagnostics.Stopwatch]::StartNew()
+            $PrivateData  = $MyInvocation.MyCommand.Module.PrivateData
 
             if ( $MyInvocation.MyCommand.Module.PrivateData['FreshserviceApiToken'] ) {
                 Write-Verbose 'Appending Authorization header'
@@ -186,29 +187,56 @@ function Invoke-FreshworksRestMethod {
 
                 $results = Invoke-WebRequest @restParams
                 Write-Verbose -Message ('Returned status {0} with code {1}.' -f $results.StatusDescription, $results.StatusCode)
-                Write-Verbose -Message ('Current FreshService minute rate limit is {0} with {1} calls remaining.' -f ($results.Headers['X-Ratelimit-Total'][0]),($results.Headers['X-Ratelimit-Remaining'][0]))
-            }
-            catch [System.Net.WebException] {
-                Write-Verbose -Message ("Catching System.Net.WebException of with status code {0}" -f $_.Exception.Response.StatusCode)
-                switch ($_.Exception.Response.StatusCode) {
-                    429 {
-                        $sleepInSecs = $_.Exception.Response.Headers.GetValues('Retry-After')[0]
-                        Write-Warning -Message ('Throttle Limit reached [ 429 ] Sleeping for [ {0} ] seconds.' -f $sleepInSecs)
-                        Write-Verbose -Message ('Throttle Limit reached [ 429 ] Sleeping for [ {0} ] seconds.' -f $sleepInSecs)
-                        Start-Sleep -Seconds $sleepInSecs
-                    }
-                    default {
-                        Write-Verbose -Message ("Default System.Net.Exception with status code {0}" -f $_.Exception.Response.StatusCode)
-                        Throw $_
+                $rateTotal = $results.Headers['X-Ratelimit-Total'][0]
+                $rateRemaining = $results.Headers['X-Ratelimit-Remaining'][0]
+
+                If ($rateTotal -gt 0 -and $rateRemaining -gt 0) {
+                    $pctRateUsed = [math]::Round(($rateTotal-$rateRemaining)/$rateTotal * 100, 2)
+                    Write-Verbose -Message ('Current FreshService minute rate limit is {0} with {1} calls remaining ({2}% used) .' -f $rateTotal, $rateRemaining,$pctRateUsed)
+
+                    if ($PrivateData.FreshserviceThrottling -eq $true) {
+                        # The API rate limit is applied on an account wide basis irrespective of factors such as
+                        # the number of agents or IP addresses used to make the calls.  There are numerous API calls that can consume multiple API calls
+                        # for single get operations (e.g. Get-FSAsset -IncludeTypeFields = 3 API credits for each call). Throttling will slow
+                        # the API calls down ggadually the closer the query gets to consuming all calls forcing a 429 Retry-After which affects all API
+                        # calls to the account.
+
+                        if ($pctRateUsed -ge 70.00) {
+                            switch ($pctRateUsed) {
+                                {$PSItem -ge 70.00} {$sleepInSecs = 5}
+                                {$PSItem -ge 80.00} {$sleepInSecs = 15}
+                                {$PSItem -ge 90.00} {$sleepInSecs = 30}
+                            }
+
+                            Write-Warning -Message ('Executing {0}. FreshService API minute rate limit above 70% threshold with {1} total calls available and {2} calls remaining ({3}% used). Artificially slowing calls by {4} second. See Connect-Freshservice for options.' -f $uri, $rateTotal, $rateRemaining,$pctRateUsed,$sleepInSecs)
+                            Start-Sleep -Seconds $sleepInSecs
+                        }
                     }
                 }
 
             }
             catch {
-                Write-Verbose -Message ("Throwing Default exception of type {0}" -f $_.Exception.GetType().Name)
                 $ex = $_
+                Write-Verbose -Message ("Catching exception {0} with status code {1}" -f $ex.Exception.GetType().FullName, $ex.Exception.Response.value__)
+                switch ($ex.Exception.Response.StatusCode.value__) {
+                    '429' {
+                        [int]$sleepInSecs = $ex.Exception.Response.Headers.GetValues('Retry-After')[0]
+                        Write-Warning -Message ('API rate limit reached. Automatically sleeping for {0} seconds.' -f $sleepInSecs)
+                        Write-Verbose -Message ('API rate limit reached. Automatically sleeping for {0} seconds.' -f $sleepInSecs)
+                        Start-Sleep -Seconds $sleepInSecs
+                        $results = [PSCustomObject]@{
+                            Content = $null
+                            Headers = @{
+                                Link = '<{0}>' -f $uri
+                            }
+                        }
 
-                Throw $ex
+                    }
+                    default {
+                        Write-Verbose -Message ("Throwing Default exception of type {0}" -f $ex.Exception.GetType().FullName)
+                        Throw $ex
+                    }
+                }
 
             }
         } #process

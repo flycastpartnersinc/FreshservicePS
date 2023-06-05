@@ -73,6 +73,11 @@
 .PARAMETER item_cost_details
     Item cost detail is an object array containing item cost details. See helper function: New-FreshServiceContractItem
 
+.PARAMETER associated_asset_ids
+    Display Id(s) of the Assets to associate to contract.
+
+    Note:  Not applicable to contract type Software (3)
+
 .PARAMETER SubmitForApproval
     This operation allows you to submit a contract for approval in the account.
 
@@ -365,14 +370,14 @@ function Set-FreshServiceContract {
         )]
         [ValidateSet('monthly', 'quarterly', 'half_yearly', 'annual', 'one_time')]
         [string]$billing_cycle,
-        # [Parameter(
-        #     Mandatory = $false,
-        #     HelpMessage = 'Unique id of the software',
-        #     ValueFromPipelineByPropertyName = $true,
-        #     ParameterSetName = 'default',
-        #     Position = 20
-        # )]
-        # [long[]]$associated_asset_ids,
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Unique id of the software',
+            ValueFromPipelineByPropertyName = $true,
+            ParameterSetName = 'default',
+            Position = 20
+        )]
+        [int[]]$associated_asset_ids,
         [Parameter(
             Mandatory = $false,
             HelpMessage = 'Ticket attachments. The total size of these attachments cannot exceed 15MB.',
@@ -515,10 +520,10 @@ function Set-FreshServiceContract {
                 }
                 else {
 
-                    $content = $result.Content |
-                                    ConvertFrom-Json
+                    if ($result.Content) {
+                        $content = $result.Content |
+                                        ConvertFrom-Json
 
-                    if ($content) {
                         #API returns singluar or plural property based on the number of records, parse to get property returned.
                         $objProperty = $content[0].PSObject.Properties.Name
                         Write-Verbose -Message ("Returning {0} property with count {1}" -f $objProperty, $content."$($objProperty)".Count)

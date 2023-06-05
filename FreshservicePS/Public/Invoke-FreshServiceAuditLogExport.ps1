@@ -192,13 +192,6 @@ function Invoke-FreshServiceAuditLogExport {
             $content = $result.Content |
                              ConvertFrom-Json
 
-            #  if ($content) {
-            #      #API returns singluar or plural property based on the number of records, parse to get property returned.
-            #      $objProperty = $content[0].PSObject.Properties.Name
-            #      Write-Verbose -Message ("Returning {0} property with count {1}" -f $objProperty, $content."$($objProperty)".Count)
-            #      $content."$($objProperty)"
-            #  }
-
             $content
         }
         catch {

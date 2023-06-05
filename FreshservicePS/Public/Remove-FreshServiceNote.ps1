@@ -68,7 +68,7 @@ function Remove-FreshServiceNote {
     }
     process {
 
-        $uri = [System.UriBuilder]('{0}/{1}s/{2}/notes/{3}' -f $PrivateData['FreshserviceBaseUri'], $type.ToLower(),$parent_id,$id)
+        $uri = [System.UriBuilder]('{0}/{1}s/{2}\notes/{3}' -f $PrivateData['FreshserviceBaseUri'], $type.ToLower(),$parent_id,$id)
 
         try {
             if ($PSCmdlet.ShouldProcess($uri.Uri.AbsoluteUri)) {

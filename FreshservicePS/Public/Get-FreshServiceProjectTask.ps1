@@ -387,10 +387,10 @@ function Get-FreshServiceProjectTask {
 
                 $result = Invoke-FreshworksRestMethod @params
 
-                $content = $result.Content |
-                                ConvertFrom-Json
+                if ($result.Content) {
+                    $content = $result.Content |
+                                    ConvertFrom-Json
 
-                if ($content) {
                     #API returns singluar or plural property based on the number of records, parse to get property returned.
                     Write-Verbose ('Properties: {0}' -f ($content[0].PSObject.Properties.Name -join ','))
                     $objProperty = $content[0].PSObject.Properties.Name |

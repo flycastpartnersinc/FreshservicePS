@@ -35,7 +35,7 @@ Set-FreshServiceContract [-id] <Int64> [[-name] <String>] [[-description] <Strin
  [[-start_date] <DateTime>] [[-end_date] <DateTime>] [[-cost] <Int64>] [[-contract_number] <String>]
  [[-contract_type_id] <Int64>] [[-visible_to_id] <Int64>] [[-software_id] <Int64>] [[-notify_to] <String[]>]
  [[-custom_fields] <Hashtable>] [[-item_cost_details] <Object[]>] [[-billing_cycle] <String>]
- [[-attachments] <FileInfo[]>] [-WhatIf] [-Confirm] [<CommonParameters>]
+ [[-associated_asset_ids] <Int32[]>] [[-attachments] <FileInfo[]>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -451,6 +451,23 @@ Aliases:
 
 Required: False
 Position: 20
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -associated_asset_ids
+Display Id(s) of the Assets to associate to contract.
+
+Note:  Not applicable to contract type Software (3)
+
+```yaml
+Type: Int32[]
+Parameter Sets: default
+Aliases:
+
+Required: False
+Position: 21
 Default value: None
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False

@@ -12,7 +12,7 @@
     RootModule = 'FreshservicePS.psm1'
 
     # Version number of this module.
-    ModuleVersion = '0.1.0'
+    ModuleVersion = '0.1.1'
 
     # Supported PSEditions
     # CompatiblePSEditions = @()
@@ -21,7 +21,7 @@
     GUID = 'b75714b5-6a7a-400b-ab23-e46417978c07'
 
     # Author of this module
-    Author = 'FreshservicePS'
+    Author = 'Rob Simmers'
 
     # Company or vendor of this module
     CompanyName = 'Freshworks'
@@ -30,7 +30,7 @@
     Copyright = '(c) Flycast Partners, Inc. All rights reserved.'
 
     # Description of the functionality provided by this module
-    Description = 'A Powershell module to interface with the Freshservice REST API interface.'
+    Description = 'A Powershell module to interface with the Freshservice REST API.'
 
     # Minimum version of the PowerShell engine required by this module
     PowerShellVersion = '5.1'
@@ -95,6 +95,7 @@
         FreshserviceTenant         = $null;
         FreshserviceBaseUri        = $null;
         FreshserviceConnection     = $null;
+        FreshserviceThrottling     = $true;
         # Exclude Common Params to use $PSBoundParameters as the JSON body
         # https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_commonparameters
         FreshserviceBodyExclusions = 'Verbose',
