@@ -196,7 +196,7 @@ function New-FreshServiceRequester {
             Mandatory = $false,
             HelpMessage = 'Key-value pair containing the names and values of the (custom) requester fields.'
         )]
-        [object[]]$custom_fields
+        [object]$custom_fields
     )
     begin {
 

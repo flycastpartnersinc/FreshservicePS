@@ -293,7 +293,7 @@ function Set-FreshServiceTicket {
             ParameterSetName = 'default',
             Position = 12
         )]
-        [object[]]$custom_fields,
+        [object]$custom_fields,
         [Parameter(
             Mandatory = $false,
             HelpMessage = 'Timestamp that denotes when the ticket is due to be resolved.',

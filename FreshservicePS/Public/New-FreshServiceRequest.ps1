@@ -194,7 +194,7 @@ function New-FreshServiceRequest {
             HelpMessage = 'Values of custom fields present in the service item form',
             ValueFromPipelineByPropertyName = $true
         )]
-        [object[]]$custom_fields,
+        [object]$custom_fields,
         [Parameter(
             Mandatory = $false,
             HelpMessage = 'Create as a child request. Display Id of the Service Request.',

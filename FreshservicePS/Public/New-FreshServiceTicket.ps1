@@ -304,7 +304,7 @@ function New-FreshServiceTicket {
             HelpMessage = 'Key value pairs containing the names and values of custom fields. Read more here.',
             ValueFromPipelineByPropertyName = $true
         )]
-        [object[]]$custom_fields,
+        [object]$custom_fields,
         [Parameter(
             Mandatory = $false,
             HelpMessage = 'Timestamp that denotes when the ticket is due to be resolved.',
