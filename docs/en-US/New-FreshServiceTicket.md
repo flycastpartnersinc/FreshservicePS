@@ -15,12 +15,12 @@ Creates a Freshservice Ticket.
 ```
 New-FreshServiceTicket [[-name] <String>] [[-workspace_id] <Int64>] [[-requester_id] <Int64>] [-email] <String>
  [[-phone] <String>] [[-subject] <String>] [[-type] <String>] [-status] <Int32> [-priority] <Int32>
- [[-description] <String>] [[-responder_id] <Int64>] [[-attachments] <FileInfo[]>]
- [[-custom_fields] <Object[]>] [[-due_by] <DateTime>] [[-email_config_id] <Int64>] [[-fr_due_by] <DateTime>]
- [[-group_id] <Int64>] [[-source] <String>] [[-tags] <String[]>] [[-assets] <Object[]>] [[-urgency] <Int32>]
- [[-impact] <Int32>] [[-category] <String>] [[-sub_category] <String>] [[-item_category] <String>]
- [[-department_id] <Int64>] [[-problem] <Object[]>] [[-change_initiating_ticket] <Object[]>]
- [[-change_initiated_by_ticket] <Object[]>] [[-parent_id] <Int64>] [-WhatIf] [-Confirm] [<CommonParameters>]
+ [[-description] <String>] [[-responder_id] <Int64>] [[-attachments] <FileInfo[]>] [[-custom_fields] <Object>]
+ [[-due_by] <DateTime>] [[-email_config_id] <Int64>] [[-fr_due_by] <DateTime>] [[-group_id] <Int64>]
+ [[-source] <String>] [[-tags] <String[]>] [[-assets] <Object[]>] [[-urgency] <Int32>] [[-impact] <Int32>]
+ [[-category] <String>] [[-sub_category] <String>] [[-item_category] <String>] [[-department_id] <Int64>]
+ [[-problem] <Object[]>] [[-change_initiating_ticket] <Object[]>] [[-change_initiated_by_ticket] <Object[]>]
+ [[-parent_id] <Int64>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -320,7 +320,7 @@ Key value pairs containing the names and values of custom fields.
 Read more here.
 
 ```yaml
-Type: Object[]
+Type: Object
 Parameter Sets: (All)
 Aliases:
 

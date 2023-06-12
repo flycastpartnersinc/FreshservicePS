@@ -14,7 +14,7 @@ Creates new Freshservice Service Request.
 
 ```
 New-FreshServiceRequest [-display_id] <Int64> [[-quantity] <Int32>] [[-requested_for] <String>]
- [[-email] <String>] [[-child_items] <Object[]>] [[-custom_fields] <Object[]>] [[-parent_ticket_id] <Int64>]
+ [[-email] <String>] [[-child_items] <Object[]>] [[-custom_fields] <Object>] [[-parent_ticket_id] <Int64>]
  [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
@@ -210,7 +210,7 @@ Accept wildcard characters: False
 Values of custom fields present in the service item form
 
 ```yaml
-Type: Object[]
+Type: Object
 Parameter Sets: (All)
 Aliases:
 
