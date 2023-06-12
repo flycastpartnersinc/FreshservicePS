@@ -321,7 +321,7 @@ function Set-FreshServiceChange {
             $PSItem -notin $PrivateData.FreshserviceBodyExclusions
         }.foreach{
             if ($PSBoundParameters[$PSItem] -is [boolean]) {
-                $jsonBody[$PSItem.ToLower()] = (Get-Date -Date $PSBoundParameters[$PSItem]).ToUniversalTime().ToString("yyyy-MM-ddThh:mm:ssZ")
+                $jsonBody[$PSItem.ToLower()] = (Get-Date -Date $PSBoundParameters[$PSItem]).ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ssZ")
             }
             else {
                 $jsonBody[$PSItem.ToLower()] = $PSBoundParameters[$PSItem]

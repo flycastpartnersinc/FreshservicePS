@@ -41,10 +41,10 @@ Install FreshservicePS from the [PowerShell Gallery]! `Install-Module` requires 
 
 ```powershell
 # One time only install:
-Install-Module FreshservicePS -Scope CurrentUser
+Install-Module -Name FreshservicePS -Scope CurrentUser
 
 # Check for updates occasionally:
-Update-Module FreshservicePS
+Update-Module -Name FreshservicePS
 ```
 
 ### Usage
@@ -55,7 +55,7 @@ Create a connection profile for FreshservicePS.
 # To create a configuration to Freshservice:
 
 # Import the module
-Import-Module FreshservicePS
+Import-Module -Name FreshservicePS
 
 # Create a configuration to connect to the Production instance (i.e. https://acme-corp.freshservice.com)
 # API and set as the Default connection (automatically connect when importing the module):
@@ -86,6 +86,14 @@ You can find the full documentation [here](https://flycastpartners.com/Freshserv
 Get-Help about_FreshservicePS
 Get-Command -Module FreshservicePS
 Get-Help Get-FreshServiceTicket -Full # or any other command
+```
+
+### Rate Limit (Throttling)
+
+Highly recommend reviewing the [rate limit](https://api.freshservice.com/#rate_limit) documentation for Freshservice.  The rate limit applies at the **account level** (not per API Key\account), so all accounts leveraging the API consume calls.  This module performs pagination automatically and pipeline operations that can make many API calls very quickly, so throttling at the module level is default behavior to reduce the probability of a 429 Retry-After which makes the API inaccessible for the entire account for time period (usually 30-40 seconds).  If bulk operations are being performed and no throttling should occur, use the NoThrottling switch:
+
+```powershell
+Connect-Freshservice -Name my_instance -NoThrottling
 ```
 
 For more information on how to use FreshservicePS, tips, blogs and more, check out (COMING SOON!!).

@@ -101,7 +101,7 @@ function Invoke-FreshworksRestMethod {
                        ParameterSetName = 'default',
                        Position = 4
             )]
-            [object[]]$Body,
+            $Body,
             [Parameter(Mandatory = $False,
                        ValueFromPipelineByPropertyName = $True,
                        HelpMessage = 'ContentType of passed Body for REST header',
@@ -224,6 +224,7 @@ function Invoke-FreshworksRestMethod {
                         Write-Warning -Message ('API rate limit reached. Automatically sleeping for {0} seconds.' -f $sleepInSecs)
                         Write-Verbose -Message ('API rate limit reached. Automatically sleeping for {0} seconds.' -f $sleepInSecs)
                         Start-Sleep -Seconds $sleepInSecs
+                        # Create object schema to resend the header link to re-run last API call that terminated with 429
                         $results = [PSCustomObject]@{
                             Content = $null
                             Headers = @{

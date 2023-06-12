@@ -46,6 +46,14 @@ function Connect-Freshservice {
             Mandatory = $true,
             HelpMessage = 'Friendly name of the environment'
         )]
+        [ArgumentCompleter({
+            param ($Command, $Parameter, $WordToComplete, $CommandAst, $FakeBoundParams)
+            if (Test-Path -Path $FreshServiceConfigPath) {
+                Get-FreshServiceConnection |
+                    Where-Object -FilterScript { $_.Name -like "*$WordToComplete*" } |
+                        Select-Object -ExpandProperty Name
+            }
+        })]
         [string]$Name,
         [Parameter(
             Mandatory = $False,

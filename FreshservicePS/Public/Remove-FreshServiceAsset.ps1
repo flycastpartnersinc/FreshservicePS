@@ -91,7 +91,7 @@ function Remove-FreshServiceAsset {
                     $results = Invoke-FreshworksRestMethod @params
 
                     [pscustomobject]@{
-                        id     = $id
+                        id     = $display_id
                         status = "success {0}" -f $results.StatusCode
                     }
                 }

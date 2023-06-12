@@ -23,7 +23,7 @@
     Set as true if the time-entry is billable. Default value is true
 
 .PARAMETER time_spent
-    The total amount of time spent by the timer in hh::mm format. This field cannot be set if timer_running is true. Mandatory if timer_running is false
+    The total amount of time spent by the timer in HH::mm format. This field cannot be set if timer_running is true. Mandatory if timer_running is false
 
 .PARAMETER executed_at
     Time at which the timer is executed. Default value (unless given in request) is the time at which timer is added. Should be less than or equal to current date_time
@@ -104,7 +104,7 @@ function New-FreshServiceTimeEntry {
         [boolean]$billable,
         [Parameter(
             Mandatory = $false,
-            HelpMessage = 'The total amount of time spent by the timer in hh::mm format. This field cannot be set if timer_running is true. Mandatory if timer_running is false',
+            HelpMessage = 'The total amount of time spent by the timer in HH::mm format. This field cannot be set if timer_running is true. Mandatory if timer_running is false',
             ValueFromPipelineByPropertyName = $true
         )]
         [timespan]$time_spent,

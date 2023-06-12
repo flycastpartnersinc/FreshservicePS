@@ -27,7 +27,7 @@ Describe "Changes" {
                 change_type        = 1
                 impact             = 1
                 planned_start_date = (Get-Date)
-                planned_end_date   = (Get-Date).AddHours(2)
+                planned_end_date   = (Get-Date).AddHours(5)
                 category           = 'Hardware'
                 sub_category       = 'Computer'
                 assets             = $assets
