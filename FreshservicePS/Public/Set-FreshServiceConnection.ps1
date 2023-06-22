@@ -120,15 +120,9 @@ function Set-FreshServiceConnection {
             Mandatory = $false,
             HelpMessage = 'Connect to this environment as default'
         )]
-        [string]$Default = $false
+        [boolean]$Default = $false
     )
     begin{
-
-        $environmentLookup = @{
-            'Production' =  ('https://{0}.freshservice.com/api/v2' -f $Tenant)
-            'Sandbox'    =  ('https://{0}-fs-sandbox.freshservice.com/api/v2' -f $Tenant )
-        }
-
         $environments = @()
     }
     process {
@@ -143,6 +137,16 @@ function Set-FreshServiceConnection {
 
                 if ($envToUpdate) {
 
+                    if (!$Tenant) {
+                       Write-Verbose ('Use existing tenant definition in configuration file: {0}' -f $envToUpdate.Tenant)
+                        $Tenant = $envToUpdate.Tenant
+                    }
+
+                    $environmentLookup = @{
+                        'Production' =  ('https://{0}.freshservice.com/api/v2' -f $Tenant)
+                        'Sandbox'    =  ('https://{0}-fs-sandbox.freshservice.com/api/v2' -f $Tenant )
+                    }
+
                     foreach ($param in $PSBoundParameters.GetEnumerator()) {
                         switch ($param.key) {
                             'NewName' {
@@ -156,7 +160,7 @@ function Set-FreshServiceConnection {
                             'Tenant' {
                                 Write-Verbose ('Updating Tenant to {0}' -f $Tenant)
                                 $envToUpdate.Tenant = $Tenant
-                                $envToUpdate.BaseUri = $environmentLookup[$envToUpdate['Environment']]
+                                $envToUpdate.BaseUri = $environmentLookup[$envToUpdate.Environment]
                             }
                             'EmailAddress' {
                                 Write-Verbose ('Updating EmailAddress to {0}' -f $EmailAddress)
@@ -164,7 +168,8 @@ function Set-FreshServiceConnection {
                             }
                             'Environment' {
                                 Write-Verbose ('Updating Environment to {0}' -f $Environment)
-                                $envToUpdate.Tenant = $Environment
+                                $envToUpdate.Environment = $Environment
+                                $envToUpdate.BaseUri = $environmentLookup[$Environment]
                             }
                             'Default' {
                                 Write-Verbose ('Updating Default to {0}' -f $Default)

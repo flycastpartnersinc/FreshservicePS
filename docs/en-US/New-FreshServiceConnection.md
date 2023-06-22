@@ -14,7 +14,7 @@ Creates a new Freshservice connection.
 
 ```
 New-FreshServiceConnection [-Name] <String> [-ApiKey] <String> [-Tenant] <String> [[-EmailAddress] <String>]
- [-Environment] <String> [[-Default] <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
+ [[-Environment] <String>] [[-Default] <Boolean>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -126,7 +126,7 @@ Type: String
 Parameter Sets: (All)
 Aliases:
 
-Required: True
+Required: False
 Position: 5
 Default value: None
 Accept pipeline input: False
@@ -138,7 +138,7 @@ Setting Default to $true will automatically connect to this tenant during module
 If no default is set, Connect-FreshService will need to be executed after module import to establish variables.
 
 ```yaml
-Type: String
+Type: Boolean
 Parameter Sets: (All)
 Aliases:
 

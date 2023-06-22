@@ -141,7 +141,7 @@ Describe "Changes" {
             }
             It "Set-FreshServiceNote should change the Note body" -Tag "Note" {
                 Set-FreshServiceNote -parent_id $newFSChange.id -id $newFSChgNote.Id -type Change -body "Updated Body" |
-                    Select-Object -ExpandProperty body |
+                    Select-Object -ExpandProperty body_text |
                         Should -Be "Updated Body"
             }
             It "Set-FreshServiceTask -Type Change should change status to 3 (Completed)" -Tag "Task" {

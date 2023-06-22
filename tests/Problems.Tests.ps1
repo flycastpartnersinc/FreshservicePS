@@ -132,13 +132,13 @@ Describe "Problems" {
         }
 
         Context "Set" {
-            It "Set-FreshServiceTimeEntry should Problem the Time Entry" -Tag "TimeEntry" {
+            It "Set-FreshServiceTimeEntry should update the Problem Time Entry" -Tag "TimeEntry" {
                 $timeEntry = Set-FreshServiceTimeEntry -type Problem -parent_id $newFSProblem.Id -id $newFSPblmTimeEntry.Id -note "Updated Note"
                 $timeEntry.note | Should -Be "Updated Note"
             }
-            It "Set-FreshServiceNote should Problem the Note body" -Tag "Note" {
+            It "Set-FreshServiceNote should update the Problem Note body" -Tag "Note" {
                 Set-FreshServiceNote -parent_id $newFSProblem.id -id $newFSPblmNote.Id -type Problem -body "Updated Body" |
-                    Select-Object -ExpandProperty body |
+                    Select-Object -ExpandProperty body_text |
                         Should -Be "Updated Body"
             }
             It "Set-FreshServiceTask -Type Problem should Problem status to 3 (Completed)" -Tag "Task" {

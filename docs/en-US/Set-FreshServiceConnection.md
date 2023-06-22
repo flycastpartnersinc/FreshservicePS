@@ -14,7 +14,7 @@ Updates a Freshservice connection.
 
 ```
 Set-FreshServiceConnection [-Name] <String> [[-NewName] <String>] [[-ApiKey] <String>] [[-Tenant] <String>]
- [[-EmailAddress] <String>] [[-Environment] <String>] [[-Default] <String>] [-WhatIf] [-Confirm]
+ [[-EmailAddress] <String>] [[-Environment] <String>] [[-Default] <Boolean>] [-WhatIf] [-Confirm]
  [<CommonParameters>]
 ```
 
@@ -170,7 +170,7 @@ Setting Default to $true will automatically connect to this tenant during module
 If no default is set, Connect-FreshService will need to be executed after module import to establish variables.
 
 ```yaml
-Type: String
+Type: Boolean
 Parameter Sets: (All)
 Aliases:
 

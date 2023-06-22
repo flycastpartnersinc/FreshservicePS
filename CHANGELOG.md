@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.1.3]
+
+### Added
+
+- Removed mandatory parameter for Environment in New-FreshserviceConnection and defaulted to Production
+
+### Fixed
+
+- Moved the if statement for should process to ensure the entire url is built for WhatIf for Remove-FreshserviceAsset
+
 ## [0.1.2]
 
 ### Fixed

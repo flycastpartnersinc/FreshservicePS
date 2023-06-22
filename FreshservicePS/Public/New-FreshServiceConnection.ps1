@@ -50,7 +50,6 @@
 #>
 function New-FreshServiceConnection {
     [CmdletBinding(SupportsShouldProcess=$true, ConfirmImpact='Medium')]
-
     param (
         [Parameter(
             Mandatory = $true,
@@ -75,16 +74,16 @@ function New-FreshServiceConnection {
         )]
         [string]$EmailAddress,
         [Parameter(
-            Mandatory = $true,
+            Mandatory = $false,
             HelpMessage = 'The type of environment this configuration will connect to, Production or Sandbox.'
         )]
         [ValidateSet('Production','Sandbox')]
-        [string]$Environment,
+        [string]$Environment = 'Production',
         [Parameter(
             Mandatory = $false,
             HelpMessage = 'Connect to this environment as default.  There can be only one.'
         )]
-        [string]$Default = $false
+        [boolean]$Default = $false
     )
     begin {
 
@@ -98,20 +97,22 @@ function New-FreshServiceConnection {
     process {
         Write-Verbose -Message ('Working on configuration for {0}.' -f $Name)
 
-        $environments = @()
-
-        $newEnvironment = [PSCustomObject]@{
-            Name         = $PSBoundParameters['Name']
-            ApiKey       = $PSBoundParameters['ApiKey'] | ConvertTo-SecureString -AsPlainText -Force | ConvertFrom-SecureString
-            Tenant       = $PSBoundParameters['Tenant']
-            BaseUri      = $environmentLookup[$PSBoundParameters['Environment']]
-            EmailAddress = $PSBoundParameters['EmailAddress']
-            Environment  = $PSBoundParameters['Environment']
-            Default      = $Default
-        }
-
         try {
-            if ($PSCmdlet.ShouldProcess($uri.Uri.AbsoluteUri)) {
+            $environments = @()
+
+            $newEnvironment = [PSCustomObject]@{
+                Name         = $PSBoundParameters['Name']
+                ApiKey       = ($PSBoundParameters['ApiKey'] | ConvertTo-SecureString -AsPlainText -Force | ConvertFrom-SecureString)
+                Tenant       = $PSBoundParameters['Tenant']
+                BaseUri      = $environmentLookup[$Environment]
+                EmailAddress = $PSBoundParameters['EmailAddress']
+                Environment  = $Environment
+                Default      = $Default
+            }
+
+            Write-Verbose -Message ('object created')
+
+            if ($PSCmdlet.ShouldProcess($Name)) {
                 if ( Test-Path -Path $FreshServiceConfigPath ) {
 
                     $environments += Get-FreshServiceConnection -ErrorAction Stop
@@ -134,15 +135,17 @@ function New-FreshServiceConnection {
                     $environments | ForEach-Object {$_.Default = $false}
                 }
 
-                Write-Verbose -Message ('Adding new environment to object {0}.' -f $FreshServiceConfigPath)
-                #Add the new config to the object
-                $environments += $newEnvironment
+                if ($newEnvironment) {
+                    Write-Verbose -Message ('Adding new environment to object {0}.' -f $FreshServiceConfigPath)
+                    #Add the new config to the object
+                    $environments += $newEnvironment
 
-                #Save the config
-                $environments |
-                    Export-Clixml -LiteralPath $FreshServiceConfigPath -ErrorAction Stop -Force
+                    #Save the config
+                    $environments |
+                        Export-Clixml -LiteralPath $FreshServiceConfigPath -ErrorAction Stop -Force
 
-                Write-Verbose -Message ('Successfully updated configuration in {0} with {1} configurations.' -f $FreshServiceConfigPath, $environments.Count)
+                    Write-Verbose -Message ('Successfully updated configuration in {0} with {1} configurations.' -f $FreshServiceConfigPath, $environments.Count)
+                }
             }
         }
         catch {

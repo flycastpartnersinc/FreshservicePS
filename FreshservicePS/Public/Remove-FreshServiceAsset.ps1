@@ -69,32 +69,32 @@ function Remove-FreshServiceAsset {
         $uri = [System.UriBuilder]('{0}/assets' -f $PrivateData['FreshserviceBaseUri'])
 
         try {
-                if ($PSCmdlet.ShouldProcess($uri.Uri.AbsoluteUri)) {
+            $Method = 'DELETE'
 
-                    $Method = 'DELETE'
+            if ($display_id) {
+                $uri.Path = "{0}/{1}" -f $uri.Path, $display_id
+            }
 
-                    if ($display_id) {
-                        $uri.Path = "{0}/{1}" -f $uri.Path, $display_id
-                    }
+            if ( $PSBoundParameters.ContainsKey('delete_forever') ) {
+                $uri.Path = '{0}/delete_forever' -f $uri.Path
+                $Method = 'PUT'
+            }
 
-                    if ( $PSBoundParameters.ContainsKey('delete_forever') ) {
-                        $uri.Path = '{0}/delete_forever' -f $uri.Path
-                        $Method = 'PUT'
-                    }
+            if ($PSCmdlet.ShouldProcess($uri.Uri.AbsoluteUri)) {
 
-                    $params = @{
-                        Uri         = $uri.Uri.AbsoluteUri
-                        Method      = $Method
-                        ErrorAction = 'Stop'
-                    }
-
-                    $results = Invoke-FreshworksRestMethod @params
-
-                    [pscustomobject]@{
-                        id     = $display_id
-                        status = "success {0}" -f $results.StatusCode
-                    }
+                $params = @{
+                    Uri         = $uri.Uri.AbsoluteUri
+                    Method      = $Method
+                    ErrorAction = 'Stop'
                 }
+
+                $results = Invoke-FreshworksRestMethod @params
+
+                [pscustomobject]@{
+                    id     = $display_id
+                    status = "success {0}" -f $results.StatusCode
+                }
+            }
 
         }
         catch {
