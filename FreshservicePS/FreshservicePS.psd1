@@ -118,7 +118,6 @@
                 "powershell",
                 "windows-powershell",
                 "powershell-gallery",
-                "powershell-script",
                 "powershell-module",
                 "readthedocs",
                 "rest",
