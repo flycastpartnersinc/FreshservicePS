@@ -103,7 +103,7 @@ function New-FreshServiceRequester {
 
     param (
         [Parameter(
-            Mandatory = $true,
+            Mandatory = $false,
             HelpMessage = 'External Id of the requester.'
         )]
         [string]$external_id,
