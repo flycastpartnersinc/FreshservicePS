@@ -10,6 +10,9 @@
 .PARAMETER id
     Unique Id of the requester.
 
+.PARAMETER external_id
+    External Id of the requester.
+
 .PARAMETER first_name
     First name of the requester.
 
@@ -219,9 +222,18 @@ function Set-FreshServiceRequester {
         [Parameter(
             Mandatory = $false,
             ParameterSetName = 'default',
+            HelpMessage = 'External Id of the requester.',
+            ValueFromPipelineByPropertyName = $true
+        )]
+        [Alias('ExternalId')]
+        [string]$external_id,
+        [Parameter(
+            Mandatory = $false,
+            ParameterSetName = 'default',
             HelpMessage = 'First name of the requester.',
             ValueFromPipelineByPropertyName = $true
         )]
+        [Alias('FirstName')]
         [string]$first_name,
         [Parameter(
             Mandatory = $false,
@@ -229,6 +241,7 @@ function Set-FreshServiceRequester {
             HelpMessage = 'Last name of the requester.',
             ValueFromPipelineByPropertyName = $true
         )]
+        [Alias('LastName')]
         [string]$last_name,
         [Parameter(
             Mandatory = $false,
@@ -236,6 +249,7 @@ function Set-FreshServiceRequester {
             HelpMessage = 'Job title of the requester.',
             ValueFromPipelineByPropertyName = $true
         )]
+        [Alias('JobTitle')]
         [string]$job_title,
         [Parameter(
             Mandatory = $false,
@@ -243,6 +257,7 @@ function Set-FreshServiceRequester {
             HelpMessage = 'Primary email address of the requester.',
             ValueFromPipelineByPropertyName = $true
         )]
+        [Alias('Email','PrimaryEmail')]
         [string]$primary_email,
         [Parameter(
             Mandatory = $false,
@@ -257,6 +272,7 @@ function Set-FreshServiceRequester {
             HelpMessage = 'Work phone number of the requester.',
             ValueFromPipelineByPropertyName = $true
         )]
+        [Alias('WorkNumber','WorkPhone','WorkPhoneNumber')]
         [string]$work_phone_number,
         [Parameter(
             Mandatory = $false,
@@ -264,6 +280,7 @@ function Set-FreshServiceRequester {
             HelpMessage = 'Mobile phone number of the requester.',
             ValueFromPipelineByPropertyName = $true
         )]
+        [Alias('MobileNumber','MobilePhone','MobilePhoneNumber')]
         [string]$mobile_phone_number,
         [Parameter(
             Mandatory = $false,
@@ -271,6 +288,7 @@ function Set-FreshServiceRequester {
             HelpMessage = 'Unique IDs of the departments associated with the requester',
             ValueFromPipelineByPropertyName = $true
         )]
+        [Alias('DepartmentId')]
         [long[]]$department_ids,
         [Parameter(
             Mandatory = $false,
@@ -285,7 +303,8 @@ function Set-FreshServiceRequester {
             HelpMessage = 'User ID of the requesters reporting manager.',
             ValueFromPipelineByPropertyName = $true
         )]
-        [int]$reporting_manager_id,
+        [Alias('ManagerId')]
+        [long]$reporting_manager_id,
         [Parameter(
             Mandatory = $false,
             ParameterSetName = 'default',
@@ -299,6 +318,7 @@ function Set-FreshServiceRequester {
             HelpMessage = 'Time zone of the requester. Read more here.',
             ValueFromPipelineByPropertyName = $true
         )]
+        [Alias('TimeZone')]
         [string]$time_zone,
         [Parameter(
             Mandatory = $false,
@@ -306,6 +326,7 @@ function Set-FreshServiceRequester {
             HelpMessage = 'Time format for the requester.Possible values:12h (12 hour format)24h (24 hour format)',
             ValueFromPipelineByPropertyName = $true
         )]
+        [Alias('TimeFormat')]
         [string]$time_format,
         [Parameter(
             Mandatory = $false,
@@ -320,13 +341,15 @@ function Set-FreshServiceRequester {
             HelpMessage = 'Unique ID of the location associated with the requester.',
             ValueFromPipelineByPropertyName = $true
         )]
-        [int]$location_id,
+        [Alias('LocationId')]
+        [long]$location_id,
         [Parameter(
             Mandatory = $false,
             ParameterSetName = 'default',
             HelpMessage = 'Background information of the requester.',
             ValueFromPipelineByPropertyName = $true
         )]
+        [Alias('Background')]
         [string]$background_information,
         [Parameter(
             Mandatory = $false,
@@ -334,6 +357,7 @@ function Set-FreshServiceRequester {
             HelpMessage = 'Key-value pair containing the names and values of the (custom) requester fields.',
             ValueFromPipelineByPropertyName = $true
         )]
+        # [Alias('cf')]
         [hashtable]$custom_fields,
         [Parameter(
             Mandatory = $false,

@@ -104,99 +104,132 @@ function New-FreshServiceRequester {
     param (
         [Parameter(
             Mandatory = $false,
-            HelpMessage = 'External Id of the requester.'
+            HelpMessage = 'External Id of the requester.',
+            ValueFromPipelineByPropertyName = $true
         )]
+        [Alias('ExternalId')]
         [string]$external_id,
         [Parameter(
             Mandatory = $true,
-            HelpMessage = 'First name of the requester.'
+            HelpMessage = 'First name of the requester.',
+            ValueFromPipelineByPropertyName = $true
         )]
+        [Alias('FirstName')]
         [string]$first_name,
         [Parameter(
             Mandatory = $false,
-            HelpMessage = 'Last name of the requester.'
+            HelpMessage = 'Last name of the requester.',
+            ValueFromPipelineByPropertyName = $true
         )]
+        [Alias('LastName')]
         [string]$last_name,
         [Parameter(
             Mandatory = $false,
-            HelpMessage = 'Job title of the requester.'
+            HelpMessage = 'Job title of the requester.',
+            ValueFromPipelineByPropertyName = $true
         )]
+        [Alias('JobTitle')]
         [string]$job_title,
         [Parameter(
             Mandatory = $false,
-            HelpMessage = 'Primary email address of the requester.'
+            HelpMessage = 'Primary email address of the requester.',
+            ValueFromPipelineByPropertyName = $true
         )]
+        [Alias('Email','PrimaryEmail')]
         [string]$primary_email,
         [Parameter(
             Mandatory = $false,
-            HelpMessage = 'Additional/secondary emails associated with the requester.'
+            HelpMessage = 'Additional/secondary emails associated with the requester.',
+            ValueFromPipelineByPropertyName = $true
         )]
         [string[]]$secondary_emails,
         [Parameter(
             Mandatory = $false,
-            HelpMessage = 'Work phone number of the requester.'
+            HelpMessage = 'Work phone number of the requester.',
+            ValueFromPipelineByPropertyName = $true
         )]
+        [Alias('WorkNumber','WorkPhone','WorkPhoneNumber')]
         [string]$work_phone_number,
         [Parameter(
             Mandatory = $false,
-            HelpMessage = 'Mobile phone number of the requester.'
+            HelpMessage = 'Mobile phone number of the requester.',
+            ValueFromPipelineByPropertyName = $true
         )]
+        [Alias('MobileNumber','MobilePhone','MobilePhoneNumber')]
         [string]$mobile_phone_number,
         [Parameter(
             Mandatory = $false,
-            HelpMessage = 'Unique IDs of the departments associated with the requester'
+            HelpMessage = 'Unique IDs of the departments associated with the requester',
+            ValueFromPipelineByPropertyName = $true
         )]
+        [Alias('DepartmentId')]
         [long[]]$department_ids,
         [Parameter(
             Mandatory = $false,
-            HelpMessage = 'Set to true if the requester must be allowed to view changes filed by other members of the department, and false otherwise'
+            HelpMessage = 'Set to true if the requester must be allowed to view changes filed by other members of the department, and false otherwise',
+            ValueFromPipelineByPropertyName = $true
         )]
         [boolean]$can_see_all_changes_from_associated_departments,
         [Parameter(
             Mandatory = $false,
-            HelpMessage = 'Set to true if the requester must be allowed to view tickets filed by other members of the department, and false otherwise'
+            HelpMessage = 'Set to true if the requester must be allowed to view tickets filed by other members of the department, and false otherwise',
+            ValueFromPipelineByPropertyName = $true
         )]
         [boolean]$can_see_all_tickets_from_associated_departments,
         [Parameter(
             Mandatory = $false,
-            HelpMessage = 'User ID of the requesters reporting manager.'
+            HelpMessage = 'User ID of the requesters reporting manager.',
+            ValueFromPipelineByPropertyName = $true
         )]
-        [int]$reporting_manager_id,
+        [Alias('ManagerId')]
+        [long]$reporting_manager_id,
         [Parameter(
             Mandatory = $false,
-            HelpMessage = 'Address of the requester.'
+            HelpMessage = 'Address of the requester.',
+            ValueFromPipelineByPropertyName = $true
         )]
         [string]$address,
         [Parameter(
             Mandatory = $false,
-            HelpMessage = 'Time zone of the requester. Read more here.'
+            HelpMessage = 'Time zone of the requester.',
+            ValueFromPipelineByPropertyName = $true
         )]
+        [Alias('TimeZone')]
         [string]$time_zone,
         [Parameter(
             Mandatory = $false,
-            HelpMessage = 'Time format for the requester.Possible values:12h (12 hour format)24h (24 hour format)'
+            HelpMessage = 'Time format for the requester.Possible values:12h (12 hour format)24h (24 hour format)',
+            ValueFromPipelineByPropertyName = $true
         )]
+        [Alias('TimeFormat')]
         [string]$time_format,
         [Parameter(
             Mandatory = $false,
-            HelpMessage = 'Language used by the requester. The default language is "en" (English). Read more here.'
+            HelpMessage = 'Language used by the requester. The default language is "en" (English).',
+            ValueFromPipelineByPropertyName = $true
         )]
         [string]$language,
         [Parameter(
             Mandatory = $false,
-            HelpMessage = 'Unique ID of the location associated with the requester.'
+            HelpMessage = 'Unique ID of the location associated with the requester.',
+            ValueFromPipelineByPropertyName = $true
         )]
-        [int]$location_id,
+        [Alias('LocationId')]
+        [long]$location_id,
         [Parameter(
             Mandatory = $false,
-            HelpMessage = 'Background information of the requester.'
+            HelpMessage = 'Background information of the requester.',
+            ValueFromPipelineByPropertyName = $true
         )]
+        [Alias('Background')]
         [string]$background_information,
         [Parameter(
             Mandatory = $false,
-            HelpMessage = 'Key-value pair containing the names and values of the (custom) requester fields.'
+            HelpMessage = 'Key-value pair containing the names and values of the (custom) requester fields.',
+            ValueFromPipelineByPropertyName = $true
         )]
-        [object]$custom_fields
+        # [Alias('cf')]
+        [hashtable]$custom_fields
     )
     begin {
 

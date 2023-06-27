@@ -66,6 +66,7 @@
     This module was developed and tested with Freshservice REST API v2.
 #>
 function Set-FreshServiceConnection {
+    [OutputType('System.Object[]')]
     [CmdletBinding(SupportsShouldProcess=$true, ConfirmImpact='Medium')]
     param (
         [Parameter(

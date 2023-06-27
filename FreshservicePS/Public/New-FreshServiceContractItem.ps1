@@ -35,8 +35,8 @@
     This module was developed and tested with Freshservice REST API v2.
 #>
 function New-FreshServiceContractItem {
+    [OutputType('System.Object[]')]
     [CmdletBinding(SupportsShouldProcess=$true, ConfirmImpact='Medium')]
-
     param (
         [Parameter(
             Mandatory = $true,
