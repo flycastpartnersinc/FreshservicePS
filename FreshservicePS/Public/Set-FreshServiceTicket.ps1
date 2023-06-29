@@ -288,10 +288,18 @@ function Set-FreshServiceTicket {
         [System.IO.FileInfo[]]$attachments,
         [Parameter(
             Mandatory = $false,
-            HelpMessage = 'Key value pairs containing the names and values of custom fields. Read more here.',
+            HelpMessage = 'Email address added in the cc field of the incoming ticket email.',
             ValueFromPipelineByPropertyName = $true,
             ParameterSetName = 'default',
             Position = 12
+        )]
+        [string[]]$cc_emails,
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Key value pairs containing the names and values of custom fields. Read more here.',
+            ValueFromPipelineByPropertyName = $true,
+            ParameterSetName = 'default',
+            Position = 13
         )]
         [object]$custom_fields,
         [Parameter(
@@ -299,7 +307,7 @@ function Set-FreshServiceTicket {
             HelpMessage = 'Timestamp that denotes when the ticket is due to be resolved.',
             ValueFromPipelineByPropertyName = $true,
             ParameterSetName = 'default',
-            Position = 13
+            Position = 14
         )]
         [datetime]$due_by,
         [Parameter(
@@ -307,7 +315,7 @@ function Set-FreshServiceTicket {
             HelpMessage = 'Unique id of email config which is used for this ticket. (i.e., support@yourcompany.com/sales@yourcompany.com)',
             ValueFromPipelineByPropertyName = $true,
             ParameterSetName = 'default',
-            Position = 14
+            Position = 15
         )]
         [long]$email_config_id,
         [Parameter(
@@ -315,7 +323,7 @@ function Set-FreshServiceTicket {
             HelpMessage = 'Timestamp that denotes when the first response is due',
             ValueFromPipelineByPropertyName = $true,
             ParameterSetName = 'default',
-            Position = 15
+            Position = 16
         )]
         [datetime]$fr_due_by,
         [Parameter(
@@ -323,7 +331,7 @@ function Set-FreshServiceTicket {
             HelpMessage = 'Unique id of the group to which the ticket has been assigned. The default value is the ID of the group that is associated with the given email_config_id',
             ValueFromPipelineByPropertyName = $true,
             ParameterSetName = 'default',
-            Position = 16
+            Position = 17
         )]
         [long]$group_id,
         [Parameter(
@@ -331,7 +339,7 @@ function Set-FreshServiceTicket {
             HelpMessage = 'The channel through which the ticket was created. The default value is 2.',
             ValueFromPipelineByPropertyName = $true,
             ParameterSetName = 'default',
-            Position = 17
+            Position = 18
         )]
         [ValidateRange(1,10)]
         [string]$source,
@@ -340,7 +348,7 @@ function Set-FreshServiceTicket {
             HelpMessage = 'Tags that have been associated with the ticket',
             ValueFromPipelineByPropertyName = $true,
             ParameterSetName = 'default',
-            Position = 18
+            Position = 19
         )]
         [string[]]$tags,
         [Parameter(
@@ -348,7 +356,7 @@ function Set-FreshServiceTicket {
             HelpMessage = 'List of assets associated with the ticket',
             ValueFromPipelineByPropertyName = $true,
             ParameterSetName = 'default',
-            Position = 19
+            Position = 20
         )]
         [object[]]$assets,
         [Parameter(
@@ -356,7 +364,7 @@ function Set-FreshServiceTicket {
             HelpMessage = 'Ticket urgency',
             ValueFromPipelineByPropertyName = $true,
             ParameterSetName = 'default',
-            Position = 20
+            Position = 21
         )]
         [int]$urgency,
         [Parameter(
@@ -364,7 +372,7 @@ function Set-FreshServiceTicket {
             HelpMessage = 'Ticket impact',
             ValueFromPipelineByPropertyName = $true,
             ParameterSetName = 'default',
-            Position = 21
+            Position = 22
         )]
         [int]$impact,
         [Parameter(
@@ -372,7 +380,7 @@ function Set-FreshServiceTicket {
             HelpMessage = 'Ticket category',
             ValueFromPipelineByPropertyName = $true,
             ParameterSetName = 'default',
-            Position = 22
+            Position = 23
         )]
         [string]$category,
         [Parameter(
@@ -380,7 +388,7 @@ function Set-FreshServiceTicket {
             HelpMessage = 'Ticket sub category',
             ValueFromPipelineByPropertyName = $true,
             ParameterSetName = 'default',
-            Position = 23
+            Position = 24
         )]
         [string]$sub_category,
         [Parameter(
@@ -388,7 +396,7 @@ function Set-FreshServiceTicket {
             HelpMessage = 'Ticket item category',
             ValueFromPipelineByPropertyName = $true,
             ParameterSetName = 'default',
-            Position = 24
+            Position = 25
         )]
         [string]$item_category,
         [Parameter(
@@ -396,7 +404,7 @@ function Set-FreshServiceTicket {
             HelpMessage = 'Department ID of the ticket.',
             ValueFromPipelineByPropertyName = $true,
             ParameterSetName = 'default',
-            Position = 25
+            Position = 26
         )]
         [long]$department_id,
         [Parameter(
@@ -404,7 +412,7 @@ function Set-FreshServiceTicket {
             HelpMessage = 'Problem that need to be associated with ticket (problem display id)',
             ValueFromPipelineByPropertyName = $true,
             ParameterSetName = 'default',
-            Position = 26
+            Position = 27
         )]
         [object[]]$problem,
         [Parameter(
@@ -412,7 +420,7 @@ function Set-FreshServiceTicket {
             HelpMessage = 'Change causing the ticket that needs to be associated with ticket (change display id)',
             ValueFromPipelineByPropertyName = $true,
             ParameterSetName = 'default',
-            Position = 27
+            Position = 28
         )]
         [object[]]$change_initiating_ticket,
         [Parameter(
@@ -420,7 +428,7 @@ function Set-FreshServiceTicket {
             HelpMessage = 'Change needed for the ticket to be fixed that needs to be associated with ticket (change display id)',
             ValueFromPipelineByPropertyName = $true,
             ParameterSetName = 'default',
-            Position = 28
+            Position = 29
         )]
         [object[]]$change_initiated_by_ticket
 

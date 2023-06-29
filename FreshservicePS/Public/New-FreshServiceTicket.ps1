@@ -304,6 +304,12 @@ function New-FreshServiceTicket {
             HelpMessage = 'Key value pairs containing the names and values of custom fields. Read more here.',
             ValueFromPipelineByPropertyName = $true
         )]
+        [string[]]$cc_emails,
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Key value pairs containing the names and values of custom fields. Read more here.',
+            ValueFromPipelineByPropertyName = $true
+        )]
         [object]$custom_fields,
         [Parameter(
             Mandatory = $false,
