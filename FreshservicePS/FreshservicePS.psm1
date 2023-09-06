@@ -1,7 +1,12 @@
 Add-Type -AssemblyName System.Web
 
 $Global:FreshServiceModuleName = $MyInvocation.MyCommand.Name -replace '.psm1'
-$Global:FreshServiceConfigPath = ('{0}\{1}\{1}.config' -f $env:APPDATA,$FreshServiceModuleName)
+if ($IsWindows) {
+    $Global:FreshServiceConfigPath = ('{0}\{1}\{1}.config' -f $env:APPDATA,$FreshServiceModuleName)
+}
+else {
+    $Global:FreshServiceConfigPath = ('{0}/{1}/{1}.config' -f $env:HOME,$FreshServiceModuleName)
+}
 
 # Dot source public/private functions
 $public  = @(Get-ChildItem -Path (Join-Path -Path $PSScriptRoot -ChildPath 'Public/*.ps1')  -Recurse -ErrorAction Stop)
