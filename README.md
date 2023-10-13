@@ -29,7 +29,7 @@ The FreshservicePS module aligns closely with the [Freshservice API] documentati
 > **Please do not base critical processes on this project** until it has been further refined.  Links to other content may not be working
 just yet as we are building content to support this project.
 
-Join the conversation on [FreshservicePS.slack.com](https://join.slack.com/t/FreshservicePS/shared_invite/zt-1vs492no4-A8POa73T~0a8C9mgfB7odQ) -->
+Join the conversation on [FreshservicePS.slack.com](https://join.slack.com/t/freshserviceps/shared_invite/zt-2514m3vky-Azc3DAqh9RhpjJ0ibPwqsQ) -->
 
 ---
 
