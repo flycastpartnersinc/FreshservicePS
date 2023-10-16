@@ -101,61 +101,78 @@ function New-FreshServiceAsset {
         [string]$description,
         [Parameter(
             Mandatory = $true,
-            HelpMessage = 'Unique id of the asset type.'
+            HelpMessage = 'Unique id of the asset type.',
+            ValueFromPipelineByPropertyName = $true
         )]
         [long]$asset_type_id,
         [Parameter(
             Mandatory = $false,
-            HelpMessage = 'Asset tag of the asset.'
+            HelpMessage = 'Asset tag of the asset.',
+            ValueFromPipelineByPropertyName = $true
         )]
         [string]$asset_tag,
         [Parameter(
             Mandatory = $false,
-            HelpMessage = 'Impact of the asset. Default is Low.'
+            HelpMessage = 'Impact of the asset. Default is Low.',
+            ValueFromPipelineByPropertyName = $true
         )]
         [ValidateSet('low','medium','high')]
         [string]$impact,
         [Parameter(
             Mandatory = $false,
-            HelpMessage = 'Usage type of the asset (Loaner / Permanent). Default is permanent.'
+            HelpMessage = 'Usage type of the asset (Loaner / Permanent). Default is permanent.',
+            ValueFromPipelineByPropertyName = $true
         )]
         [ValidateSet('permanent','loaner')]
         [string]$usage_type,
         [Parameter(
             Mandatory = $false,
-            HelpMessage = 'Unique id of the associated user (Used By).'
+            HelpMessage = 'Unique id of the associated user (Used By).',
+            ValueFromPipelineByPropertyName = $true
         )]
         [long]$user_id,
         [Parameter(
             Mandatory = $false,
-            HelpMessage = 'Unique id of the associated Location.'
+            HelpMessage = 'Unique id of the associated Location.',
+            ValueFromPipelineByPropertyName = $true
         )]
         [long]$location_id,
         [Parameter(
             Mandatory = $false,
-            HelpMessage = 'Unique id of the associated Department.'
+            HelpMessage = 'Unique id of the associated Department.',
+            ValueFromPipelineByPropertyName = $true
         )]
         [long]$department_id,
         [Parameter(
             Mandatory = $false,
-            HelpMessage = 'Unique id of the associated agent (Managed By).'
+            HelpMessage = 'Unique id of the associated agent (Managed By).',
+            ValueFromPipelineByPropertyName = $true
         )]
         [long]$agent_id,
         [Parameter(
             Mandatory = $false,
-            HelpMessage = 'Unique id of the associated agent group (Managed By Group.'
+            HelpMessage = 'Unique id of the associated agent group (Managed By Group.',
+            ValueFromPipelineByPropertyName = $true
         )]
         [long]$group_id,
         [Parameter(
             Mandatory = $false,
-            HelpMessage = 'Datetime value of assignment.'
+            HelpMessage = 'Datetime value of assignment.',
+            ValueFromPipelineByPropertyName = $true
         )]
         [datetime]$assigned_on,
         [Parameter(
             Mandatory = $false,
-            HelpMessage = 'Key-value pair containing the names and values of the asset type fields.'
+            HelpMessage = 'Key-value pair containing the names and values of the asset type fields.',
+            ValueFromPipelineByPropertyName = $true
         )]
-        [hashtable]$type_fields
+        [hashtable]$type_fields,
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Workspace ID for the Asset. The attribute is applicable only for accounts with the Workspaces feature enabled. The default value is the ID of the primary workspace of the account.',
+            ValueFromPipelineByPropertyName = $true
+        )]
+        [int]$workspace_id
     )
     begin {
 
@@ -184,6 +201,9 @@ function New-FreshServiceAsset {
         }.foreach{
             if ( 'impact','usage_type' -contains $PSItem ) {
                 $jsonBody[$PSItem.ToLower()] = ($PSBoundParameters[$PSItem]).ToLower()
+            }
+            elseif ($PSBoundParameters[$PSItem] -is [datetime]) {
+                $jsonBody[$PSItem.ToLower()] = (Get-Date -Date $PSBoundParameters[$PSItem]).ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ssZ")
             }
             else {
                 $jsonBody[$PSItem.ToLower()] = $PSBoundParameters[$PSItem]

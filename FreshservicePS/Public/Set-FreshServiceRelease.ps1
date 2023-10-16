@@ -86,6 +86,9 @@
 .PARAMETER test_plan
     Planning field containing the test plan.
 
+.PARAMETER workspace_id
+    Workspace ID to move ticket. The attribute is applicable only for accounts with the Workspaces feature enabled. The default value is the ID of the primary workspace of the account.
+
 .EXAMPLE
     Set-FreshServiceRelease -id 4 -priority 3
 
@@ -124,118 +127,163 @@ function Set-FreshServiceRelease {
         [Parameter(
             Mandatory = $true,
             HelpMessage = 'Unique identifier of the Release',
-            ValueFromPipelineByPropertyName = $true
+            ValueFromPipelineByPropertyName = $true,
+            ParameterSetName = 'default',
+            Position = 0
+        )]
+        [Parameter(
+            Mandatory = $true,
+            HelpMessage = 'Unique identifier of the Change.',
+            ValueFromPipelineByPropertyName = $true,
+            ParameterSetName = 'workspace',
+            Position = 0
         )]
         [long]$id,
         [Parameter(
             Mandatory = $false,
             HelpMessage = 'Unique identifier of the agent to whom the Release is assigned',
-            ValueFromPipelineByPropertyName = $true
+            ValueFromPipelineByPropertyName = $true,
+            ParameterSetName = 'default',
+            Position = 1
         )]
         [long]$agent_id,
         [Parameter(
             Mandatory = $false,
             HelpMessage = 'Unique identifier of the agent group to which the Release is assigned',
-            ValueFromPipelineByPropertyName = $true
+            ValueFromPipelineByPropertyName = $true,
+            ParameterSetName = 'default',
+            Position = 2
         )]
         [long]$group_id,
         [Parameter(
             Mandatory=$false,
             HelpMessage = 'Priority of the Release 1-Low, 2-Medium, 3-High, 4-Urgent',
-            ValueFromPipelineByPropertyName = $true
+            ValueFromPipelineByPropertyName = $true,
+            ParameterSetName = 'default',
+            Position = 3
         )]
         [ValidateRange(1,4)]
         [int]$priority,
         [Parameter(
             Mandatory=$false,
             HelpMessage = 'Status identifier of the Release. 1-Open, 2-On hold, 3-In Progress, 4-Incomplete, 5-Completed',
-            ValueFromPipelineByPropertyName = $true
+            ValueFromPipelineByPropertyName = $true,
+            ParameterSetName = 'default',
+            Position = 4
         )]
         [ValidateRange(1,5)]
         [int]$status,
         [Parameter(
             Mandatory=$false,
             HelpMessage = 'Type of the Release 1-minor, 2-standard, 3-major, 4-emergency',
-            ValueFromPipelineByPropertyName = $true
+            ValueFromPipelineByPropertyName = $true,
+            ParameterSetName = 'default',
+            Position = 5
         )]
         [ValidateRange(1,4)]
         [int]$release_type,
         [Parameter(
             Mandatory=$false,
             HelpMessage = 'Subject of the Release',
-            ValueFromPipelineByPropertyName = $true
+            ValueFromPipelineByPropertyName = $true,
+            ParameterSetName = 'default',
+            Position = 6
         )]
         [string]$subject,
         [Parameter(
             Mandatory = $false,
             HelpMessage = 'HTML description of the release. Description and description_html should not be passed together',
-            ValueFromPipelineByPropertyName = $true
+            ValueFromPipelineByPropertyName = $true,
+            ParameterSetName = 'default',
+            Position = 7
         )]
         [string]$description,
         [Parameter(
             Mandatory=$false,
             HelpMessage = 'Timestamp at which release is starting',
-            ValueFromPipelineByPropertyName = $true
+            ValueFromPipelineByPropertyName = $true,
+            ParameterSetName = 'default',
+            Position = 8
         )]
         [datetime]$planned_start_date,
         [Parameter(
             Mandatory=$false,
             HelpMessage = 'Timestamp at which release is ending',
-            ValueFromPipelineByPropertyName = $true
+            ValueFromPipelineByPropertyName = $true,
+            ParameterSetName = 'default',
+            Position = 9
         )]
         [datetime]$planned_end_date,
         [Parameter(
             Mandatory = $false,
             HelpMessage = 'Timestamp at which release work started',
-            ValueFromPipelineByPropertyName = $true
+            ValueFromPipelineByPropertyName = $true,
+            ParameterSetName = 'default',
+            Position = 10
         )]
         [datetime]$work_start_date,
         [Parameter(
             Mandatory = $false,
             HelpMessage = 'Timestamp at which release work ended',
-            ValueFromPipelineByPropertyName = $true
+            ValueFromPipelineByPropertyName = $true,
+            ParameterSetName = 'default',
+            Position = 11
         )]
         [datetime]$work_end_date,
         [Parameter(
             Mandatory = $false,
             HelpMessage = 'Unique ID of the department initiating the Release',
-            ValueFromPipelineByPropertyName = $true
+            ValueFromPipelineByPropertyName = $true,
+            ParameterSetName = 'default',
+            Position = 12
         )]
         [long]$department_id,
         [Parameter(
             Mandatory = $false,
             HelpMessage = 'Category of the Release',
-            ValueFromPipelineByPropertyName = $true
+            ValueFromPipelineByPropertyName = $true,
+            ParameterSetName = 'default',
+            Position = 13
         )]
         [string]$category,
         [Parameter(
             Mandatory = $false,
             HelpMessage = 'Sub-category of the Release',
-            ValueFromPipelineByPropertyName = $true
+            ValueFromPipelineByPropertyName = $true,
+            ParameterSetName = 'default',
+            Position = 14
         )]
         [string]$sub_category,
         [Parameter(
             Mandatory = $false,
             HelpMessage = 'Item of the Release',
-            ValueFromPipelineByPropertyName = $true
+            ValueFromPipelineByPropertyName = $true,
+            ParameterSetName = 'default',
+            Position = 15
         )]
         [string]$item_category,
         [Parameter(
             Mandatory = $false,
             HelpMessage = 'Key value pairs containing the names and values of custom fields.',
-            ValueFromPipelineByPropertyName = $true
+            ValueFromPipelineByPropertyName = $true,
+            ParameterSetName = 'default',
+            Position = 16
         )]
         [hashtable]$custom_fields,
         [Parameter(
             Mandatory = $false,
             HelpMessage = 'List of assets associated with the release',
-            ValueFromPipelineByPropertyName = $true
+            ValueFromPipelineByPropertyName = $true,
+            ParameterSetName = 'default',
+            Position = 17
         )]
         [object[]]$assets,
         [Parameter(
             Mandatory = $false,
             HelpMessage = 'Release attachments. The total size of these attachments cannot exceed 15MB.',
-            ValueFromPipelineByPropertyName = $true
+            ValueFromPipelineByPropertyName = $true,
+            ParameterSetName = 'default',
+            Position = 18
         )]
         [ValidateScript({
             if(-Not ($_ | Test-Path) ){
@@ -265,9 +313,18 @@ function Set-FreshServiceRelease {
             ParameterSetName = 'default',
             Position = 20
         )]
-        [string]$test_plan
+        [string]$test_plan,
+        [Parameter(
+            Mandatory = $true,
+            HelpMessage = 'Workspace ID to move Change. The attribute is applicable only for accounts with the Workspaces feature enabled. The default value is the ID of the primary workspace of the account.',
+            ValueFromPipelineByPropertyName = $true,
+            ParameterSetName = 'workspace',
+            Position = 1
+        )]
+        [int]$workspace_id
     )
     begin {
+
         $PrivateData  = $MyInvocation.MyCommand.Module.PrivateData
 
         if (!$PrivateData.FreshserviceBaseUri) {
@@ -282,6 +339,10 @@ function Set-FreshServiceRelease {
         if ($Id) {
             $uri.Path = "{0}/{1}" -f $uri.Path, $Id
             [void]$PSBoundParameters.Remove('id')
+        }
+
+        if ($workspace_id) {
+            $uri.Path = "{0}/move_workspace" -f $uri.Path
         }
 
         $pf = @{}

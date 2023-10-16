@@ -113,10 +113,10 @@ function New-FreshServiceRelease {
     param (
         [Parameter(
             Mandatory = $false,
-            HelpMessage = 'Workspace ID of the ticket. The attribute is applicable only for accounts with the Workspaces feature enabled. The default value is the ID of the primary workspace of the account.',
+            HelpMessage = 'Workspace ID of the Release. The attribute is applicable only for accounts with the Workspaces feature enabled. The default value is the ID of the primary workspace of the account.',
             ValueFromPipelineByPropertyName = $true
         )]
-        [long]$workspace_id,
+        [int]$workspace_id,
         [Parameter(
             Mandatory = $false,
             HelpMessage = 'Unique identifier of the agent to whom the Release is assigned',

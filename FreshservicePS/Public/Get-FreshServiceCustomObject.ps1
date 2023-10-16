@@ -10,6 +10,13 @@
 .PARAMETER Id
     Unique id of the Custom Object.
 
+.PARAMETER workspace_id
+    Workspace id filter is applicable only for accounts with Workspaces feature enabled. Providing a Workspace_id will return tickets from a specific workspace.
+
+    If the workspace_id(s) parameter is NOT provided, data will only be returned for the Default\Primary Workspace.
+    If the workspace_id(s) parameter is provided, data will be returned from the specified Workspaces.
+    If the workspace_id value is 0, data will be returned from all workspaces (the user has access to), with only global level fields.
+
 .PARAMETER per_page
     Number of records to return per page during pagination.  Maximum of 100 records.
 
@@ -64,16 +71,24 @@ function Get-FreshServiceCustomObject {
         [long]$Id,
         [Parameter(
             Mandatory = $false,
-            HelpMessage = 'Number of records per page returned during pagination.  Default is 30. Max is 100.',
+            HelpMessage = 'Workspace ID of the Change. The attribute is applicable only for accounts with the Workspaces feature enabled. The default value is the ID of the primary workspace of the account.',
+            ValueFromPipelineByPropertyName = $true,
             ParameterSetName = 'default',
             Position = 0
+        )]
+        [int]$workspace_id,
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Number of records per page returned during pagination.  Default is 30. Max is 100.',
+            ParameterSetName = 'default',
+            Position = 1
         )]
         [int]$per_page = 100,
         [Parameter(
             Mandatory = $false,
             HelpMessage = 'Page number to begin record return.',
             ParameterSetName = 'default',
-            Position = 1
+            Position = 2
         )]
         [int]$page = 1
     )
@@ -89,13 +104,17 @@ function Get-FreshServiceCustomObject {
         $uri = [System.UriBuilder]('{0}/objects' -f $PrivateData['FreshserviceBaseUri'])
         $enablePagination = $false
 
-    }
-    process {
-
         if ($Id) {
             $uri.Path = "{0}/{1}" -f $uri.Path, $Id
             $enablePagination = $true
         }
+
+        if ($workspace_id) {
+            $qry.Add('workspace_id', '{0}' -f ($workspace_id -join ','))
+        }
+
+    }
+    process {
 
         try {
 

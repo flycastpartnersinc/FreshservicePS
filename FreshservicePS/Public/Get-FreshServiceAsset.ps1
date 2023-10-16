@@ -10,8 +10,15 @@
 .PARAMETER display_id
     The display Id of the asset.
 
+.PARAMETER workspace_id
+    Workspace id filter is applicable only for accounts with Workspaces feature enabled. Providing a Workspace_id will return tickets from a specific workspace.
+
+    If the workspace_id(s) parameter is NOT provided, data will only be returned for the Default\Primary Workspace.
+    If the workspace_id(s) parameter is provided, data will be returned from the specified Workspaces.
+    If the workspace_id value is 0, data will be returned from all workspaces (the user has access to), with only global level fields.
+
 .PARAMETER filter
-    Custom filters supported by the api can be found here: https://api.freshservice.com/#filter_assets.  The filter is automatically url encoded at runtime.
+    Custom filters supported by the api can be found here: https://api.freshservice.com/#filter_assets.  The filter is automatically url encoded at runtime. Filter queries for asset are 30 records per page with 40 pages maximum.
 
 .PARAMETER name
     Quick filter Assets by Name. Tokenized search appears to be supported.
@@ -253,6 +260,13 @@
         [long]$display_id,
         [Parameter(
             Mandatory = $false,
+            HelpMessage = 'Workspace id is applicable only for accounts with Workspaces feature enabled. The value 0 for workspace_id will return tickets from all workspaces, with only global level fields.',
+            ParameterSetName = 'default',
+            Position = 0
+        )]
+        [int[]]$workspace_id,
+        [Parameter(
+            Mandatory = $false,
             HelpMessage = 'Filter for Assets',
             ParameterSetName = 'Filter',
             Position = 0
@@ -388,6 +402,10 @@
             $enablePagination = $false
         }
 
+        if ($PSBoundParameters.ContainsKey('workspace_id')) {
+            $qry.Add('workspace_id', $workspace_id -join ',')
+        }
+
         if ($PSBoundParameters.ContainsKey('name')) {
             $qry.Add('search', '"name:''{0}''"' -f $name )
             $enablePagination = $false
@@ -443,12 +461,12 @@
 
             $uri.Query = $qry.ToString()
 
-            $uri = $uri.Uri.AbsoluteUri
+            $uriFinal = $uri.Uri.AbsoluteUri
 
             $results = do {
 
                 $params = @{
-                    Uri         = $uri
+                    Uri         = $uriFinal
                     Method      = 'GET'
                     ErrorAction = 'Stop'
                 }
@@ -459,19 +477,39 @@
                     $content = $result.Content |
                                     ConvertFrom-Json
 
-
                     #API returns singluar or plural property based on the number of records, parse to get property returned.
                     $objProperty = $content[0].PSObject.Properties.Name
                     Write-Verbose -Message ("Returning {0} property with count {1}" -f $objProperty, $content."$($objProperty)".Count)
                     $content."$($objProperty)"
                 }
 
-                if ($result.Headers.Link) {
-                    $uri = [regex]::Matches($result.Headers.Link,'<(?<Uri>.*)>')[0].Groups['Uri'].Value
-                }
+                #Default loop condition - link exists indicates another page for pagination
+                $loopCondition = !$result.Headers.Link
 
+                if ($PSBoundParameters.ContainsKey('filter')) {
+                    #Pagination is manual for results returned from filter with 30 records returned per page with max of 40 pages.
+                    Write-Verbose ('Using filter pagination for page {0}' -f $page)
+                    #Manually increment page
+                    $page++
+                    #Update query
+                    $qry['page'] = $page
+                    $uri.Query = $qry.ToString()
+                    $uriFinal = $uri.Uri.AbsoluteUri
+
+                    $maxPages = 40
+                    if ($maxPages -gt $page) {
+                        Write-Warning -Message  ('Returned maximum allowed {0} pages for filter query' -f $maxPages)
+                        Write-Verbose -Message  ('Returned maximum allowed {0} pages for filter query' -f $maxPages)
+                    }
+                    #Update loop condition based on return results
+                    $loopCondition = ($content."$($objProperty)".Count -eq 0) -or ($page -gt $maxPages)
+                }
+                elseif ($result.Headers.Link) {
+                    $uriFinal = [regex]::Matches($result.Headers.Link,'<(?<Uri>.*)>')[0].Groups['Uri'].Value
+                    Write-Verbose ('Automatic pagination enabled with next link {0}' -f $uri)
+                }
             }
-            until (!$result.Headers.Link)
+            until ($loopCondition)
 
         }
         catch {

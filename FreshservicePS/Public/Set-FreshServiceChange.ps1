@@ -102,6 +102,9 @@
 .PARAMETER attachments
     Path to attachment(s).
 
+.PARAMETER workspace_id
+    Workspace ID to move ticket. The attribute is applicable only for accounts with the Workspaces feature enabled. The default value is the ID of the primary workspace of the account.
+
 .EXAMPLE
     Set-FreshServiceChange -id 10 -planned_end_date (Get-Date).AddDays(+5)
 
@@ -146,144 +149,197 @@ function Set-FreshServiceChange {
         [Parameter(
             Mandatory = $true,
             HelpMessage = 'Unique identifier of the Change.',
-            ValueFromPipelineByPropertyName = $true
+            ValueFromPipelineByPropertyName = $true,
+            ParameterSetName = 'default',
+            Position = 0
+        )]
+        [Parameter(
+            Mandatory = $true,
+            HelpMessage = 'Unique identifier of the Change.',
+            ValueFromPipelineByPropertyName = $true,
+            ParameterSetName = 'workspace',
+            Position = 0
         )]
         [long]$id,
         [Parameter(
             Mandatory = $false,
             HelpMessage = 'Unique identifier of the agent to whom the change is assigned.',
-            ValueFromPipelineByPropertyName = $true
+            ValueFromPipelineByPropertyName = $true,
+            ParameterSetName = 'default',
+            Position = 1
         )]
         [long]$agent_id,
         [Parameter(
             Mandatory = $false,
             HelpMessage = 'HTML content of the change. Description and description_html should not be passed together',
-            ValueFromPipelineByPropertyName = $true
+            ValueFromPipelineByPropertyName = $true,
+            ParameterSetName = 'default',
+            Position = 2
         )]
         [string]$description,
         [Parameter(
             Mandatory = $false,
             HelpMessage = 'Unique identifier of the initiator of the change.',
-            ValueFromPipelineByPropertyName = $true
+            ValueFromPipelineByPropertyName = $true,
+            ParameterSetName = 'default',
+            Position = 3
         )]
         [long]$requester_id,
         [Parameter(
             Mandatory = $false,
             HelpMessage = 'Unique identifier of the agent group to which the change is assigned.',
-            ValueFromPipelineByPropertyName = $true
+            ValueFromPipelineByPropertyName = $true,
+            ParameterSetName = 'default',
+            Position = 4
         )]
         [long]$group_id,
         [Parameter(
             Mandatory = $false,
             HelpMessage = 'Priority of the change.',
-            ValueFromPipelineByPropertyName = $true
+            ValueFromPipelineByPropertyName = $true,
+            ParameterSetName = 'default',
+            Position = 5
         )]
         [ValidateRange(1,4)]
         [long]$priority,
         [Parameter(
             Mandatory = $false,
             HelpMessage = 'Impact of the change.',
-            ValueFromPipelineByPropertyName = $true
+            ValueFromPipelineByPropertyName = $true,
+            ParameterSetName = 'default',
+            Position = 6
         )]
         [ValidateRange(1,3)]
         [long]$impact,
         [Parameter(
             Mandatory = $false,
             HelpMessage = 'Status of the change.',
-            ValueFromPipelineByPropertyName = $true
+            ValueFromPipelineByPropertyName = $true,
+            ParameterSetName = 'default',
+            Position = 7
         )]
         [ValidateRange(1,6)]
         [long]$status,
         [Parameter(
             Mandatory = $false,
             HelpMessage = 'Risk of the change.',
-            ValueFromPipelineByPropertyName = $true
+            ValueFromPipelineByPropertyName = $true,
+            ParameterSetName = 'default',
+            Position = 8
         )]
         [ValidateRange(1,4)]
         [long]$risk,
         [Parameter(
             Mandatory = $false,
             HelpMessage = 'Type of the change.',
-            ValueFromPipelineByPropertyName = $true
+            ValueFromPipelineByPropertyName = $true,
+            ParameterSetName = 'default',
+            Position = 9
         )]
         [ValidateRange(1,4)]
         [long]$change_type,
         [Parameter(
             Mandatory = $false,
             HelpMessage = 'Approval status of the change.',
-            ValueFromPipelineByPropertyName = $true
+            ValueFromPipelineByPropertyName = $true,
+            ParameterSetName = 'default',
+            Position = 10
         )]
         [long]$approval_status,
         [Parameter(
             Mandatory = $false,
             HelpMessage = 'Timestamp at which change is starting.',
-            ValueFromPipelineByPropertyName = $true
+            ValueFromPipelineByPropertyName = $true,
+            ParameterSetName = 'default',
+            Position = 11
         )]
         [datetime]$planned_start_date,
         [Parameter(
             Mandatory = $false,
             HelpMessage = 'Timestamp at which change is ending.',
-            ValueFromPipelineByPropertyName = $true
+            ValueFromPipelineByPropertyName = $true,
+            ParameterSetName = 'default',
+            Position = 12
         )]
         [datetime]$planned_end_date,
         [Parameter(
             Mandatory = $false,
             HelpMessage = 'change subject.',
-            ValueFromPipelineByPropertyName = $true
+            ValueFromPipelineByPropertyName = $true,
+            ParameterSetName = 'default',
+            Position = 13
         )]
         [string]$subject,
         [Parameter(
             Mandatory = $false,
             HelpMessage = 'Unique ID of the department initiating the change.',
-            ValueFromPipelineByPropertyName = $true
+            ValueFromPipelineByPropertyName = $true,
+            ParameterSetName = 'default',
+            Position = 14
         )]
         [long]$department_id,
         [Parameter(
             Mandatory = $false,
             HelpMessage = 'Category of the change',
-            ValueFromPipelineByPropertyName = $true
+            ValueFromPipelineByPropertyName = $true,
+            ParameterSetName = 'default',
+            Position = 15
         )]
         [string]$category,
         [Parameter(
             Mandatory = $false,
             HelpMessage = 'Sub-category of the change',
-            ValueFromPipelineByPropertyName = $true
+            ValueFromPipelineByPropertyName = $true,
+            ParameterSetName = 'default',
+            Position = 16
         )]
         [string]$sub_category,
         [Parameter(
             Mandatory = $false,
             HelpMessage = 'Item of the change',
-            ValueFromPipelineByPropertyName = $true
+            ValueFromPipelineByPropertyName = $true,
+            ParameterSetName = 'default',
+            Position = 17
         )]
         [string]$item_category,
         [Parameter(
             Mandatory = $false,
             HelpMessage = 'Key value pairs containing the names and values of custom fields.',
-            ValueFromPipelineByPropertyName = $true
+            ValueFromPipelineByPropertyName = $true,
+            ParameterSetName = 'default',
+            Position = 18
         )]
         [hashtable]$custom_fields,
         [Parameter(
             Mandatory = $false,
             HelpMessage = 'Details about the associated Maintenance Window.',
-            ValueFromPipelineByPropertyName = $true
+            ValueFromPipelineByPropertyName = $true,
+            ParameterSetName = 'default',
+            Position = 19
         )]
         [hashtable]$maintenance_window,
         [Parameter(
             Mandatory = $false,
             HelpMessage = 'List of assets associated with the change',
-            ValueFromPipelineByPropertyName = $true
+            ValueFromPipelineByPropertyName = $true,
+            ParameterSetName = 'default',
+            Position = 20
         )]
         [object[]]$assets,
         [Parameter(
             Mandatory = $false,
             HelpMessage = 'List of Impacted Services associated with the change',
-            ValueFromPipelineByPropertyName = $true
+            ValueFromPipelineByPropertyName = $true,
+            ParameterSetName = 'default',
+            Position = 21
         )]
         [hashtable]$impacted_services,
         [Parameter(
             Mandatory = $false,
             HelpMessage = 'Ticket attachments. The total size of these attachments cannot exceed 15MB.',
-            ValueFromPipelineByPropertyName = $true
+            ValueFromPipelineByPropertyName = $true,
+            ParameterSetName = 'default',
+            Position = 22
         )]
         [ValidateScript({
             if(-Not ($_ | Test-Path) ){
@@ -297,7 +353,15 @@ function Set-FreshServiceChange {
             }
             return $true
         })]
-        [System.IO.FileInfo[]]$attachments
+        [System.IO.FileInfo[]]$attachments,
+        [Parameter(
+            Mandatory = $true,
+            HelpMessage = 'Workspace ID to move Change. The attribute is applicable only for accounts with the Workspaces feature enabled. The default value is the ID of the primary workspace of the account.',
+            ValueFromPipelineByPropertyName = $true,
+            ParameterSetName = 'workspace',
+            Position = 1
+        )]
+        [int]$workspace_id
     )
     begin {
         $PrivateData  = $MyInvocation.MyCommand.Module.PrivateData
@@ -314,6 +378,10 @@ function Set-FreshServiceChange {
         if ($Id) {
             $uri.Path = "{0}/{1}" -f $uri.Path, $Id
             [void]$PSBoundParameters.Remove('id')
+        }
+
+        if ($workspace_id) {
+            $uri.Path = "{0}/move_workspace" -f $uri.Path
         }
 
         $jsonBody = @{}

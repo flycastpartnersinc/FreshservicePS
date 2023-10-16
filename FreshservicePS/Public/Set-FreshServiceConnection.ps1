@@ -72,7 +72,8 @@ function Set-FreshServiceConnection {
         [Parameter(
             Mandatory = $true,
             HelpMessage = 'Friendly name of the environment',
-            ValueFromPipelineByPropertyName = $true
+            ValueFromPipelineByPropertyName = $true,
+            Position = 0
         )]
         [ArgumentCompleter({
             param ($Command, $Parameter, $WordToComplete, $CommandAst, $FakeBoundParams)
@@ -87,41 +88,47 @@ function Set-FreshServiceConnection {
         [Parameter(
             Mandatory = $false,
             HelpMessage = 'New Friendly name of the environment',
-            ValueFromPipelineByPropertyName = $true
+            ValueFromPipelineByPropertyName = $true,
+            Position = 1
         )]
         [ValidatePattern('^[A-Za-z0-9_@.-]*$')]
         [string]$NewName,
         [Parameter(
             Mandatory = $false,
             HelpMessage = 'API Key of the environment',
-            ValueFromPipelineByPropertyName = $true
+            ValueFromPipelineByPropertyName = $true,
+            Position = 2
         )]
         [string]$ApiKey,
         [Parameter(
             Mandatory = $false,
             HelpMessage = 'Tenant name. Example https://acmecorp.freshservice.com would be tenant acmecorp',
-            ValueFromPipelineByPropertyName = $true
+            ValueFromPipelineByPropertyName = $true,
+            Position = 3
         )]
         [Alias('ComputerName','Instance')]
         [string]$Tenant,
         [Parameter(
             Mandatory = $false,
             HelpMessage = 'Email Address of the API Key user',
-            ValueFromPipelineByPropertyName = $true
+            ValueFromPipelineByPropertyName = $true,
+            Position = 4
         )]
         [string]$EmailAddress,
         [Parameter(
             Mandatory = $false,
             HelpMessage = 'Type of environment. Sandbox or Production. Used to generate base uri.',
-            ValueFromPipelineByPropertyName = $true
+            ValueFromPipelineByPropertyName = $true,
+            Position = 5
         )]
         [ValidateSet('Production','Sandbox')]
         [string]$Environment,
         [Parameter(
             Mandatory = $false,
-            HelpMessage = 'Connect to this environment as default'
+            HelpMessage = 'Connect to this environment as default',
+            Position = 6
         )]
-        [boolean]$Default = $false
+        [switch]$Default
     )
     begin{
         $environments = @()
@@ -173,8 +180,13 @@ function Set-FreshServiceConnection {
                                 $envToUpdate.BaseUri = $environmentLookup[$Environment]
                             }
                             'Default' {
-                                Write-Verbose ('Updating Default to {0}' -f $Default)
-                                if ($Default -eq $true) {$environments | ForEach-Object {$_.Default = $false}}
+                                Write-Verbose ('Setting {0} ({1}) as Default connection' -f $envToUpdate.Name, $envToUpdate.Tenant)
+                                if ($PSBoundParameters.ContainsKey('Default')) {
+                                    ForEach ($envt in $environments) {
+                                        Write-Verbose ('Setting {0} to Default = $false' -f $envt.Name)
+                                        $envt.Default = $false
+                                    }
+                                }
                                 $envToUpdate.Default = $Default
                             }
 

@@ -14,7 +14,7 @@ Returns a Freshservice ticket.
 
 ### default (Default)
 ```
-Get-FreshServiceTicket [[-workspace_id] <Int64>] [[-updated_since] <DateTime>] [[-include_global] <String[]>]
+Get-FreshServiceTicket [[-workspace_id] <Int32[]>] [[-updated_since] <DateTime>] [[-include_global] <String[]>]
  [[-predefined_filter] <String>] [[-requester_id] <Int64>] [[-email] <String>] [[-type] <String[]>]
  [[-per_page] <Int32>] [[-page] <Int32>] [<CommonParameters>]
 ```
@@ -596,7 +596,7 @@ Workspace id is applicable only for accounts with Workspaces feature enabled.
 The value 1 for workspace_id will return tickets from all workspaces, with only global level fields.
 
 ```yaml
-Type: Int64
+Type: Int32[]
 Parameter Sets: default
 Aliases:
 

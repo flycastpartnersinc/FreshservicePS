@@ -10,6 +10,9 @@
 .PARAMETER Id
     Unique id of the Problem.
 
+.PARAMETER workspace_id
+    Workspace ID of the Problem. The attribute is applicable only for accounts with the Workspaces feature enabled. The default value is the ID of the primary workspace of the account.
+
 .PARAMETER Fields
     View all the built-in and custom fields for Problem.
 
@@ -166,6 +169,12 @@ function Get-FreshServiceProblem {
             Position = 0
         )]
         [string]$id,
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Workspace ID of the Problem. The attribute is applicable only for accounts with the Workspaces feature enabled. The default value is the ID of the primary workspace of the account.',
+            ValueFromPipelineByPropertyName = $true
+        )]
+        [int]$workspace_id,
         [Parameter(
             Mandatory = $false,
             HelpMessage = 'Allows you to view all the built-in and custom fields for Problem in your Freshservice account.',

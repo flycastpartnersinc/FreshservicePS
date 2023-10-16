@@ -1,21 +1,20 @@
 <#
 .SYNOPSIS
-    Returns a Freshservice Service Catalog Category.
+    Returns a Freshservice Workspace.
 
 .DESCRIPTION
-    Returns a Freshservice Service Catalog Category via REST API.
+    Returns a Freshservice Workspace via REST API.
 
-    https://api.freshservice.com/#list_all_service_categories
+    https://api.freshservice.com/#view_a_workspace
 
 .PARAMETER id
-    Unique id of the Service Catalog Category.
+    Unique id of the FreshService Workspace.
 
-.PARAMETER workspace_id
-    Workspace id filter is applicable only for accounts with Workspaces feature enabled. Providing a Workspace_id will return tickets from a specific workspace.
+.PARAMETER associated_assets
+    View information about all the associated assets of a Workspace.
 
-    If the workspace_id(s) parameter is NOT provided, data will only be returned for the Default\Primary Workspace.
-    If the workspace_id(s) parameter is provided, data will be returned from the specified Workspaces.
-    If the workspace_id value is 0, data will be returned from all workspaces (the user has access to), with only global level fields.
+.PARAMETER attachments
+    View information about all the associated attachments of a Workspace.
 
 .PARAMETER per_page
     Number of records to return per page during pagination.  Maximum of 100 records.
@@ -24,82 +23,73 @@
     The page number to retrieve during pagination.
 
 .EXAMPLE
-    Get-FreshServiceCatalogCategory
+    Get-FreshServiceWorkspace
 
-    description :
-    id          : 21000104299
-    created_at  : 8/29/2022 2:17:48 PM
-    updated_at  : 8/29/2022 2:17:48 PM
-    name        : Hardware Provisioning
-    position    : 1
+    created_at    : 7/25/2023 1:25:30 PM
+    description   :
+    id            : 2
+    logo          :
+    name          : My Team
+    primary       : True
+    restricted    : False
+    state         : 1
+    template_name : it
+    updated_at    : 7/25/2023 1:25:30 PM
 
-    description :
-    id          : 21000104300
-    created_at  : 8/29/2022 2:17:48 PM
-    updated_at  : 8/29/2022 2:17:48 PM
-    name        : Software Installation
-    position    : 2
+    created_at    : 8/25/2023 8:58:25 PM
+    description   :
+    id            : 3
+    logo          : https://tenant.attachments.freshservice.com/data/helpdesk/attachments/production/21019153239/original/it.png?Expires=1697659317&Signature=gEfmrtaiQWqSCQFvyPGRezeoz9z~rrtZQ5yoNb3ssaCiFlFLJKGAzqXhftFD8v4vk-WQn6gZXVNtbuj
+                    a0kVOof0p0D2p3ojHX7xNqzVmtWrIqozOcwmohDKz8ZFqZ3oD0pGclO4Qy9KxPGmMW4nJ09aI7eUG7QH76gmxN-C4biqwE2w1QVkg1cjrNXT-3iMPs18ZEb3e1OsfKhHg7fnX2oSlYsZnR0oTLpSFvOUndKdklRMpMq7xQeL4X-VbV~9thZrJ8CEkwyBomhdUxz0jiN4Lpo6~2gR0kqmMvh999Q
+                    H0RFlXb25UOWilCK6VAxHKUpwO29H0qsKLe5GFa5Gz~Q__&Key-Pair-Id=APKAIPHBXWY2KT5RCMPQ
+    name          : IT Custom
+    primary       : False
+    restricted    : False
+    state         : 1
+    template_name : it
+    updated_at    : 8/25/2023 8:59:09 PM
 
-    description :
-    id          : 21000104301
-    created_at  : 8/29/2022 2:17:48 PM
-    updated_at  : 8/29/2022 2:17:48 PM
-    name        : HR Management
-    position    : 3
-
-    description :
-    id          : 21000104302
-    created_at  : 8/29/2022 2:17:48 PM
-    updated_at  : 8/29/2022 2:17:48 PM
-    name        : Data Services
-    position    : 4
-
-    Returns all Freshservice Catalog Categories.
+    Returns all Freshservice Workspaces.
 
 .EXAMPLE
-    Get-FreshServiceCatalogCategory -id 21000104303
+    Get-FreshServiceWorkspace -id 2
 
-    description :
-    id          : 21000104303
-    created_at  : 8/29/2022 2:17:48 PM
-    updated_at  : 8/29/2022 2:17:48 PM
-    name        : Application Access
-    position    : 5
+    created_at    : 7/25/2023 1:25:30 PM
+    description   :
+    id            : 2
+    logo          :
+    name          : My Team
+    primary       : True
+    restricted    : False
+    state         : 1
+    template_name : it
+    updated_at    : 7/25/2023 1:25:30 PM
 
-    Returns a Freshservice Catalog Category by Id.
+    Return a Freshservice Workspace by Id.
 
 .NOTES
     This module was developed and tested with Freshservice REST API v2.
 #>
-function Get-FreshServiceCatalogCategory {
+function Get-FreshServiceWorkspace {
     [CmdletBinding(DefaultParameterSetName = 'default')]
     param (
         [Parameter(
-            Mandatory = $false,
-            HelpMessage = 'Unique id of Service Catalog Category.',
-            ParameterSetName = 'Id',
+            Mandatory = $true,
+            HelpMessage = 'Unique id of the Workspace',
+            ParameterSetName = 'id',
             Position = 0
         )]
-        [long]$Id,
-        [Parameter(
-            Mandatory = $false,
-            HelpMessage = 'Workspace id is applicable only for accounts with Workspaces feature enabled. The value 0 for workspace_id will return tickets from all workspaces, with only global level fields.',
-            ParameterSetName = 'default',
-            Position = 0
-        )]
-        [int[]]$workspace_id,
+        [int]$Id,
         [Parameter(
             Mandatory = $false,
             HelpMessage = 'Number of records per page returned during pagination.  Default is 30. Max is 100.',
-            ParameterSetName = 'default',
-            Position = 1
+            ParameterSetName = 'default'
         )]
         [int]$per_page = 100,
         [Parameter(
             Mandatory = $false,
             HelpMessage = 'Page number to begin record return.',
-            ParameterSetName = 'default',
-            Position = 2
+            ParameterSetName = 'default'
         )]
         [int]$page = 1
     )
@@ -112,16 +102,12 @@ function Get-FreshServiceCatalogCategory {
         }
 
         $qry = [System.Web.HttpUtility]::ParseQueryString([String]::Empty)
-        $uri = [System.UriBuilder]('{0}/service_catalog/categories' -f $PrivateData['FreshserviceBaseUri'])
+        $uri = [System.UriBuilder]('{0}/workspaces' -f $PrivateData['FreshserviceBaseUri'])
         $enablePagination = $true
 
-        if ($Id) {
+        if ($id) {
             $uri.Path = "{0}/{1}" -f $uri.Path, $Id
             $enablePagination = $false
-        }
-
-        if ($PSBoundParameters.ContainsKey('workspace_id')) {
-            $qry.Add('workspace_id', $workspace_id -join ',')
         }
 
     }

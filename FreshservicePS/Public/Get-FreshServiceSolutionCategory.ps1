@@ -10,6 +10,13 @@
 .PARAMETER Id
     Unique Id of the Solution Category.
 
+.PARAMETER workspace_id
+    Workspace id filter is applicable only for accounts with Workspaces feature enabled. Providing a Workspace_id will return tickets from a specific workspace.
+
+    If the workspace_id(s) parameter is NOT provided, data will only be returned for the Default\Primary Workspace.
+    If the workspace_id(s) parameter is provided, data will be returned from the specified Workspaces.
+    If the workspace_id value is 0, data will be returned from all workspaces (the user has access to), with only global level fields.
+
 .PARAMETER per_page
     Number of records to return per page during pagination.  Maximum of 100 records.
 
@@ -88,6 +95,11 @@ function Get-FreshServiceSolutionCategory {
         [string]$Id,
         [Parameter(
             Mandatory = $false,
+            HelpMessage = 'Workspace id is applicable only for accounts with Workspaces feature enabled. The value 0 for workspace_id will return tickets from all workspaces, with only global level fields.'
+        )]
+        [int[]]$workspace_id,
+        [Parameter(
+            Mandatory = $false,
             HelpMessage = 'Number of records per page returned during pagination.  Default is 30. Max is 100.'
         )]
         [int]$per_page = 100,
@@ -115,6 +127,10 @@ function Get-FreshServiceSolutionCategory {
         if ($Id) {
             $uri.Path = "{0}/{1}" -f $uri.Path, $Id
             $enablePagination = $false
+        }
+
+        if ($PSBoundParameters.ContainsKey('workspace_id')) {
+            $qry.Add('workspace_id', $workspace_id -join ',')
         }
 
         try {

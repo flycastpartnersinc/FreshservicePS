@@ -73,6 +73,9 @@
     Each individual role is a hash in the roles array that contains the attributes.role_id: Unique ID of the role assigned"assignment_scope: The scope in which the
     agent can use the permissions granted by this role. Possible values include entire_helpdesk (all plans)
 
+.PARAMETER license_type
+    The type of license, IT or Business.
+
 .PARAMETER signature
     Signature of the agent in HTML format.
 
@@ -303,6 +306,13 @@ function New-FreshServiceAgent {
             HelpMessage = 'Signature of the agent in HTML format.',
             ValueFromPipelineByPropertyName = $true
         )]
+        [ValidateSet('it','business')]
+        [string]$license_type,
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Signature of the agent in HTML format.',
+            ValueFromPipelineByPropertyName = $true
+        )]
         [string]$signature,
         [Parameter(
             Mandatory = $false,
@@ -310,7 +320,13 @@ function New-FreshServiceAgent {
             ValueFromPipelineByPropertyName = $true
         )]
         [Alias('CustomFields')]
-        [hashtable]$custom_fields
+        [hashtable]$custom_fields,
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Workspace Ids',
+            ValueFromPipelineByPropertyName = $true
+        )]
+        [int[]]$workspace_ids
     )
     begin {
 

@@ -11,7 +11,11 @@
     Unique Id of the Ticket.
 
 .PARAMETER workspace_id
-    Workspace id is applicable only for accounts with Workspaces feature enabled. The value 1 for workspace_id will return tickets from all workspaces, with only global level fields.
+    Workspace id filter is applicable only for accounts with Workspaces feature enabled. Providing a Workspace_id will return tickets from a specific workspace.
+
+    If the workspace_id(s) parameter is NOT provided, data will only be returned for the Default\Primary Workspace.
+    If the workspace_id(s) parameter is provided, data will be returned from the specified Workspaces.
+    If the workspace_id value is 0, data will be returned from all workspaces (the user has access to), with only global level fields.
 
 .PARAMETER Filter
     Filter results for Ticket.  Documentation can be found here to get the latest capabilities and examples:
@@ -271,6 +275,7 @@
     Get-FreshServiceTicket -Filter "agent_id:< 1 AND (status:2 OR status:3 OR status:5) AND group_id:21000188396 AND created_at:>'2022-01-01'"
 
     Return Freshservice Ticket with advanced Filter.
+
 .EXAMPLE
     Get-FreshServiceTicket -updated_since (Get-Date).AddDays(-4)
 
@@ -596,6 +601,16 @@
 
     Returns all the built-in and custom fields for Tickets.
 
+.EXAMPLE
+    Get-FSTicket -workspace_id 0
+
+    For Workspace enabled instances, returns tickets from all workspaces where an agent has permissions.
+
+.EXAMPLE
+    Get-FSTicket -workspace_id 2,4
+
+    For Workspace enabled instances, returns tickets from specific workspaces 2 and 4.
+
 .NOTES
     This module was developed and tested with Freshservice REST API v2.
 #>
@@ -611,14 +626,14 @@ function Get-FreshServiceTicket {
         [long]$id,
         [Parameter(
             Mandatory = $false,
-            HelpMessage = 'Workspace id is applicable only for accounts with Workspaces feature enabled. The value 1 for workspace_id will return tickets from all workspaces, with only global level fields.',
+            HelpMessage = 'Workspace id is applicable only for accounts with Workspaces feature enabled. The value 0 for workspace_id will return tickets from all workspaces, with only global level fields.',
             ParameterSetName = 'default',
             Position = 0
         )]
-        [long]$workspace_id,
+        [int[]]$workspace_id,
         [Parameter(
             Mandatory = $false,
-            HelpMessage = 'Filter results for Ticket',
+            HelpMessage = 'Filter results for Ticket.',
             ParameterSetName = 'filter',
             Position = 0
         )]
@@ -753,6 +768,11 @@ function Get-FreshServiceTicket {
         elseif ($filter) {
             $uri.Path = "{0}/filter" -f $uri.Path
             $qry.Add('query', '"{0}"' -f $filter )
+            # $qry.Add('query', $filter )
+        }
+
+        if ($PSBoundParameters.ContainsKey('workspace_id')) {
+            $qry.Add('workspace_id', $workspace_id -join ',')
         }
 
         if ($predefined_filter) {
@@ -797,27 +817,25 @@ function Get-FreshServiceTicket {
             $qry.Add('include', $include_global.ToLower() -join ',')
         }
 
-        if ($workspace_id) {
-            $qry.Add('workspace_id', $workspace_id)
-        }
+
     }
     process {
 
         try {
 
-          if ($enablePagination) {
+            if ($enablePagination) {
                 $qry['page'] = $page
                 $qry['per_page'] = $per_page
             }
 
             $uri.Query = $qry.ToString()
 
-            $uri = $uri.Uri.AbsoluteUri
+            $uriFinal = $uri.Uri.AbsoluteUri
 
             $results = do {
 
                 $params = @{
-                    Uri         = $uri
+                    Uri         = $uriFinal
                     Method      = 'GET'
                     ErrorAction = 'Stop'
                 }
@@ -838,13 +856,27 @@ function Get-FreshServiceTicket {
                     $content."$($objProperty)"
                 }
 
-                if ($result.Headers.Link) {
-                    $uri = [regex]::Matches($result.Headers.Link,'<(?<Uri>.*)>')[0].Groups['Uri'].Value
+                #Default loop condition - link exists indicates another page for pagination
+                $loopCondition = !$result.Headers.Link
+
+                if ($PSBoundParameters.ContainsKey('filter')) {
+                    #Pagination is manual for results returned from filter
+                    Write-Verbose ('Using filter pagination for page {0}' -f $page)
+                    #Manually increment page
+                    $page++
+                    #Update query
+                    $qry['page'] = $page
+                    $uri.Query = $qry.ToString()
+                    $uriFinal = $uri.Uri.AbsoluteUri
+                    #Update loop condition based on return results
+                    $loopCondition = $content."$($objProperty)".Count -eq 0
+                }
+                elseif ($result.Headers.Link) {
+                    $uriFinal = [regex]::Matches($result.Headers.Link,'<(?<Uri>.*)>')[0].Groups['Uri'].Value
                     Write-Verbose ('Automatic pagination enabled with next link {0}' -f $uri)
                 }
-
             }
-            until (!$result.Headers.Link)
+            until ($loopCondition)
 
         }
         catch {

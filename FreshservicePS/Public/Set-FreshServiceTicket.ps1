@@ -31,7 +31,7 @@
     incident. As of now, API v2 supports only type 'incident'
 
 .PARAMETER status
-    Status of the ticket.
+    Status of the ticket. There can be custom fields, use Get-FSTIcket -Fields to get values from API, but these are the defaults:
 
     2 = Open
     3 = Pending
@@ -124,6 +124,9 @@
 .PARAMETER restore
     Restore a deleted ticket using the provided id.
 
+.PARAMETER workspace_id
+    Workspace ID to move ticket. The attribute is applicable only for accounts with the Workspaces feature enabled. The default value is the ID of the primary workspace of the account.
+
 .EXAMPLE
     Set-FreshServiceTicket -id 7 -status 3 -attachments 'C:\Scripts\automation_icon.jpg'
 
@@ -166,112 +169,87 @@
     This module was developed and tested with Freshservice REST API v2.
 #>
 function Set-FreshServiceTicket {
-    [CmdletBinding(SupportsShouldProcess=$true, ConfirmImpact='Medium', DefaultParameterSetName = 'default')]
+    [CmdletBinding(SupportsShouldProcess=$true, ConfirmImpact='Medium')]
     param (
         [Parameter(
             Mandatory = $true,
             HelpMessage = 'Ticket Id of the Ticket',
-            ValueFromPipelineByPropertyName = $true,
-            ParameterSetName = 'default',
-            Position = 0
-        )]
-        [Parameter(
-            Mandatory = $true,
-            HelpMessage = 'Ticket Id of the Ticket',
-            ValueFromPipelineByPropertyName = $true,
-            ParameterSetName = 'Restore',
-            Position = 0
+            ValueFromPipelineByPropertyName = $true
         )]
         [long]$id,
         [Parameter(
+            Mandatory = $true,
+            HelpMessage = 'Workspace ID to move ticket. The attribute is applicable only for accounts with the Workspaces feature enabled. The default value is the ID of the primary workspace of the account.',
+            ValueFromPipelineByPropertyName = $true
+        )]
+        [int]$workspace_id,
+        [Parameter(
             Mandatory = $false,
             HelpMessage = 'Name of the ticket',
-            ValueFromPipelineByPropertyName = $true,
-            ParameterSetName = 'default',
-            Position = 1
+            ValueFromPipelineByPropertyName = $true
         )]
         [string]$name,
         [Parameter(
             Mandatory = $false,
             HelpMessage = 'User ID of the ticket. For existing contacts, the ticket_id can be passed instead of the tickets email.',
-            ValueFromPipelineByPropertyName = $true,
-            ParameterSetName = 'default',
-            Position = 2
+            ValueFromPipelineByPropertyName = $true
         )]
         [Alias('RequesterId')]
         [long]$requester_id,
         [Parameter(
             Mandatory = $false,
             HelpMessage = 'Email address of the ticket. If no contact exists with this email address in Freshservice, it will be added as a new contact.',
-            ValueFromPipelineByPropertyName = $true,
-            ParameterSetName = 'default',
-            Position = 3
+            ValueFromPipelineByPropertyName = $true
         )]
         [string]$email,
         [Parameter(
             Mandatory = $false,
             HelpMessage = 'Phone number of the ticket. If no contact exists with this phone number in Freshservice, it will be added as a new contact. If the phone number is set and the email address is not, then the name attribute is mandatory.',
-            ValueFromPipelineByPropertyName = $true,
-            ParameterSetName = 'default',
-            Position = 4
+            ValueFromPipelineByPropertyName = $true
         )]
         [string]$phone,
         [Parameter(
             Mandatory = $false,
             HelpMessage = 'Subject of the ticket. The default value is null.',
-            ValueFromPipelineByPropertyName = $true,
-            ParameterSetName = 'default',
-            Position = 5
+            ValueFromPipelineByPropertyName = $true
         )]
         [string]$subject,
         [Parameter(
             Mandatory = $false,
             HelpMessage = 'Helps categorize the ticket according to the different kinds of issues your support team deals with. The default Value is incident.  As of now, API v2 supports only type "incident"',
-            ValueFromPipelineByPropertyName = $true,
-            ParameterSetName = 'default',
-            Position = 6
+            ValueFromPipelineByPropertyName = $true
         )]
         [string]$type,
         [Parameter(
             Mandatory = $false,
             HelpMessage = 'Status of the ticket.',
-            ValueFromPipelineByPropertyName = $true,
-            ParameterSetName = 'default',
-            Position = 7
+            ValueFromPipelineByPropertyName = $true
         )]
-        [ValidateRange(2,5)]
+        # [ValidateRange(2,5)] # 9/25/2023 - Remarked out to support custom statuses - GitHub Issue #8
         [int]$status,
         [Parameter(
             Mandatory = $false,
             HelpMessage = 'Priority of the ticket.',
-            ValueFromPipelineByPropertyName = $true,
-            ParameterSetName = 'default',
-            Position = 8
+            ValueFromPipelineByPropertyName = $true
         )]
         [ValidateRange(1,4)]
         [int]$priority,
         [Parameter(
             Mandatory = $false,
             HelpMessage = 'HTML content of the ticket.',
-            ValueFromPipelineByPropertyName = $true,
-            ParameterSetName = 'default',
-            Position = 9
+            ValueFromPipelineByPropertyName = $true
         )]
         [string]$description,
         [Parameter(
             Mandatory = $false,
             HelpMessage = 'Unique id of the agent to whom the ticket has been assigned',
-            ValueFromPipelineByPropertyName = $true,
-            ParameterSetName = 'default',
-            Position = 10
+            ValueFromPipelineByPropertyName = $true
         )]
         [long]$responder_id,
         [Parameter(
             Mandatory = $false,
             HelpMessage = 'Ticket attachments. The total size of these attachments cannot exceed 15MB.',
-            ValueFromPipelineByPropertyName = $true,
-            ParameterSetName = 'default',
-            Position = 11
+            ValueFromPipelineByPropertyName = $true
         )]
         [ValidateScript({
             if(-Not ($_ | Test-Path) ){
@@ -289,149 +267,112 @@ function Set-FreshServiceTicket {
         [Parameter(
             Mandatory = $false,
             HelpMessage = 'Email address added in the cc field of the incoming ticket email.',
-            ValueFromPipelineByPropertyName = $true,
-            ParameterSetName = 'default',
-            Position = 12
+            ValueFromPipelineByPropertyName = $true
         )]
         [string[]]$cc_emails,
         [Parameter(
             Mandatory = $false,
             HelpMessage = 'Key value pairs containing the names and values of custom fields. Read more here.',
-            ValueFromPipelineByPropertyName = $true,
-            ParameterSetName = 'default',
-            Position = 13
+            ValueFromPipelineByPropertyName = $true
         )]
         [object]$custom_fields,
         [Parameter(
             Mandatory = $false,
             HelpMessage = 'Timestamp that denotes when the ticket is due to be resolved.',
-            ValueFromPipelineByPropertyName = $true,
-            ParameterSetName = 'default',
-            Position = 14
+            ValueFromPipelineByPropertyName = $true
         )]
         [datetime]$due_by,
         [Parameter(
             Mandatory = $false,
             HelpMessage = 'Unique id of email config which is used for this ticket. (i.e., support@yourcompany.com/sales@yourcompany.com)',
-            ValueFromPipelineByPropertyName = $true,
-            ParameterSetName = 'default',
-            Position = 15
+            ValueFromPipelineByPropertyName = $true
         )]
         [long]$email_config_id,
         [Parameter(
             Mandatory = $false,
             HelpMessage = 'Timestamp that denotes when the first response is due',
-            ValueFromPipelineByPropertyName = $true,
-            ParameterSetName = 'default',
-            Position = 16
+            ValueFromPipelineByPropertyName = $true
         )]
         [datetime]$fr_due_by,
         [Parameter(
             Mandatory = $false,
             HelpMessage = 'Unique id of the group to which the ticket has been assigned. The default value is the ID of the group that is associated with the given email_config_id',
-            ValueFromPipelineByPropertyName = $true,
-            ParameterSetName = 'default',
-            Position = 17
+            ValueFromPipelineByPropertyName = $true
         )]
         [long]$group_id,
         [Parameter(
             Mandatory = $false,
             HelpMessage = 'The channel through which the ticket was created. The default value is 2.',
-            ValueFromPipelineByPropertyName = $true,
-            ParameterSetName = 'default',
-            Position = 18
+            ValueFromPipelineByPropertyName = $true
         )]
         [ValidateRange(1,10)]
         [string]$source,
         [Parameter(
             Mandatory = $false,
             HelpMessage = 'Tags that have been associated with the ticket',
-            ValueFromPipelineByPropertyName = $true,
-            ParameterSetName = 'default',
-            Position = 19
+            ValueFromPipelineByPropertyName = $true
         )]
         [string[]]$tags,
         [Parameter(
             Mandatory = $false,
             HelpMessage = 'List of assets associated with the ticket',
-            ValueFromPipelineByPropertyName = $true,
-            ParameterSetName = 'default',
-            Position = 20
+            ValueFromPipelineByPropertyName = $true
         )]
         [object[]]$assets,
         [Parameter(
             Mandatory = $false,
             HelpMessage = 'Ticket urgency',
-            ValueFromPipelineByPropertyName = $true,
-            ParameterSetName = 'default',
-            Position = 21
+            ValueFromPipelineByPropertyName = $true
         )]
         [int]$urgency,
         [Parameter(
             Mandatory = $false,
             HelpMessage = 'Ticket impact',
-            ValueFromPipelineByPropertyName = $true,
-            ParameterSetName = 'default',
-            Position = 22
+            ValueFromPipelineByPropertyName = $true
         )]
         [int]$impact,
         [Parameter(
             Mandatory = $false,
             HelpMessage = 'Ticket category',
-            ValueFromPipelineByPropertyName = $true,
-            ParameterSetName = 'default',
-            Position = 23
+            ValueFromPipelineByPropertyName = $true
         )]
         [string]$category,
         [Parameter(
             Mandatory = $false,
             HelpMessage = 'Ticket sub category',
-            ValueFromPipelineByPropertyName = $true,
-            ParameterSetName = 'default',
-            Position = 24
+            ValueFromPipelineByPropertyName = $true
         )]
         [string]$sub_category,
         [Parameter(
             Mandatory = $false,
             HelpMessage = 'Ticket item category',
-            ValueFromPipelineByPropertyName = $true,
-            ParameterSetName = 'default',
-            Position = 25
+            ValueFromPipelineByPropertyName = $true
         )]
         [string]$item_category,
         [Parameter(
             Mandatory = $false,
             HelpMessage = 'Department ID of the ticket.',
-            ValueFromPipelineByPropertyName = $true,
-            ParameterSetName = 'default',
-            Position = 26
+            ValueFromPipelineByPropertyName = $true
         )]
         [long]$department_id,
         [Parameter(
             Mandatory = $false,
             HelpMessage = 'Problem that need to be associated with ticket (problem display id)',
-            ValueFromPipelineByPropertyName = $true,
-            ParameterSetName = 'default',
-            Position = 27
+            ValueFromPipelineByPropertyName = $true
         )]
         [object[]]$problem,
         [Parameter(
             Mandatory = $false,
             HelpMessage = 'Change causing the ticket that needs to be associated with ticket (change display id)',
-            ValueFromPipelineByPropertyName = $true,
-            ParameterSetName = 'default',
-            Position = 28
+            ValueFromPipelineByPropertyName = $true
         )]
         [object[]]$change_initiating_ticket,
         [Parameter(
             Mandatory = $false,
             HelpMessage = 'Change needed for the ticket to be fixed that needs to be associated with ticket (change display id)',
-            ValueFromPipelineByPropertyName = $true,
-            ParameterSetName = 'default',
-            Position = 29
+            ValueFromPipelineByPropertyName = $true
         )]
         [object[]]$change_initiated_by_ticket
-
     )
     begin {
         $PrivateData  = $MyInvocation.MyCommand.Module.PrivateData
@@ -448,6 +389,10 @@ function Set-FreshServiceTicket {
         if ($Id) {
             $uri.Path = "{0}/{1}" -f $uri.Path, $Id
             [void]$PSBoundParameters.Remove('id')
+        }
+
+        if ($workspace_id) {
+            $uri.Path = "{0}/move_workspace" -f $uri.Path
         }
 
         $jsonBody = @{}
@@ -494,12 +439,19 @@ function Set-FreshServiceTicket {
                     $content = $result.Content |
                                     ConvertFrom-Json
 
-                    #API returns singluar or plural property based on the number of records, parse to get property returned.
-                    $objProperty = $content[0].PSObject.Properties.Name
-                    Write-Verbose -Message ("Returning {0} property with count {1}" -f $objProperty, $content."$($objProperty)".Count)
-                    $content."$($objProperty)"
-                }
+                    #Temporary workaround for reported bug. When calling the workspace move method, the "ticket{}" wrapper is included in content.
+                    #https://github.com/flycastpartnersinc/FreshservicePS/issues/10
+                    if ( $workspace_id ) {
+                        $content
+                    }
+                    else {
+                        #API returns singluar or plural property based on the number of records, parse to get property returned.
+                        $objProperty = $content[0].PSObject.Properties.Name
+                        Write-Verbose -Message ("Returning {0} property with count {1}" -f $objProperty, $content."$($objProperty)".Count)
+                        $content."$($objProperty)"
+                    }
 
+                }
             }
         }
         catch {

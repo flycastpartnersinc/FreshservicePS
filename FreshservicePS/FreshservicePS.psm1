@@ -1,3 +1,6 @@
+[CmdletBinding()]
+param()
+
 Add-Type -AssemblyName System.Web
 
 $Global:FreshServiceModuleName = $MyInvocation.MyCommand.Name -replace '.psm1'
@@ -34,4 +37,7 @@ if (Test-Path -Path $FreshServiceConfigPath) {
         Write-Warning -Message ('*** Automatically connecting to default Freshservice tenant {0}. ***' -f $defaultConnection.Tenant)
         Connect-Freshservice -Name $defaultConnection.Name -NoBanner
     }
+}
+else {
+    Write-Warning -Message 'Create a new connection profile with New-FreshServiceConnection to get started! Use " Get-Help -Name New-FSConnection -Examples " for examples.'
 }

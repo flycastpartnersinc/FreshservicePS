@@ -83,6 +83,9 @@
 .PARAMETER problem_impact
     Problem impact description
 
+.PARAMETER workspace_id
+    Workspace ID to move ticket. The attribute is applicable only for accounts with the Workspaces feature enabled. The default value is the ID of the primary workspace of the account.
+
 .EXAMPLE
     Set-FreshServiceProblem -id 3 -description "Updated description for the problem" -attachments 'C:\Scripts\automation_icon.jpg'
 
@@ -131,6 +134,13 @@ function Set-FreshServiceProblem {
             ParameterSetName = 'Restore',
             Position = 0
         )]
+        [Parameter(
+            Mandatory = $true,
+            HelpMessage = 'Unique identifier of the Problem',
+            ValueFromPipelineByPropertyName = $true,
+            ParameterSetName = 'workspace',
+            Position = 0
+        )]
         [long]$id,
         [Parameter(
             Mandatory = $false,
@@ -154,6 +164,13 @@ function Set-FreshServiceProblem {
             ValueFromPipelineByPropertyName = $true,
             ParameterSetName = 'default',
             Position = 3
+        )]
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Unique identifier of the agent group to which the Problem is assigned',
+            ValueFromPipelineByPropertyName = $true,
+            ParameterSetName = 'workspace',
+            Position = 2
         )]
         [long]$group_id,
         [Parameter(
@@ -306,7 +323,15 @@ function Set-FreshServiceProblem {
             ParameterSetName = 'default',
             Position = 20
         )]
-        [string]$problem_impact
+        [string]$problem_impact,
+        [Parameter(
+            Mandatory = $true,
+            HelpMessage = 'Workspace ID to move Problem. The attribute is applicable only for accounts with the Workspaces feature enabled. The default value is the ID of the primary workspace of the account.',
+            ValueFromPipelineByPropertyName = $true,
+            ParameterSetName = 'workspace',
+            Position = 1
+        )]
+        [int]$workspace_id
     )
     begin {
         $PrivateData  = $MyInvocation.MyCommand.Module.PrivateData
@@ -323,6 +348,10 @@ function Set-FreshServiceProblem {
         if ($Id) {
             $uri.Path = "{0}/{1}" -f $uri.Path, $Id
             [void]$PSBoundParameters.Remove('id')
+        }
+
+        if ($workspace_id) {
+            $uri.Path = "{0}/move_workspace" -f $uri.Path
         }
 
         $af = @{}

@@ -31,7 +31,7 @@
     incident. As of now, API v2 supports only type 'incident'
 
 .PARAMETER status
-    Status of the ticket.
+    Status of the ticket. There can be custom fields, use Get-FSTIcket -Fields to get values from API, but these are the defaults:
 
     'Open'     = 2
     'Pending'  = 3
@@ -223,7 +223,7 @@ function New-FreshServiceTicket {
             HelpMessage = 'Workspace ID of the ticket. The attribute is applicable only for accounts with the Workspaces feature enabled. The default value is the ID of the primary workspace of the account.',
             ValueFromPipelineByPropertyName = $true
         )]
-        [long]$workspace_id,
+        [int]$workspace_id,
         [Parameter(
             Mandatory = $false,
             HelpMessage = 'User ID of the ticket. For existing contacts, the ticket_id can be passed instead of the tickets email.',
@@ -260,7 +260,7 @@ function New-FreshServiceTicket {
             HelpMessage = 'Status of the ticket.',
             ValueFromPipelineByPropertyName = $true
         )]
-        [ValidateRange(2,5)]
+        # [ValidateRange(2,5)] # 9/25/2023 - Remarked out to support custom statuses - GitHub Issue #8
         [int]$status,
         [Parameter(
             Mandatory = $true,

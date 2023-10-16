@@ -114,7 +114,7 @@ function Invoke-FreshworksRestMethod {
                        ParameterSetName = 'Form',
                        Position = 5
             )]
-            [string]$ContentType = 'application/json',
+            [string]$ContentType = 'application/json; charset=utf-8',
             [Parameter(Mandatory = $False,
                        ValueFromPipelineByPropertyName = $True,
                        HelpMessage = 'Converts a dictionary to a multipart/form-data submission. Form may not be used with Body. If ContentType is used, it is ignored.',
@@ -130,12 +130,14 @@ function Invoke-FreshworksRestMethod {
 
             if ( $MyInvocation.MyCommand.Module.PrivateData['FreshserviceApiToken'] ) {
                 Write-Verbose 'Appending Authorization header'
-                if ($Headers) {
+                if (!$Headers){$Headers = @{}}
+                # if ($Headers) {
+                    $Headers.Add( "Accept-Charset" , "utf-8" )
                     $Headers.Add( "Authorization", ("Basic {0}" -f $AuthorizationToken) )
-                }
-                else {
-                    $Headers = @{"Authorization" = ("Basic {0}" -f $AuthorizationToken)}
-                }
+                # }
+                # else {
+                # $Headers = @{"Authorization" = ("Basic {0}" -f $AuthorizationToken)}
+                # }
             }
             else {
                 Write-Warning -Message ('Connection settings must be set with Set-FreshWorksConnectionSettings before making Freshworks API calls')
@@ -147,10 +149,11 @@ function Invoke-FreshworksRestMethod {
             Write-Verbose -Message ('{0} - Initiating REST API call to {1} with API key:  {2}' -f $MyInvocation.MyCommand.Name, $Uri, $AuthorizationToken)
 
             $restParams = @{
-                Uri         = $Uri
-                Method      = $Method
-                Headers     = $Headers
-                ErrorAction = 'Stop'
+                Uri             = $Uri
+                Method          = $Method
+                Headers         = $Headers
+                UseBasicParsing = $true #Backwards compatibility for versions before PS 6.0. Github Issue #5
+                ErrorAction     = 'Stop'
             }
 
             if ( $Body ) {
@@ -179,7 +182,7 @@ function Invoke-FreshworksRestMethod {
                 }
             }
 
-            Write-Verbose -Message ('{0} - Invoking REST {1} Method on {2}...' -f $MyInvocation.MyCommand.Name, $Method, $apiUri)
+            Write-Verbose -Message ('{0} - Invoking REST {1} Method on {2}...' -f $MyInvocation.MyCommand.Name, $Method, $Uri)
             try {
                 # Force TLS 1.2 protocol. Invoke-RestMethod uses 1.0 by default
                 Write-Verbose -Message ('{0} - Forcing TLS 1.2 protocol for invoking REST method.' -f $MyInvocation.MyCommand.Name)
@@ -242,7 +245,7 @@ function Invoke-FreshworksRestMethod {
             }
         } #process
         end {
-            Write-Verbose -Message ('{0} - Completed REST {1} Method on {2} in {3:c}.' -f $MyInvocation.MyCommand.Name, $Method, $apiUri, $stopwatch.Elapsed)
+            Write-Verbose -Message ('{0} - Completed REST {1} Method on {2} in {3:c}.' -f $MyInvocation.MyCommand.Name, $Method, $uri, $stopwatch.Elapsed)
             $results
         } #end
     } #Invoke-FreshworksRestMethod

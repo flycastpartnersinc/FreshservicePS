@@ -406,6 +406,13 @@ function Set-FreshServiceAgent {
         [object[]]$roles,
         [Parameter(
             Mandatory = $false,
+            HelpMessage = 'Signature of the agent in HTML format.',
+            ValueFromPipelineByPropertyName = $true
+        )]
+        [ValidateSet('it','business')]
+        [string]$license_type,
+        [Parameter(
+            Mandatory = $false,
             ParameterSetName = 'default',
             HelpMessage = 'Signature of the agent in HTML format.',
             ValueFromPipelineByPropertyName = $true
@@ -432,7 +439,13 @@ function Set-FreshServiceAgent {
             HelpMessage = 'This operation allows you to reactivate a particular deactivated agent.',
             ValueFromPipelineByPropertyName = $true
         )]
-        [switch]$reactivate
+        [switch]$reactivate,
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Workspace Ids',
+            ValueFromPipelineByPropertyName = $true
+        )]
+        [int[]]$workspace_ids
     )
     begin {
         $PrivateData  = $MyInvocation.MyCommand.Module.PrivateData

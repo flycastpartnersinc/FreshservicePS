@@ -116,10 +116,10 @@ function New-FreshServiceChange {
     param (
         [Parameter(
             Mandatory = $false,
-            HelpMessage = 'Workspace ID of the ticket. The attribute is applicable only for accounts with the Workspaces feature enabled. The default value is the ID of the primary workspace of the account.',
+            HelpMessage = 'Workspace ID of the Changes. The attribute is applicable only for accounts with the Workspaces feature enabled. The default value is the ID of the primary workspace of the account.',
             ValueFromPipelineByPropertyName = $true
         )]
-        [long]$workspace_id,
+        [int]$workspace_id,
         [Parameter(
             Mandatory = $false,
             HelpMessage = 'Unique identifier of the agent to whom the change is assigned.',
@@ -278,10 +278,10 @@ function New-FreshServiceChange {
             throw "No connection found!  Setup a new Freshservice connection with New-FreshServiceConnection and then Connect-FreshService. Set a default connection with New-FreshServiceConnection or Set-FreshConnection to automatically connect when importing the module."
         }
 
+        $uri = [System.UriBuilder]('{0}/changes' -f $PrivateData['FreshserviceBaseUri'])
+
     }
     process {
-
-        $uri = [System.UriBuilder]('{0}/changes' -f $PrivateData['FreshserviceBaseUri'])
 
         $jsonBody = @{}
         $PSBoundParameters.keys.where{
@@ -289,7 +289,7 @@ function New-FreshServiceChange {
         }.foreach{
             if ($PSBoundParameters[$PSItem] -is [datetime]) {
                 $jsonBody[$PSItem.ToLower()] = (Get-Date -Date $PSBoundParameters[$PSItem]).ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ssZ")
-             }
+            }
             else {
                 $jsonBody[$PSItem.ToLower()] = $PSBoundParameters[$PSItem]
             }

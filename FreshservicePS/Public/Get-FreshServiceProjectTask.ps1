@@ -375,12 +375,12 @@ function Get-FreshServiceProjectTask {
 
             $uri.Query = $qry.ToString()
 
-            $uri = $uri.Uri.AbsoluteUri
+            $uriFinal = $uri.Uri.AbsoluteUri
 
             $results = do {
 
                 $params = @{
-                    Uri         = $uri
+                    Uri         = $uriFinal
                     Method      = 'GET'
                     ErrorAction = 'Stop'
                 }
@@ -400,12 +400,27 @@ function Get-FreshServiceProjectTask {
                     $content."$($objProperty)"
                 }
 
-                if ($result.Headers.Link) {
-                    $uri = [regex]::Matches($result.Headers.Link,'<(?<Uri>.*)>')[0].Groups['Uri'].Value
-                }
+                #Default loop condition - link exists indicates another page for pagination
+                $loopCondition = !$result.Headers.Link
 
+                if ($PSBoundParameters.ContainsKey('filter')) {
+                    #Pagination is manual for results returned from filter
+                    Write-Verbose ('Using filter pagination for page {0}' -f $page)
+                    #Manually increment page
+                    $page++
+                    #Update query
+                    $qry['page'] = $page
+                    $uri.Query = $qry.ToString()
+                    $uriFinal = $uri.Uri.AbsoluteUri
+                    #Update loop condition based on return results
+                    $loopCondition = $content."$($objProperty)".Count -eq 0
+                }
+                elseif ($result.Headers.Link) {
+                    $uriFinal = [regex]::Matches($result.Headers.Link,'<(?<Uri>.*)>')[0].Groups['Uri'].Value
+                    Write-Verbose ('Automatic pagination enabled with next link {0}' -f $uri)
+                }
             }
-            until (!$result.Headers.Link)
+            until ($loopCondition)
 
         }
         catch {

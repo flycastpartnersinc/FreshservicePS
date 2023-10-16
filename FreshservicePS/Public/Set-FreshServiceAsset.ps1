@@ -178,9 +178,16 @@ function Set-FreshServiceAsset {
             HelpMessage = 'Key-value pair containing the names and values of the asset type fields.',
             ValueFromPipelineByPropertyName = $true
         )]
-        [hashtable]$type_fields
+        [hashtable]$type_fields,
+        [Parameter(
+            Mandatory = $false,
+            ValueFromPipelineByPropertyName = $true,
+            HelpMessage = 'Workspace ID for the Asset. The attribute is applicable only for accounts with the Workspaces feature enabled. The default value is the ID of the primary workspace of the account.'
+        )]
+        [int]$workspace_id
     )
     begin {
+
         $PrivateData  = $MyInvocation.MyCommand.Module.PrivateData
 
         if (!$PrivateData.FreshserviceBaseUri) {
@@ -204,6 +211,9 @@ function Set-FreshServiceAsset {
             Write-Verbose ("Processing body parameter {0}" -f $PSItem)
             if ( 'impact','usage_type' -contains $PSItem ) {
                 $jsonBody[$PSItem.ToLower()] = ($PSBoundParameters[$PSItem]).ToLower()
+            }
+            elseif ($PSBoundParameters[$PSItem] -is [datetime]) {
+                $jsonBody[$PSItem.ToLower()] = (Get-Date -Date $PSBoundParameters[$PSItem]).ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ssZ")
             }
             else {
                 $jsonBody[$PSItem.ToLower()] = $PSBoundParameters[$PSItem]
