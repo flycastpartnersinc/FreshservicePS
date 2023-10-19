@@ -51,6 +51,9 @@
 
     IMPORTANT: These type fields vary on every Freshservice tenant and are represented by the layer id. See Get-FreshServiceAssetType.
 
+.PARAMETER workspace_id
+    Workspace ID to create asset. The attribute is applicable only for accounts with the Workspaces feature enabled. The default value is the ID of the primary workspace of the account.
+
 .EXAMPLE
     New-FreshServiceAsset -name 'Laptop123' -description 'Apple Laptop' -asset_type_id 21000855304 -type_fields @{product_21000855267 = 21000056898;asset_state_21000855267 = 'In Use'}
 

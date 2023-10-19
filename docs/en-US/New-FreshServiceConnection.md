@@ -13,8 +13,8 @@ Creates a new Freshservice connection.
 ## SYNTAX
 
 ```
-New-FreshServiceConnection [[-Name] <String>] [-ApiKey] <String> [-Tenant] <String> [[-EmailAddress] <String>]
- [[-Environment] <String>] [-Default] [-WhatIf] [-Confirm] [<CommonParameters>]
+New-FreshServiceConnection [-Name] <String> [-ApiKey] <String> [-Tenant] <String> [[-EmailAddress] <String>]
+ [[-Environment] <String>] [[-Default] <Boolean>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -57,7 +57,7 @@ Type: String
 Parameter Sets: (All)
 Aliases:
 
-Required: False
+Required: True
 Position: 1
 Default value: None
 Accept pipeline input: False
@@ -138,12 +138,12 @@ Setting Default to $true will automatically connect to this tenant during module
 If no default is set, Connect-FreshService will need to be executed after module import to establish variables.
 
 ```yaml
-Type: SwitchParameter
+Type: Boolean
 Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: Named
+Position: 6
 Default value: False
 Accept pipeline input: False
 Accept wildcard characters: False

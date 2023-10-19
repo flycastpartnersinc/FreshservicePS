@@ -26,6 +26,9 @@
 .PARAMETER groups
     Unique IDs of Groups in which the permissions granted by the role applies. Mandatory only when the assignment_scope is specified_groups, and should be ignored otherwise.
 
+.PARAMETER workspace_id
+    Workspace ID to assign permissions. The attribute is applicable only for accounts with the Workspaces feature enabled. The default value is the ID of the primary workspace of the account.
+
 .EXAMPLE
     $newFreshServiceAgentRoleConfigSplat1 = @{
         role_id          = 21000150301 #IT Ops Agent - Get-FreshServiceAgentRole
@@ -75,7 +78,14 @@ function New-FreshServiceAgentRoleConfig {
             Mandatory = $false,
             HelpMessage = 'Unique IDs of Groups in which the permissions granted by the role applies. Mandatory only when the assignment_scope is specified_groups, and should be ignored otherwise.'
         )]
-        [long[]]$groups
+        [long[]]$groups,
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Workspace id is applicable only for accounts with Workspaces feature enabled.',
+            ParameterSetName = 'default',
+            Position = 0
+        )]
+        [int]$workspace_id
     )
     begin {
 

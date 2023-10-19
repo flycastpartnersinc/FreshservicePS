@@ -12,9 +12,12 @@ else {
 }
 
 # Dot source public/private functions
-$public  = @(Get-ChildItem -Path (Join-Path -Path $PSScriptRoot -ChildPath 'Public/*.ps1')  -Recurse -ErrorAction Stop)
-$private = @(Get-ChildItem -Path (Join-Path -Path $PSScriptRoot -ChildPath 'Private/*.ps1') -Recurse -ErrorAction Stop)
-foreach ($import in @($public + $private)) {
+# $public  = @(Get-ChildItem -Path (Join-Path -Path $PSScriptRoot -ChildPath 'Public/*.ps1')  -Recurse -ErrorAction Stop)
+# $private = @(Get-ChildItem -Path (Join-Path -Path $PSScriptRoot -ChildPath 'Private/*.ps1') -Recurse -ErrorAction Stop)
+
+$FunctionFiles = $("$PSScriptRoot\Public\","$PSScriptRoot\Private\")| Get-Childitem -File -Recurse -Include "*.ps1" -ErrorAction SilentlyContinue
+
+foreach ($import in $FunctionFiles) {
     try {
         . $import.FullName
         if ($import.BaseName -like '*FreshService*') {
@@ -34,8 +37,8 @@ if (Test-Path -Path $FreshServiceConfigPath) {
                             Where-Object -FilterScript {$_.Default -eq $true}
 
     if ($defaultConnection) {
-        Write-Warning -Message ('*** Automatically connecting to default Freshservice tenant {0}. ***' -f $defaultConnection.Tenant)
-        Connect-Freshservice -Name $defaultConnection.Name -NoBanner
+        Write-Warning -Message ('*** Automatically connecting to default Freshservice tenant {0}. ***' -f ($defaultConnection | Select-Object -First 1 -ExpandProperty Tenant))
+        Connect-Freshservice -Name ($defaultConnection | Select-Object -First 1 -ExpandProperty Name) -NoBanner
     }
 }
 else {

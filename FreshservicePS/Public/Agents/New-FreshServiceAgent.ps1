@@ -82,6 +82,9 @@
 .PARAMETER custom_fields
     Key-value pair containing the names and values of the (custom) agent fields.
 
+.PARAMETER workspace_ids
+    Workspace Ids the agent will be a member of.
+
 .EXAMPLE
      $newFreshServiceAgentRoleConfigSplat1 = @{
         role_id          = 21000150301 #IT Ops Agent - Get-FreshServiceAgentRole

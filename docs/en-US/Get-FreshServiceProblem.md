@@ -14,17 +14,17 @@ Returns a Freshservice Problem.
 
 ### default (Default)
 ```
-Get-FreshServiceProblem [-workspace_id <Int32>] [[-per_page] <Int32>] [[-page] <Int32>] [<CommonParameters>]
+Get-FreshServiceProblem [[-per_page] <Int32>] [[-page] <Int32>] [<CommonParameters>]
 ```
 
 ### id
 ```
-Get-FreshServiceProblem [-id] <String> [-workspace_id <Int32>] [<CommonParameters>]
+Get-FreshServiceProblem [-id] <String> [<CommonParameters>]
 ```
 
 ### Form
 ```
-Get-FreshServiceProblem [-workspace_id <Int32>] [-fields] [<CommonParameters>]
+Get-FreshServiceProblem [-fields] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -190,21 +190,6 @@ Required: True
 Position: 1
 Default value: None
 Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -workspace_id
-Workspace ID of the Problem. The attribute is applicable only for accounts with the Workspaces feature enabled. The default value is the ID of the primary workspace of the account.
-
-```yaml
-Type: Int32
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: Named
-Default value: 0
-Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 

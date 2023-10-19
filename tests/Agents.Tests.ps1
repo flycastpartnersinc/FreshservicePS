@@ -9,14 +9,15 @@ Describe "Agents" {
                             Where-Object -FilterScript {$_.name -eq 'SD Agent'} |
                                 Select-Object -ExpandProperty id
 
-            $groups = Get-FreshServiceAgentGroup |
-                        Where-Object -FilterScript {$_.name -like '*Incident Team'} |
-                            Select-Object -ExpandProperty Id
+            # $groups = Get-FreshServiceAgentGroup |
+            #             Where-Object -FilterScript {$_.name -like '*Incident Team'} |
+            #                 Select-Object -ExpandProperty Id
 
             $newFreshServiceAgentRoleConfigSplat = @{
                 role_id          = $role_id
-                assignment_scope = 'specified_groups'
-                groups           = $groups
+                assignment_scope = 'entire_helpdesk'
+                # groups           = $groups
+                workspace_id     = 3
             }
 
             $newAgtRole = New-FreshServiceAgentRoleConfig @newFreshServiceAgentRoleConfigSplat
@@ -29,6 +30,7 @@ Describe "Agents" {
                 background_information = 'Awesome helpdesk training'
                 roles                  = $newAgtRole
                 time_zone              = 'Eastern Time (US & Canada)'
+                workspace_ids          = 3
                 scoreboard_level_id    = 3
             }
 
@@ -101,10 +103,10 @@ Describe "Agents" {
         }
 
         Context "Set" {
-            It "Set-FreshServiceAgent should change the -scoreboard_level_id of agent to 3" -Tag "Agent" {
-                Set-FreshServiceAgent -id $newFSAgent.Id -scoreboard_level_id 3 |
-                    Select-Object -ExpandProperty scoreboard_level_id |
-                        Should -Be 3
+            It "Set-FreshServiceAgent should change the -mobile_phone_number of agent to 1234" -Tag "Agent" {
+                Set-FreshServiceAgent -id $newFSAgent.Id -mobile_phone_number 1234 |
+                    Select-Object -ExpandProperty mobile_phone_number |
+                        Should -Be 1234
             }
         }
 

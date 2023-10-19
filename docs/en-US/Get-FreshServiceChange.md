@@ -14,8 +14,8 @@ Returns a Freshservice Change.
 
 ### default (Default)
 ```
-Get-FreshServiceChange [[-workspace_id] <Int32>] [[-updated_since] <DateTime>] [[-include] <String[]>]
- [[-per_page] <Int32>] [[-page] <Int32>] [<CommonParameters>]
+Get-FreshServiceChange [[-updated_since] <DateTime>] [[-include] <String[]>] [[-per_page] <Int32>]
+ [[-page] <Int32>] [<CommonParameters>]
 ```
 
 ### id
@@ -356,25 +356,6 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -workspace_id
-Workspace id filter is applicable only for accounts with Workspaces feature enabled. Providing a Workspace_id will return tickets from a specific workspace.
-
-If the workspace_id(s) parameter is NOT provided, data will only be returned for the Default\Primary Workspace.
-If the workspace_id(s) parameter is provided, data will be returned from the specified Workspaces.
-If the workspace_id value is 0, data will be returned from all workspaces (the user has access to), with only global level fields.
-
-```yaml
-Type: Int32
-Parameter Sets: default
-Aliases:
-
-Required: False
-Position: 1
-Default value: 0
-Accept pipeline input: True (ByPropertyName)
-Accept wildcard characters: False
-```
-
 ### -updated_since
 Filter to return changes updated since a provided date and time.
 
@@ -384,7 +365,7 @@ Parameter Sets: default
 Aliases: UpdateSince
 
 Required: False
-Position: 2
+Position: 1
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -403,7 +384,7 @@ Parameter Sets: default, id, predefined_filter
 Aliases:
 
 Required: False
-Position: 3
+Position: 2
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -450,7 +431,7 @@ Parameter Sets: default, predefined_filter
 Aliases:
 
 Required: False
-Position: 4
+Position: 3
 Default value: 100
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -465,7 +446,7 @@ Parameter Sets: default, predefined_filter
 Aliases:
 
 Required: False
-Position: 5
+Position: 4
 Default value: 1
 Accept pipeline input: False
 Accept wildcard characters: False

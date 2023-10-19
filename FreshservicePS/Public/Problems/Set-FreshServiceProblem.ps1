@@ -1,161 +1,142 @@
 <#
 .SYNOPSIS
-    Updates a Freshservice Change.
+    Updates a Freshservice Problem.
 
 .DESCRIPTION
-    Updates a Freshservice Change via REST API.
+    Updates a Freshservice Problem via REST API.
 
-    https://api.freshservice.com/#update_change_priority
+    https://api.freshservice.com/#update_problem_priority
 
-.PARAMETER id
-    Unique identifier of the Change.
+.PARAMETER Id
+    Unique identifier of the Problem.
 
 .PARAMETER agent_id
-    Unique identifier of the agent to whom the change is assigned.
-
-.PARAMETER description
-    HTML content of the change. Description and description_html should not be passed together
+    Unique identifier of the agent to whom the Problem is assigned
 
 .PARAMETER requester_id
-    Unique identifier of the initiator of the change.
+    Unique identifier of the initiator of the problem.
 
 .PARAMETER group_id
-    Unique identifier of the agent group to which the change is assigned.
+    Unique identifier of the agent group to which the Problem is assigned
+
+.PARAMETER description
+    HTML content of the problem. Description and description_html should not be passed together
 
 .PARAMETER priority
-    Priority of the change.
+    Priority of the Problem
 
-    Low    = 1
-    Medium = 2
-    High   = 3
-    Urgent = 4
-
-.PARAMETER impact
-    Impact of the change.
-
-    Low    = 1
-    Medium = 2
-    High   = 3
+    1-Low
+    2-Medium
+    3-High
+    4-Urgent
 
 .PARAMETER status
-    Status of the change.
+    Status identifier of the Problem.
 
-    Open            = 1
-    Planning        = 2
-    Approval        = 3
-    Pending Release    = 4
-    Pending Review  = 5
-    Closed          = 6
+    1-Open
+    2-Change Requested
+    3-Closed
 
-.PARAMETER risk
-    Risk of the change.
+.PARAMETER impact
+    Impact of the Problem.
 
-    Minor     = 1
-    Standard  = 2
-    Major     = 3
-    Emergency = 4
+    1-Low
+    2-Medium
+    3-High
 
-.PARAMETER change_type
-    Type of the change.
-
-    Minor     = 1
-    Standard  = 2
-    Major     = 3
-    Emergency = 4
-
-.PARAMETER approval_status
-    Approval status of the change.
-
-.PARAMETER planned_start_date
-    Timestamp at which change is starting.
-
-.PARAMETER planned_end_date
-    Timestamp at which change is ending.
+.PARAMETER known_error
+    States that the problem is known issue or not. true or false
 
 .PARAMETER subject
-    change subject.
+    Subject of the Problem
+
+.PARAMETER due_by
+    Timestamp at which Problem due ends
 
 .PARAMETER department_id
-    Unique ID of the department initiating the change.
+    Unique ID of the department initiating the Problem
 
 .PARAMETER category
-    Category of the change
+    Category of the Problem
 
 .PARAMETER sub_category
-    Sub-category of the change
+    Sub-category of the Problem
 
 .PARAMETER item_category
-    Item of the change
+    Item of the Problem
 
 .PARAMETER custom_fields
     Key value pairs containing the names and values of custom fields.
 
-.PARAMETER maintenance_window
-    Details about the associated Maintenance Window.
-
 .PARAMETER assets
-    List of assets associated with the change
-
-.PARAMETER impacted_services
-    List of Impacted Services associated with the change
+    Array of assets (display_id) associated with the problem.
 
 .PARAMETER attachments
     Path to attachment(s).
+
+.PARAMETER problem_cause
+    Problem cause description.
+
+.PARAMETER problem_symptom
+    Problem symptom description
+
+.PARAMETER problem_impact
+    Problem impact description
 
 .PARAMETER workspace_id
     Workspace ID to move ticket. The attribute is applicable only for accounts with the Workspaces feature enabled. The default value is the ID of the primary workspace of the account.
 
 .EXAMPLE
-    Set-FreshServiceChange -id 10 -planned_end_date (Get-Date).AddDays(+5)
+    Set-FreshServiceProblem -id 3 -description "Updated description for the problem" -attachments 'C:\Scripts\automation_icon.jpg'
 
-    agent_id           : 21000418005
-    group_id           : 21000188395
-    priority           : 1
-    impact             : 1
-    status             : 2
-    risk               : 1
-    change_type        : 1
-    planned_start_date : 2/28/2023 5:42:29 AM
-    planned_end_date   : 4/4/2023 3:31:00 AM
-    subject            : Test change from Pester
-    department_id      :
-    category           : Hardware
-    sub_category       : Computer
-    item_category      :
-    description        : <div>Test change from Pester: 82556a0b-60eb-49a9-8ce5-a4a7fb185d31</div>
-    description_text   : Test change from Pester: 82556a0b-60eb-49a9-8ce5-a4a7fb185d31
-    id                 : 10
-    requester_id       : 21000418005
-    approval_status    : 4
-    change_window_id   :
-    created_at         : 2/28/2023 5:42:30 PM
-    updated_at         : 3/30/2023 3:31:01 AM
-    maintenance_window :
-    blackout_window    :
-    assets             : {}
-    impacted_services  : {}
-    custom_fields      :
-    planning_fields    : @{custom_fields=}
+    id                : 3
+    agent_id          :
+    description       : Updated description for the problem
+    description_text  : Updated description for the problem
+    assets            : {}
+    requester_id      : 21000418005
+    subject           : A new problem
+    group_id          :
+    priority          : 1
+    impact            : 1
+    status            : 1
+    due_by            : 1/14/2023 7:23:41 PM
+    known_error       : False
+    department_id     :
+    category          :
+    sub_category      :
+    item_category     :
+    created_at        : 1/9/2023 7:23:47 PM
+    updated_at        : 1/9/2023 7:23:47 PM
+    associated_change :
+    custom_fields     :
+    analysis_fields   :
 
-    Update a Freshservice Change.
+    Update the description on a problem and add an attachment.
 
 .NOTES
     This module was developed and tested with Freshservice REST API v2.
-    #>
-
-function Set-FreshServiceChange {
+#>
+function Set-FreshServiceProblem {
     [CmdletBinding(SupportsShouldProcess=$true, ConfirmImpact='Medium', DefaultParameterSetName = 'default')]
     param (
         [Parameter(
             Mandatory = $true,
-            HelpMessage = 'Unique identifier of the Change.',
+            HelpMessage = 'Unique identifier of the Problem',
             ValueFromPipelineByPropertyName = $true,
             ParameterSetName = 'default',
             Position = 0
         )]
         [Parameter(
             Mandatory = $true,
-            HelpMessage = 'Unique identifier of the Change.',
+            HelpMessage = 'Unique identifier of the Problem',
+            ValueFromPipelineByPropertyName = $true,
+            ParameterSetName = 'Restore',
+            Position = 0
+        )]
+        [Parameter(
+            Mandatory = $true,
+            HelpMessage = 'Unique identifier of the Problem',
             ValueFromPipelineByPropertyName = $true,
             ParameterSetName = 'workspace',
             Position = 0
@@ -163,7 +144,7 @@ function Set-FreshServiceChange {
         [long]$id,
         [Parameter(
             Mandatory = $false,
-            HelpMessage = 'Unique identifier of the agent to whom the change is assigned.',
+            HelpMessage = 'Unique identifier of the agent to whom the Problem is assigned',
             ValueFromPipelineByPropertyName = $true,
             ParameterSetName = 'default',
             Position = 1
@@ -171,135 +152,116 @@ function Set-FreshServiceChange {
         [long]$agent_id,
         [Parameter(
             Mandatory = $false,
-            HelpMessage = 'HTML content of the change. Description and description_html should not be passed together',
+            HelpMessage = 'Unique identifier of the initiator of the problem.',
             ValueFromPipelineByPropertyName = $true,
             ParameterSetName = 'default',
             Position = 2
         )]
-        [string]$description,
+        [long]$requester_id,
         [Parameter(
             Mandatory = $false,
-            HelpMessage = 'Unique identifier of the initiator of the change.',
+            HelpMessage = 'Unique identifier of the agent group to which the Problem is assigned',
             ValueFromPipelineByPropertyName = $true,
             ParameterSetName = 'default',
             Position = 3
         )]
-        [long]$requester_id,
         [Parameter(
             Mandatory = $false,
-            HelpMessage = 'Unique identifier of the agent group to which the change is assigned.',
+            HelpMessage = 'Unique identifier of the agent group to which the Problem is assigned',
             ValueFromPipelineByPropertyName = $true,
-            ParameterSetName = 'default',
-            Position = 4
+            ParameterSetName = 'workspace',
+            Position = 2
         )]
         [long]$group_id,
         [Parameter(
             Mandatory = $false,
-            HelpMessage = 'Priority of the change.',
+            HelpMessage = 'HTML content of the problem. Description and description_html should not be passed together',
+            ValueFromPipelineByPropertyName = $true,
+            ParameterSetName = 'default',
+            Position = 4
+        )]
+        [string]$description,
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Priority of the Problem 1-Low, 2-Medium, 3-High, 4-Urgent',
             ValueFromPipelineByPropertyName = $true,
             ParameterSetName = 'default',
             Position = 5
         )]
         [ValidateRange(1,4)]
-        [long]$priority,
+        [int]$priority,
         [Parameter(
             Mandatory = $false,
-            HelpMessage = 'Impact of the change.',
+            HelpMessage = 'Status identifier of the Problem. 1-Open, 2-Change Requested, 3-Closed ',
             ValueFromPipelineByPropertyName = $true,
             ParameterSetName = 'default',
             Position = 6
         )]
         [ValidateRange(1,3)]
-        [long]$impact,
+        [int]$status,
         [Parameter(
             Mandatory = $false,
-            HelpMessage = 'Status of the change.',
+            HelpMessage = 'Impact of the Problem. 1-Low, 2-Medium, 3-High ',
             ValueFromPipelineByPropertyName = $true,
             ParameterSetName = 'default',
             Position = 7
         )]
-        [ValidateRange(1,6)]
-        [long]$status,
+        [ValidateRange(1,3)]
+        [int]$impact,
         [Parameter(
             Mandatory = $false,
-            HelpMessage = 'Risk of the change.',
+            HelpMessage = 'States that the problem is known issue or not. true or false',
             ValueFromPipelineByPropertyName = $true,
             ParameterSetName = 'default',
             Position = 8
         )]
-        [ValidateRange(1,4)]
-        [long]$risk,
+        [boolean]$known_error,
         [Parameter(
             Mandatory = $false,
-            HelpMessage = 'Type of the change.',
+            HelpMessage = 'Subject of the Problem ',
             ValueFromPipelineByPropertyName = $true,
             ParameterSetName = 'default',
             Position = 9
         )]
-        [ValidateRange(1,4)]
-        [long]$change_type,
+        [string]$subject,
         [Parameter(
             Mandatory = $false,
-            HelpMessage = 'Approval status of the change.',
+            HelpMessage = 'Timestamp at which Problem due ends ',
             ValueFromPipelineByPropertyName = $true,
             ParameterSetName = 'default',
             Position = 10
         )]
-        [long]$approval_status,
+        [datetime]$due_by,
         [Parameter(
             Mandatory = $false,
-            HelpMessage = 'Timestamp at which change is starting.',
+            HelpMessage = 'Unique ID of the department initiating the Problem',
             ValueFromPipelineByPropertyName = $true,
             ParameterSetName = 'default',
             Position = 11
         )]
-        [datetime]$planned_start_date,
+        [long]$department_id,
         [Parameter(
             Mandatory = $false,
-            HelpMessage = 'Timestamp at which change is ending.',
+            HelpMessage = 'Category of the Problem',
             ValueFromPipelineByPropertyName = $true,
             ParameterSetName = 'default',
             Position = 12
         )]
-        [datetime]$planned_end_date,
+        [string]$category,
         [Parameter(
             Mandatory = $false,
-            HelpMessage = 'change subject.',
+            HelpMessage = 'Sub-category of the Problem',
             ValueFromPipelineByPropertyName = $true,
             ParameterSetName = 'default',
             Position = 13
         )]
-        [string]$subject,
-        [Parameter(
-            Mandatory = $false,
-            HelpMessage = 'Unique ID of the department initiating the change.',
-            ValueFromPipelineByPropertyName = $true,
-            ParameterSetName = 'default',
-            Position = 14
-        )]
-        [long]$department_id,
-        [Parameter(
-            Mandatory = $false,
-            HelpMessage = 'Category of the change',
-            ValueFromPipelineByPropertyName = $true,
-            ParameterSetName = 'default',
-            Position = 15
-        )]
-        [string]$category,
-        [Parameter(
-            Mandatory = $false,
-            HelpMessage = 'Sub-category of the change',
-            ValueFromPipelineByPropertyName = $true,
-            ParameterSetName = 'default',
-            Position = 16
-        )]
         [string]$sub_category,
         [Parameter(
             Mandatory = $false,
-            HelpMessage = 'Item of the change',
+            HelpMessage = 'Item of the Problem',
             ValueFromPipelineByPropertyName = $true,
             ParameterSetName = 'default',
-            Position = 17
+            Position = 14
         )]
         [string]$item_category,
         [Parameter(
@@ -307,39 +269,23 @@ function Set-FreshServiceChange {
             HelpMessage = 'Key value pairs containing the names and values of custom fields.',
             ValueFromPipelineByPropertyName = $true,
             ParameterSetName = 'default',
-            Position = 18
+            Position = 15
         )]
         [hashtable]$custom_fields,
         [Parameter(
             Mandatory = $false,
-            HelpMessage = 'Details about the associated Maintenance Window.',
+            HelpMessage = 'Array of assets (display_id) associated with the problem',
             ValueFromPipelineByPropertyName = $true,
             ParameterSetName = 'default',
-            Position = 19
-        )]
-        [hashtable]$maintenance_window,
-        [Parameter(
-            Mandatory = $false,
-            HelpMessage = 'List of assets associated with the change',
-            ValueFromPipelineByPropertyName = $true,
-            ParameterSetName = 'default',
-            Position = 20
+            Position = 16
         )]
         [object[]]$assets,
-        [Parameter(
-            Mandatory = $false,
-            HelpMessage = 'List of Impacted Services associated with the change',
-            ValueFromPipelineByPropertyName = $true,
-            ParameterSetName = 'default',
-            Position = 21
-        )]
-        [hashtable]$impacted_services,
         [Parameter(
             Mandatory = $false,
             HelpMessage = 'Ticket attachments. The total size of these attachments cannot exceed 15MB.',
             ValueFromPipelineByPropertyName = $true,
             ParameterSetName = 'default',
-            Position = 22
+            Position = 17
         )]
         [ValidateScript({
             if(-Not ($_ | Test-Path) ){
@@ -355,10 +301,34 @@ function Set-FreshServiceChange {
         })]
         [System.IO.FileInfo[]]$attachments,
         [Parameter(
-            Mandatory = $true,
-            HelpMessage = 'Workspace ID to move Change. The attribute is applicable only for accounts with the Workspaces feature enabled. The default value is the ID of the primary workspace of the account.',
+            Mandatory = $false,
+            HelpMessage = 'Problem cause description',
             ValueFromPipelineByPropertyName = $true,
-            ParameterSetName = 'workspace',
+            ParameterSetName = 'default',
+            Position = 18
+        )]
+        [string]$problem_cause,
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Problem symptom description',
+            ValueFromPipelineByPropertyName = $true,
+            ParameterSetName = 'default',
+            Position = 19
+        )]
+        [string]$problem_symptom,
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Problem impact description',
+            ValueFromPipelineByPropertyName = $true,
+            ParameterSetName = 'default',
+            Position = 20
+        )]
+        [string]$problem_impact,
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Workspace ID to move Problem. The attribute is applicable only for accounts with the Workspaces feature enabled. The default value is the ID of the primary workspace of the account.',
+            ValueFromPipelineByPropertyName = $true,
+            ParameterSetName = 'default',
             Position = 1
         )]
         [int]$workspace_id
@@ -373,7 +343,7 @@ function Set-FreshServiceChange {
     }
     process {
 
-        $uri = [System.UriBuilder]('{0}/changes' -f $PrivateData['FreshserviceBaseUri'])
+        $uri = [System.UriBuilder]('{0}/problems' -f $PrivateData['FreshserviceBaseUri'])
 
         if ($Id) {
             $uri.Path = "{0}/{1}" -f $uri.Path, $Id
@@ -384,11 +354,30 @@ function Set-FreshServiceChange {
             $uri.Path = "{0}/move_workspace" -f $uri.Path
         }
 
+        $af = @{}
+
+        if ($PSBoundParameters.ContainsKey('problem_cause')) {
+            $af.Add('problem_cause',@{'description'=$problem_cause})
+            [void]$PSBoundParameters.Remove('problem_cause')
+        }
+
+        if ($PSBoundParameters.ContainsKey('problem_symptom')) {
+            $af.Add('problem_symptom',@{'description'=$problem_symptom})
+            [void]$PSBoundParameters.Remove('problem_symptom')
+        }
+
+        if ($PSBoundParameters.ContainsKey('problem_impact')) {
+            $af.Add('problem_impact',@{'description'=$problem_impact})
+            [void]$PSBoundParameters.Remove('problem_impact')
+        }
+
+        if ($af.Count -gt 0){$PSBoundParameters['analysis_fields'] = $af}
+
         $jsonBody = @{}
         $PSBoundParameters.keys.where{
             $PSItem -notin $PrivateData.FreshserviceBodyExclusions
         }.foreach{
-            if ($PSBoundParameters[$PSItem] -is [boolean]) {
+            if ($PSBoundParameters[$PSItem] -is [datetime]) {
                 $jsonBody[$PSItem.ToLower()] = (Get-Date -Date $PSBoundParameters[$PSItem]).ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ssZ")
             }
             else {

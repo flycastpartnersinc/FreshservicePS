@@ -35,13 +35,10 @@ Describe "Agent Groups" {
                         'unassigned_for',
                         'business_hours_id',
                         'auto_ticket_assign',
-                        'restricted',
-                        'approval_required',
                     #    'ocs_schedule_id',
-                        'agent_ids',
+                        'workspace_id',
                         'members',
-                        'observers',
-                        'leaders')
+                        'observers')
 
             It "Object schema Contains property <_>" -ForEach $properties -Tag "Agent Group" {
                 $newFSAgentGroup.PSObject.Properties.Name | Should -Contain $_

@@ -315,10 +315,10 @@ function Set-FreshServiceRelease {
         )]
         [string]$test_plan,
         [Parameter(
-            Mandatory = $true,
+            Mandatory = $false,
             HelpMessage = 'Workspace ID to move Change. The attribute is applicable only for accounts with the Workspaces feature enabled. The default value is the ID of the primary workspace of the account.',
             ValueFromPipelineByPropertyName = $true,
-            ParameterSetName = 'workspace',
+            ParameterSetName = 'default',
             Position = 1
         )]
         [int]$workspace_id

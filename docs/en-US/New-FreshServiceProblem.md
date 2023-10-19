@@ -13,7 +13,7 @@ Creates a new Freshservice Problem.
 ## SYNTAX
 
 ```
-New-FreshServiceProblem [[-workspace_id] <Int32>] [[-agent_id] <Int64>] [-requester_id] <Int64>
+New-FreshServiceProblem [[-workspace_id] <Int64>] [[-agent_id] <Int64>] [-requester_id] <Int64>
  [[-group_id] <Int64>] [-description] <String> [[-priority] <Int32>] [-status] <Int32> [-impact] <Int32>
  [[-known_error] <Boolean>] [-subject] <String> [-due_by] <DateTime> [[-department_id] <Int64>]
  [[-category] <String>] [[-sub_category] <String>] [[-item_category] <String>] [[-custom_fields] <Hashtable>]
@@ -66,7 +66,7 @@ The attribute is applicable only for accounts with the 'Workspaces' feature enab
 The default value is the ID of the primary workspace of the account.
 
 ```yaml
-Type: Int32
+Type: Int64
 Parameter Sets: (All)
 Aliases:
 

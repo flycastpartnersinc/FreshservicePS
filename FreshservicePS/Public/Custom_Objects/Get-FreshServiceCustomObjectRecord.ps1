@@ -20,7 +20,7 @@
     Note:  Important! This filter requires spaces between the key\value pairs. Using category_dd1:'Hardware' will fail, the API requires the spacing category_dd1 : 'Hardware'.
 
 .PARAMETER sort_field
-	Name of the object field\header to be used for sorting the records.
+    Name of the object field\header to be used for sorting the records.
 
 .PARAMETER sort_order
     Order of sorting the records (ASC or DESC).

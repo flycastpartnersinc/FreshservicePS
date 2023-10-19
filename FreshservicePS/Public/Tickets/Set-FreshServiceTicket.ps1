@@ -178,7 +178,7 @@ function Set-FreshServiceTicket {
         )]
         [long]$id,
         [Parameter(
-            Mandatory = $true,
+            Mandatory = $false,
             HelpMessage = 'Workspace ID to move ticket. The attribute is applicable only for accounts with the Workspaces feature enabled. The default value is the ID of the primary workspace of the account.',
             ValueFromPipelineByPropertyName = $true
         )]

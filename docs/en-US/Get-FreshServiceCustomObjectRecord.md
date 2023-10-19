@@ -14,14 +14,12 @@ Returns a Freshservice Custom Object Record.
 
 ### default (Default)
 ```
-Get-FreshServiceCustomObjectRecord [-custom_object_id] <Int64> [[-per_page] <Int32>] [[-page] <Int32>]
- [<CommonParameters>]
+Get-FreshServiceCustomObjectRecord [[-per_page] <Int32>] [[-page] <Int32>] [<CommonParameters>]
 ```
 
-### filter
+### id
 ```
-Get-FreshServiceCustomObjectRecord [-custom_object_id] <Int64> [[-per_page] <Int32>] [[-page] <Int32>]
- [<CommonParameters>]
+Get-FreshServiceCustomObjectRecord [-custom_object_id] <Int64> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -73,7 +71,7 @@ Unique id of the Custom Object.
 
 ```yaml
 Type: Int64
-Parameter Sets: (All)
+Parameter Sets: id
 Aliases: id
 
 Required: True
@@ -89,11 +87,11 @@ Maximum of 100 records.
 
 ```yaml
 Type: Int32
-Parameter Sets: (All)
+Parameter Sets: default
 Aliases:
 
 Required: False
-Position: 5
+Position: 1
 Default value: 100
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -104,11 +102,11 @@ The page number to retrieve during pagination.
 
 ```yaml
 Type: Int32
-Parameter Sets: (All)
+Parameter Sets: default
 Aliases:
 
 Required: False
-Position: 6
+Position: 2
 Default value: 1
 Accept pipeline input: False
 Accept wildcard characters: False

@@ -49,6 +49,9 @@
 .PARAMETER type_fields
     Key-value pair containing the names and values of the asset type fields.
 
+.PARAMETER workspace_id
+    Workspace ID to move asset. The attribute is applicable only for accounts with the Workspaces feature enabled. The default value is the ID of the primary workspace of the account.
+
 .EXAMPLE
     Set-FreshServiceAsset -display_id 1 -description 'Updated description'
 

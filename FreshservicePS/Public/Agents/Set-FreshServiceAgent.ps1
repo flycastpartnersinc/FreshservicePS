@@ -77,6 +77,9 @@
     Each individual role is a hash in the roles array that contains the attributes.role_id: Unique ID of the role assigned"assignment_scope:
     The scope in which the agent can use the permissions granted by this role. Possible values include entire_helpdesk (all plans)
 
+.PARAMETER license_type
+    The type of license, IT or Business.
+
 .PARAMETER signature
     Signature of the agent in HTML format.
 
@@ -88,6 +91,9 @@
 
 .PARAMETER reactivate
     This operation allows you to reactivate a particular deactivated requester.
+
+.PARAMETER workspace_ids
+    Workspace Ids the agent will be a member of.
 
 .EXAMPLE
     Set-FreshServiceAgent -Id 21001392937 -scoreboard_level_id 2 -address '123 Anywhere Ln'
