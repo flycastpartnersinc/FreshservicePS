@@ -13,14 +13,14 @@ Returns a Freshservice ticket.
 ## SYNTAX
 
 ```
-New-FreshServiceRequester [-external_id] <String> [-first_name] <String> [[-last_name] <String>]
+New-FreshServiceRequester [[-external_id] <String>] [-first_name] <String> [[-last_name] <String>]
  [[-job_title] <String>] [[-primary_email] <String>] [[-secondary_emails] <String[]>]
  [[-work_phone_number] <String>] [[-mobile_phone_number] <String>] [[-department_ids] <Int64[]>]
  [[-can_see_all_changes_from_associated_departments] <Boolean>]
- [[-can_see_all_tickets_from_associated_departments] <Boolean>] [[-reporting_manager_id] <Int32>]
+ [[-can_see_all_tickets_from_associated_departments] <Boolean>] [[-reporting_manager_id] <Int64>]
  [[-address] <String>] [[-time_zone] <String>] [[-time_format] <String>] [[-language] <String>]
- [[-location_id] <Int32>] [[-background_information] <String>] [[-custom_fields] <Object>] [-WhatIf] [-Confirm]
- [<CommonParameters>]
+ [[-location_id] <Int64>] [[-background_information] <String>] [[-custom_fields] <Hashtable>] [-WhatIf]
+ [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -71,12 +71,12 @@ External Id of the requester.
 ```yaml
 Type: String
 Parameter Sets: (All)
-Aliases:
+Aliases: ExternalId
 
-Required: True
+Required: False
 Position: 1
 Default value: None
-Accept pipeline input: False
+Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
@@ -86,12 +86,12 @@ First name of the requester.
 ```yaml
 Type: String
 Parameter Sets: (All)
-Aliases:
+Aliases: FirstName
 
 Required: True
 Position: 2
 Default value: None
-Accept pipeline input: False
+Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
@@ -101,12 +101,12 @@ Last name of the requester.
 ```yaml
 Type: String
 Parameter Sets: (All)
-Aliases:
+Aliases: LastName
 
 Required: False
 Position: 3
 Default value: None
-Accept pipeline input: False
+Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
@@ -116,12 +116,12 @@ Job title of the requester.
 ```yaml
 Type: String
 Parameter Sets: (All)
-Aliases:
+Aliases: JobTitle
 
 Required: False
 Position: 4
 Default value: None
-Accept pipeline input: False
+Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
@@ -131,12 +131,12 @@ Primary email address of the requester.
 ```yaml
 Type: String
 Parameter Sets: (All)
-Aliases:
+Aliases: Email, PrimaryEmail
 
 Required: False
 Position: 5
 Default value: None
-Accept pipeline input: False
+Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
@@ -151,7 +151,7 @@ Aliases:
 Required: False
 Position: 6
 Default value: None
-Accept pipeline input: False
+Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
@@ -161,12 +161,12 @@ Work phone number of the requester.
 ```yaml
 Type: String
 Parameter Sets: (All)
-Aliases:
+Aliases: WorkNumber, WorkPhone, WorkPhoneNumber
 
 Required: False
 Position: 7
 Default value: None
-Accept pipeline input: False
+Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
@@ -176,12 +176,12 @@ Mobile phone number of the requester.
 ```yaml
 Type: String
 Parameter Sets: (All)
-Aliases:
+Aliases: MobileNumber, MobilePhone, MobilePhoneNumber
 
 Required: False
 Position: 8
 Default value: None
-Accept pipeline input: False
+Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
@@ -191,12 +191,12 @@ Unique IDs of the departments associated with the requester.
 ```yaml
 Type: Int64[]
 Parameter Sets: (All)
-Aliases:
+Aliases: DepartmentId
 
 Required: False
 Position: 9
 Default value: None
-Accept pipeline input: False
+Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
@@ -211,7 +211,7 @@ Aliases:
 Required: False
 Position: 10
 Default value: False
-Accept pipeline input: False
+Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
@@ -226,7 +226,7 @@ Aliases:
 Required: False
 Position: 11
 Default value: False
-Accept pipeline input: False
+Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
@@ -234,14 +234,14 @@ Accept wildcard characters: False
 User ID of the requester's reporting manager.
 
 ```yaml
-Type: Int32
+Type: Int64
 Parameter Sets: (All)
-Aliases:
+Aliases: ManagerId
 
 Required: False
 Position: 12
 Default value: 0
-Accept pipeline input: False
+Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
@@ -256,7 +256,7 @@ Aliases:
 Required: False
 Position: 13
 Default value: None
-Accept pipeline input: False
+Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
@@ -266,12 +266,12 @@ Time zone of the requester.
 ```yaml
 Type: String
 Parameter Sets: (All)
-Aliases:
+Aliases: TimeZone
 
 Required: False
 Position: 14
 Default value: None
-Accept pipeline input: False
+Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
@@ -281,12 +281,12 @@ Time format for the requester.Possible values:12h (12 hour format)24h (24 hour f
 ```yaml
 Type: String
 Parameter Sets: (All)
-Aliases:
+Aliases: TimeFormat
 
 Required: False
 Position: 15
 Default value: None
-Accept pipeline input: False
+Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
@@ -302,7 +302,7 @@ Aliases:
 Required: False
 Position: 16
 Default value: None
-Accept pipeline input: False
+Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
@@ -310,14 +310,14 @@ Accept wildcard characters: False
 Unique ID of the location associated with the requester.
 
 ```yaml
-Type: Int32
+Type: Int64
 Parameter Sets: (All)
-Aliases:
+Aliases: LocationId
 
 Required: False
 Position: 17
 Default value: 0
-Accept pipeline input: False
+Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
@@ -327,12 +327,12 @@ Background information of the requester.
 ```yaml
 Type: String
 Parameter Sets: (All)
-Aliases:
+Aliases: Background
 
 Required: False
 Position: 18
 Default value: None
-Accept pipeline input: False
+Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
@@ -340,14 +340,14 @@ Accept wildcard characters: False
 Key-value pair containing the names and values of the (custom) requester fields.
 
 ```yaml
-Type: Object
+Type: Hashtable
 Parameter Sets: (All)
 Aliases:
 
 Required: False
 Position: 19
 Default value: None
-Accept pipeline input: False
+Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 

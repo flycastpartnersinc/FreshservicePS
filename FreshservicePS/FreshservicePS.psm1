@@ -4,17 +4,18 @@ param()
 Add-Type -AssemblyName System.Web
 
 $Global:FreshServiceModuleName = $MyInvocation.MyCommand.Name -replace '.psm1'
-if ($IsWindows) {
+
+if ($IsWindows -or $ENV:OS) {
     $Global:FreshServiceConfigPath = ('{0}\{1}\{1}.config' -f $env:APPDATA,$FreshServiceModuleName)
 }
 else {
     $Global:FreshServiceConfigPath = ('{0}/{1}/{1}.config' -f $env:HOME,$FreshServiceModuleName)
 }
 
-$FunctionFiles = $("$PSScriptRoot\Public\","$PSScriptRoot\Private\") |
-                        Get-Childitem -File -Recurse -Include "*.ps1" -ErrorAction SilentlyContinue
+$public  = @(Get-ChildItem -Path (Join-Path -Path $PSScriptRoot -ChildPath 'Public/*.ps1')  -Recurse -ErrorAction Stop)
+$private = @(Get-ChildItem -Path (Join-Path -Path $PSScriptRoot -ChildPath 'Private/*.ps1') -Recurse -ErrorAction Stop)
 
-foreach ($import in $FunctionFiles) {
+foreach ($import in @($public + $private)) {
     try {
         . $import.FullName
         if ($import.BaseName -like '*FreshService*') {

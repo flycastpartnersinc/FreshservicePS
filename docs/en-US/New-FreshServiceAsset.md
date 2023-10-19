@@ -16,7 +16,8 @@ Creates Freshservice asset.
 New-FreshServiceAsset [-name] <String> [[-description] <String>] [-asset_type_id] <Int64>
  [[-asset_tag] <String>] [[-impact] <String>] [[-usage_type] <String>] [[-user_id] <Int64>]
  [[-location_id] <Int64>] [[-department_id] <Int64>] [[-agent_id] <Int64>] [[-group_id] <Int64>]
- [[-assigned_on] <DateTime>] [[-type_fields] <Hashtable>] [-WhatIf] [-Confirm] [<CommonParameters>]
+ [[-assigned_on] <DateTime>] [[-type_fields] <Hashtable>] [[-workspace_id] <Int32>] [-WhatIf] [-Confirm]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -101,7 +102,7 @@ Aliases:
 Required: True
 Position: 3
 Default value: 0
-Accept pipeline input: False
+Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
@@ -116,7 +117,7 @@ Aliases:
 Required: False
 Position: 4
 Default value: None
-Accept pipeline input: False
+Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
@@ -131,7 +132,7 @@ Aliases:
 Required: False
 Position: 5
 Default value: None
-Accept pipeline input: False
+Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
@@ -146,7 +147,7 @@ Aliases:
 Required: False
 Position: 6
 Default value: None
-Accept pipeline input: False
+Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
@@ -161,7 +162,7 @@ Aliases:
 Required: False
 Position: 7
 Default value: 0
-Accept pipeline input: False
+Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
@@ -176,7 +177,7 @@ Aliases:
 Required: False
 Position: 8
 Default value: 0
-Accept pipeline input: False
+Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
@@ -191,7 +192,7 @@ Aliases:
 Required: False
 Position: 9
 Default value: 0
-Accept pipeline input: False
+Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
@@ -206,7 +207,7 @@ Aliases:
 Required: False
 Position: 10
 Default value: 0
-Accept pipeline input: False
+Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
@@ -221,7 +222,7 @@ Aliases:
 Required: False
 Position: 11
 Default value: 0
-Accept pipeline input: False
+Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
@@ -236,7 +237,7 @@ Aliases:
 Required: False
 Position: 12
 Default value: None
-Accept pipeline input: False
+Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
@@ -258,7 +259,22 @@ Aliases:
 Required: False
 Position: 13
 Default value: None
-Accept pipeline input: False
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -workspace_id
+Workspace ID to create asset. The attribute is applicable only for accounts with the Workspaces feature enabled. The default value is the ID of the primary workspace of the account.
+
+```yaml
+Type: Int32
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 14
+Default value: 0
+Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 

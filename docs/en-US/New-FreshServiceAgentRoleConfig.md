@@ -13,8 +13,8 @@ Helper function for agent roles for New-FreshServiceAgent.
 ## SYNTAX
 
 ```
-New-FreshServiceAgentRoleConfig [-role_id] <Int64> [-assignment_scope] <String> [[-groups] <Int64[]>] [-WhatIf]
- [-Confirm] [<CommonParameters>]
+New-FreshServiceAgentRoleConfig -role_id <Int64> -assignment_scope <String> [-groups <Int64[]>]
+ [[-workspace_id] <Int32>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -77,7 +77,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: True
-Position: 1
+Position: Named
 Default value: 0
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -94,7 +94,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: True
-Position: 2
+Position: Named
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -110,8 +110,23 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 3
+Position: Named
 Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -workspace_id
+Workspace ID to assign permissions. The attribute is applicable only for accounts with the Workspaces feature enabled. The default value is the ID of the primary workspace of the account.
+
+```yaml
+Type: Int32
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 1
+Default value: 0
 Accept pipeline input: False
 Accept wildcard characters: False
 ```

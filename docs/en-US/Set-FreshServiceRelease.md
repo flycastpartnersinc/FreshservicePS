@@ -12,13 +12,20 @@ Updates a Freshservice Release.
 
 ## SYNTAX
 
+### default (Default)
 ```
-Set-FreshServiceRelease -id <Int64> [-agent_id <Int64>] [-group_id <Int64>] [-priority <Int32>]
- [-status <Int32>] [-release_type <Int32>] [-subject <String>] [-description <String>]
- [-planned_start_date <DateTime>] [-planned_end_date <DateTime>] [-work_start_date <DateTime>]
- [-work_end_date <DateTime>] [-department_id <Int64>] [-category <String>] [-sub_category <String>]
- [-item_category <String>] [-custom_fields <Hashtable>] [-assets <Object[]>] [-attachments <FileInfo[]>]
- [[-build_plan] <String>] [[-test_plan] <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
+Set-FreshServiceRelease [-id] <Int64> [[-agent_id] <Int64>] [[-group_id] <Int64>] [[-priority] <Int32>]
+ [[-status] <Int32>] [[-release_type] <Int32>] [[-subject] <String>] [[-description] <String>]
+ [[-planned_start_date] <DateTime>] [[-planned_end_date] <DateTime>] [[-work_start_date] <DateTime>]
+ [[-work_end_date] <DateTime>] [[-department_id] <Int64>] [[-category] <String>] [[-sub_category] <String>]
+ [[-item_category] <String>] [[-custom_fields] <Hashtable>] [[-assets] <Object[]>]
+ [[-attachments] <FileInfo[]>] [[-build_plan] <String>] [[-test_plan] <String>] [[-workspace_id] <Int32>]
+ [-WhatIf] [-Confirm] [<CommonParameters>]
+```
+
+### workspace
+```
+Set-FreshServiceRelease [-id] <Int64> [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -70,7 +77,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: True
-Position: Named
+Position: 1
 Default value: 0
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
@@ -81,11 +88,11 @@ Unique identifier of the agent to whom the Release is assigned.
 
 ```yaml
 Type: Int64
-Parameter Sets: (All)
+Parameter Sets: default
 Aliases:
 
 Required: False
-Position: Named
+Position: 2
 Default value: 0
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
@@ -96,11 +103,11 @@ Unique identifier of the agent group to which the Release is assigned.
 
 ```yaml
 Type: Int64
-Parameter Sets: (All)
+Parameter Sets: default
 Aliases:
 
 Required: False
-Position: Named
+Position: 3
 Default value: 0
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
@@ -116,11 +123,11 @@ Priority of the Release:
 
 ```yaml
 Type: Int32
-Parameter Sets: (All)
+Parameter Sets: default
 Aliases:
 
 Required: False
-Position: Named
+Position: 4
 Default value: 0
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
@@ -137,11 +144,11 @@ Status identifier of the Release:
 
 ```yaml
 Type: Int32
-Parameter Sets: (All)
+Parameter Sets: default
 Aliases:
 
 Required: False
-Position: Named
+Position: 5
 Default value: 0
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
@@ -157,11 +164,11 @@ Type of the Release:
 
 ```yaml
 Type: Int32
-Parameter Sets: (All)
+Parameter Sets: default
 Aliases:
 
 Required: False
-Position: Named
+Position: 6
 Default value: 0
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
@@ -172,11 +179,11 @@ Subject of the Release.
 
 ```yaml
 Type: String
-Parameter Sets: (All)
+Parameter Sets: default
 Aliases:
 
 Required: False
-Position: Named
+Position: 7
 Default value: None
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
@@ -188,11 +195,11 @@ Description and description_html should not be passed together.
 
 ```yaml
 Type: String
-Parameter Sets: (All)
+Parameter Sets: default
 Aliases:
 
 Required: False
-Position: Named
+Position: 8
 Default value: None
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
@@ -203,11 +210,11 @@ Timestamp at which release is starting.
 
 ```yaml
 Type: DateTime
-Parameter Sets: (All)
+Parameter Sets: default
 Aliases:
 
 Required: False
-Position: Named
+Position: 9
 Default value: None
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
@@ -218,11 +225,11 @@ Timestamp at which release is ending.
 
 ```yaml
 Type: DateTime
-Parameter Sets: (All)
+Parameter Sets: default
 Aliases:
 
 Required: False
-Position: Named
+Position: 10
 Default value: None
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
@@ -233,11 +240,11 @@ Timestamp at which release work started.
 
 ```yaml
 Type: DateTime
-Parameter Sets: (All)
+Parameter Sets: default
 Aliases:
 
 Required: False
-Position: Named
+Position: 11
 Default value: None
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
@@ -248,11 +255,11 @@ Timestamp at which release work ended.
 
 ```yaml
 Type: DateTime
-Parameter Sets: (All)
+Parameter Sets: default
 Aliases:
 
 Required: False
-Position: Named
+Position: 12
 Default value: None
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
@@ -263,11 +270,11 @@ Unique ID of the department initiating the Release.
 
 ```yaml
 Type: Int64
-Parameter Sets: (All)
+Parameter Sets: default
 Aliases:
 
 Required: False
-Position: Named
+Position: 13
 Default value: 0
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
@@ -278,11 +285,11 @@ Category of the Release.
 
 ```yaml
 Type: String
-Parameter Sets: (All)
+Parameter Sets: default
 Aliases:
 
 Required: False
-Position: Named
+Position: 14
 Default value: None
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
@@ -293,11 +300,11 @@ Sub-category of the Release.
 
 ```yaml
 Type: String
-Parameter Sets: (All)
+Parameter Sets: default
 Aliases:
 
 Required: False
-Position: Named
+Position: 15
 Default value: None
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
@@ -308,11 +315,11 @@ Item of the Release.
 
 ```yaml
 Type: String
-Parameter Sets: (All)
+Parameter Sets: default
 Aliases:
 
 Required: False
-Position: Named
+Position: 16
 Default value: None
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
@@ -323,11 +330,11 @@ Key value pairs containing the names and values of custom fields.
 
 ```yaml
 Type: Hashtable
-Parameter Sets: (All)
+Parameter Sets: default
 Aliases:
 
 Required: False
-Position: Named
+Position: 17
 Default value: None
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
@@ -338,11 +345,11 @@ List of assets associated with the release.
 
 ```yaml
 Type: Object[]
-Parameter Sets: (All)
+Parameter Sets: default
 Aliases:
 
 Required: False
-Position: Named
+Position: 18
 Default value: None
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
@@ -353,11 +360,11 @@ Path to attachment(s).
 
 ```yaml
 Type: FileInfo[]
-Parameter Sets: (All)
+Parameter Sets: default
 Aliases:
 
 Required: False
-Position: Named
+Position: 19
 Default value: None
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
@@ -368,7 +375,7 @@ Planning field containing the build plan.
 
 ```yaml
 Type: String
-Parameter Sets: (All)
+Parameter Sets: default
 Aliases:
 
 Required: False
@@ -383,12 +390,27 @@ Planning field containing the test plan.
 
 ```yaml
 Type: String
-Parameter Sets: (All)
+Parameter Sets: default
 Aliases:
 
 Required: False
 Position: 21
 Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -workspace_id
+Workspace ID to move ticket. The attribute is applicable only for accounts with the Workspaces feature enabled. The default value is the ID of the primary workspace of the account.
+
+```yaml
+Type: Int32
+Parameter Sets: default
+Aliases:
+
+Required: False
+Position: 2
+Default value: 0
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```

@@ -14,11 +14,11 @@ Updates a Freshservice Requester.
 
 ### default (Default)
 ```
-Set-FreshServiceRequester -id <Int64> [-first_name <String>] [-last_name <String>] [-job_title <String>]
- [-primary_email <String>] [-secondary_emails <String[]>] [-work_phone_number <String>]
+Set-FreshServiceRequester -id <Int64> [-external_id <String>] [-first_name <String>] [-last_name <String>]
+ [-job_title <String>] [-primary_email <String>] [-secondary_emails <String[]>] [-work_phone_number <String>]
  [-mobile_phone_number <String>] [-department_ids <Int64[]>]
- [-can_see_all_tickets_from_associated_departments <Boolean>] [-reporting_manager_id <Int32>]
- [-address <String>] [-time_zone <String>] [-time_format <String>] [-language <String>] [-location_id <Int32>]
+ [-can_see_all_tickets_from_associated_departments <Boolean>] [-reporting_manager_id <Int64>]
+ [-address <String>] [-time_zone <String>] [-time_format <String>] [-language <String>] [-location_id <Int64>]
  [-background_information <String>] [-custom_fields <Hashtable>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
@@ -170,13 +170,28 @@ Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
+### -external_id
+External Id of the requester.
+
+```yaml
+Type: String
+Parameter Sets: default
+Aliases: ExternalId
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
 ### -first_name
 First name of the requester.
 
 ```yaml
 Type: String
 Parameter Sets: default
-Aliases:
+Aliases: FirstName
 
 Required: False
 Position: Named
@@ -191,7 +206,7 @@ Last name of the requester.
 ```yaml
 Type: String
 Parameter Sets: default
-Aliases:
+Aliases: LastName
 
 Required: False
 Position: Named
@@ -206,7 +221,7 @@ Job title of the requester.
 ```yaml
 Type: String
 Parameter Sets: default
-Aliases:
+Aliases: JobTitle
 
 Required: False
 Position: Named
@@ -221,7 +236,7 @@ Primary email address of the requester.
 ```yaml
 Type: String
 Parameter Sets: default
-Aliases:
+Aliases: Email, PrimaryEmail
 
 Required: False
 Position: Named
@@ -251,7 +266,7 @@ Work phone number of the requester.
 ```yaml
 Type: String
 Parameter Sets: default
-Aliases:
+Aliases: WorkNumber, WorkPhone, WorkPhoneNumber
 
 Required: False
 Position: Named
@@ -266,7 +281,7 @@ Mobile phone number of the requester.
 ```yaml
 Type: String
 Parameter Sets: default
-Aliases:
+Aliases: MobileNumber, MobilePhone, MobilePhoneNumber
 
 Required: False
 Position: Named
@@ -281,7 +296,7 @@ Unique IDs of the departments associated with the requester
 ```yaml
 Type: Int64[]
 Parameter Sets: default
-Aliases:
+Aliases: DepartmentId
 
 Required: False
 Position: Named
@@ -313,9 +328,9 @@ Accept wildcard characters: False
 User ID of the requester's reporting manager.
 
 ```yaml
-Type: Int32
+Type: Int64
 Parameter Sets: default
-Aliases:
+Aliases: ManagerId
 
 Required: False
 Position: Named
@@ -346,7 +361,7 @@ Read more here.
 ```yaml
 Type: String
 Parameter Sets: default
-Aliases:
+Aliases: TimeZone
 
 Required: False
 Position: Named
@@ -361,7 +376,7 @@ Time format for the requester.Possible values:12h (12 hour format)24h (24 hour f
 ```yaml
 Type: String
 Parameter Sets: default
-Aliases:
+Aliases: TimeFormat
 
 Required: False
 Position: Named
@@ -391,9 +406,9 @@ Accept wildcard characters: False
 Unique ID of the location associated with the requester.
 
 ```yaml
-Type: Int32
+Type: Int64
 Parameter Sets: default
-Aliases:
+Aliases: LocationId
 
 Required: False
 Position: Named
@@ -408,7 +423,7 @@ Background information of the requester.
 ```yaml
 Type: String
 Parameter Sets: default
-Aliases:
+Aliases: Background
 
 Required: False
 Position: Named

@@ -19,7 +19,12 @@ Set-FreshServiceProblem [-id] <Int64> [[-agent_id] <Int64>] [[-requester_id] <In
  [[-known_error] <Boolean>] [[-subject] <String>] [[-due_by] <DateTime>] [[-department_id] <Int64>]
  [[-category] <String>] [[-sub_category] <String>] [[-item_category] <String>] [[-custom_fields] <Hashtable>]
  [[-assets] <Object[]>] [[-attachments] <FileInfo[]>] [[-problem_cause] <String>] [[-problem_symptom] <String>]
- [[-problem_impact] <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
+ [[-problem_impact] <String>] [[-workspace_id] <Int32>] [-WhatIf] [-Confirm] [<CommonParameters>]
+```
+
+### workspace
+```
+Set-FreshServiceProblem [-id] <Int64> [[-group_id] <Int64>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ### Restore
@@ -116,7 +121,7 @@ Unique identifier of the agent group to which the Problem is assigned
 
 ```yaml
 Type: Int64
-Parameter Sets: default
+Parameter Sets: default, workspace
 Aliases:
 
 Required: False
@@ -392,6 +397,21 @@ Aliases:
 Required: False
 Position: 21
 Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -workspace_id
+Workspace ID to move ticket. The attribute is applicable only for accounts with the Workspaces feature enabled. The default value is the ID of the primary workspace of the account.
+
+```yaml
+Type: Int32
+Parameter Sets: default
+Aliases:
+
+Required: False
+Position: 2
+Default value: 0
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```

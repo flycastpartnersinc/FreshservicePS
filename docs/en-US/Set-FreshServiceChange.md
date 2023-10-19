@@ -12,6 +12,7 @@ Updates a Freshservice Change.
 
 ## SYNTAX
 
+### default (Default)
 ```
 Set-FreshServiceChange [-id] <Int64> [[-agent_id] <Int64>] [[-description] <String>] [[-requester_id] <Int64>]
  [[-group_id] <Int64>] [[-priority] <Int64>] [[-impact] <Int64>] [[-status] <Int64>] [[-risk] <Int64>]
@@ -19,7 +20,12 @@ Set-FreshServiceChange [-id] <Int64> [[-agent_id] <Int64>] [[-description] <Stri
  [[-planned_end_date] <DateTime>] [[-subject] <String>] [[-department_id] <Int64>] [[-category] <String>]
  [[-sub_category] <String>] [[-item_category] <String>] [[-custom_fields] <Hashtable>]
  [[-maintenance_window] <Hashtable>] [[-assets] <Object[]>] [[-impacted_services] <Hashtable>]
- [[-attachments] <FileInfo[]>] [-WhatIf] [-Confirm] [<CommonParameters>]
+ [[-attachments] <FileInfo[]>] [[-workspace_id] <Int32>] [-WhatIf] [-Confirm] [<CommonParameters>]
+```
+
+### workspace
+```
+Set-FreshServiceChange [-id] <Int64> [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -87,7 +93,7 @@ Unique identifier of the agent to whom the change is assigned.
 
 ```yaml
 Type: Int64
-Parameter Sets: (All)
+Parameter Sets: default
 Aliases:
 
 Required: False
@@ -103,7 +109,7 @@ Description and description_html should not be passed together
 
 ```yaml
 Type: String
-Parameter Sets: (All)
+Parameter Sets: default
 Aliases:
 
 Required: False
@@ -118,7 +124,7 @@ Unique identifier of the initiator of the change.
 
 ```yaml
 Type: Int64
-Parameter Sets: (All)
+Parameter Sets: default
 Aliases:
 
 Required: False
@@ -133,7 +139,7 @@ Unique identifier of the agent group to which the change is assigned.
 
 ```yaml
 Type: Int64
-Parameter Sets: (All)
+Parameter Sets: default
 Aliases:
 
 Required: False
@@ -153,7 +159,7 @@ Urgent = 4
 
 ```yaml
 Type: Int64
-Parameter Sets: (All)
+Parameter Sets: default
 Aliases:
 
 Required: False
@@ -172,7 +178,7 @@ High   = 3
 
 ```yaml
 Type: Int64
-Parameter Sets: (All)
+Parameter Sets: default
 Aliases:
 
 Required: False
@@ -194,7 +200,7 @@ Closed          = 6
 
 ```yaml
 Type: Int64
-Parameter Sets: (All)
+Parameter Sets: default
 Aliases:
 
 Required: False
@@ -214,7 +220,7 @@ Emergency = 4
 
 ```yaml
 Type: Int64
-Parameter Sets: (All)
+Parameter Sets: default
 Aliases:
 
 Required: False
@@ -234,7 +240,7 @@ Emergency = 4
 
 ```yaml
 Type: Int64
-Parameter Sets: (All)
+Parameter Sets: default
 Aliases:
 
 Required: False
@@ -249,7 +255,7 @@ Approval status of the change.
 
 ```yaml
 Type: Int64
-Parameter Sets: (All)
+Parameter Sets: default
 Aliases:
 
 Required: False
@@ -264,7 +270,7 @@ Timestamp at which change is starting.
 
 ```yaml
 Type: DateTime
-Parameter Sets: (All)
+Parameter Sets: default
 Aliases:
 
 Required: False
@@ -279,7 +285,7 @@ Timestamp at which change is ending.
 
 ```yaml
 Type: DateTime
-Parameter Sets: (All)
+Parameter Sets: default
 Aliases:
 
 Required: False
@@ -294,7 +300,7 @@ change subject.
 
 ```yaml
 Type: String
-Parameter Sets: (All)
+Parameter Sets: default
 Aliases:
 
 Required: False
@@ -309,7 +315,7 @@ Unique ID of the department initiating the change.
 
 ```yaml
 Type: Int64
-Parameter Sets: (All)
+Parameter Sets: default
 Aliases:
 
 Required: False
@@ -324,7 +330,7 @@ Category of the change
 
 ```yaml
 Type: String
-Parameter Sets: (All)
+Parameter Sets: default
 Aliases:
 
 Required: False
@@ -339,7 +345,7 @@ Sub-category of the change
 
 ```yaml
 Type: String
-Parameter Sets: (All)
+Parameter Sets: default
 Aliases:
 
 Required: False
@@ -354,7 +360,7 @@ Item of the change
 
 ```yaml
 Type: String
-Parameter Sets: (All)
+Parameter Sets: default
 Aliases:
 
 Required: False
@@ -369,7 +375,7 @@ Key value pairs containing the names and values of custom fields.
 
 ```yaml
 Type: Hashtable
-Parameter Sets: (All)
+Parameter Sets: default
 Aliases:
 
 Required: False
@@ -384,7 +390,7 @@ Details about the associated Maintenance Window.
 
 ```yaml
 Type: Hashtable
-Parameter Sets: (All)
+Parameter Sets: default
 Aliases:
 
 Required: False
@@ -399,7 +405,7 @@ List of assets associated with the change
 
 ```yaml
 Type: Object[]
-Parameter Sets: (All)
+Parameter Sets: default
 Aliases:
 
 Required: False
@@ -414,7 +420,7 @@ List of Impacted Services associated with the change
 
 ```yaml
 Type: Hashtable
-Parameter Sets: (All)
+Parameter Sets: default
 Aliases:
 
 Required: False
@@ -429,12 +435,27 @@ Path to attachment(s).
 
 ```yaml
 Type: FileInfo[]
-Parameter Sets: (All)
+Parameter Sets: default
 Aliases:
 
 Required: False
 Position: 23
 Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -workspace_id
+Workspace ID to move ticket. The attribute is applicable only for accounts with the Workspaces feature enabled. The default value is the ID of the primary workspace of the account.
+
+```yaml
+Type: Int32
+Parameter Sets: default
+Aliases:
+
+Required: False
+Position: 2
+Default value: 0
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```

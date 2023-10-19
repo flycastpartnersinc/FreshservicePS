@@ -13,14 +13,14 @@ Creates a Freshservice Ticket.
 ## SYNTAX
 
 ```
-New-FreshServiceTicket [[-name] <String>] [[-workspace_id] <Int64>] [[-requester_id] <Int64>] [-email] <String>
+New-FreshServiceTicket [[-name] <String>] [[-workspace_id] <Int32>] [[-requester_id] <Int64>] [-email] <String>
  [[-phone] <String>] [[-subject] <String>] [[-type] <String>] [-status] <Int32> [-priority] <Int32>
- [[-description] <String>] [[-responder_id] <Int64>] [[-attachments] <FileInfo[]>] [[-custom_fields] <Object>]
- [[-due_by] <DateTime>] [[-email_config_id] <Int64>] [[-fr_due_by] <DateTime>] [[-group_id] <Int64>]
- [[-source] <String>] [[-tags] <String[]>] [[-assets] <Object[]>] [[-urgency] <Int32>] [[-impact] <Int32>]
- [[-category] <String>] [[-sub_category] <String>] [[-item_category] <String>] [[-department_id] <Int64>]
- [[-problem] <Object[]>] [[-change_initiating_ticket] <Object[]>] [[-change_initiated_by_ticket] <Object[]>]
- [[-parent_id] <Int64>] [-WhatIf] [-Confirm] [<CommonParameters>]
+ [[-description] <String>] [[-responder_id] <Int64>] [[-attachments] <FileInfo[]>] [[-cc_emails] <String[]>]
+ [[-custom_fields] <Object>] [[-due_by] <DateTime>] [[-email_config_id] <Int64>] [[-fr_due_by] <DateTime>]
+ [[-group_id] <Int64>] [[-source] <String>] [[-tags] <String[]>] [[-assets] <Object[]>] [[-urgency] <Int32>]
+ [[-impact] <Int32>] [[-category] <String>] [[-sub_category] <String>] [[-item_category] <String>]
+ [[-department_id] <Int64>] [[-problem] <Object[]>] [[-change_initiating_ticket] <Object[]>]
+ [[-change_initiated_by_ticket] <Object[]>] [[-parent_id] <Int64>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -135,7 +135,7 @@ The attribute is applicable only for accounts with the 'Workspaces' feature enab
 The default value is the ID of the primary workspace of the account.
 
 ```yaml
-Type: Int64
+Type: Int32
 Parameter Sets: (All)
 Aliases:
 
@@ -315,6 +315,21 @@ Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
+### -cc_emails
+Email address added in the 'cc' field of the incoming ticket email.
+
+```yaml
+Type: String[]
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 13
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
 ### -custom_fields
 Key value pairs containing the names and values of custom fields.
 Read more here.
@@ -325,7 +340,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 13
+Position: 14
 Default value: None
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
@@ -340,7 +355,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 14
+Position: 15
 Default value: None
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
@@ -356,7 +371,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 15
+Position: 16
 Default value: 0
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
@@ -371,7 +386,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 16
+Position: 17
 Default value: None
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
@@ -388,7 +403,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 17
+Position: 18
 Default value: 0
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
@@ -415,7 +430,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 18
+Position: 19
 Default value: None
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
@@ -430,7 +445,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 19
+Position: 20
 Default value: None
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
@@ -445,7 +460,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 20
+Position: 21
 Default value: None
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
@@ -460,7 +475,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 21
+Position: 22
 Default value: 0
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
@@ -475,7 +490,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 22
+Position: 23
 Default value: 0
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
@@ -490,7 +505,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 23
+Position: 24
 Default value: None
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
@@ -505,7 +520,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 24
+Position: 25
 Default value: None
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
@@ -520,7 +535,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 25
+Position: 26
 Default value: None
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
@@ -535,7 +550,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 26
+Position: 27
 Default value: 0
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
@@ -550,7 +565,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 27
+Position: 28
 Default value: None
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
@@ -565,7 +580,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 28
+Position: 29
 Default value: None
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
@@ -580,7 +595,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 29
+Position: 30
 Default value: None
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
@@ -596,7 +611,7 @@ Parameter Sets: (All)
 Aliases: ParentId, AsChildOf
 
 Required: False
-Position: 30
+Position: 31
 Default value: 0
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False

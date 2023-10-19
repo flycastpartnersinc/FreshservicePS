@@ -19,7 +19,8 @@ New-FreshServiceAgent [-first_name] <String> [[-last_name] <String>] [[-occasion
  [[-reporting_manager_id] <Int64>] [[-address] <String>] [[-time_zone] <String>] [[-time_format] <String>]
  [[-language] <String>] [[-location_id] <Int64>] [[-background_information] <String>]
  [[-scoreboard_level_id] <Int32>] [[-member_of] <Int64[]>] [[-observer_of] <Int64[]>] [-roles] <Object[]>
- [[-signature] <String>] [[-custom_fields] <Hashtable>] [-WhatIf] [-Confirm] [<CommonParameters>]
+ [[-license_type] <String>] [[-signature] <String>] [[-custom_fields] <Hashtable>] [[-workspace_ids] <Int32[]>]
+ [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -425,6 +426,21 @@ Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
+### -license_type
+The type of license, IT or Business.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 21
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
 ### -signature
 Signature of the agent in HTML format.
 
@@ -434,7 +450,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 21
+Position: 22
 Default value: None
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
@@ -449,7 +465,22 @@ Parameter Sets: (All)
 Aliases: CustomFields
 
 Required: False
-Position: 22
+Position: 23
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -workspace_ids
+Workspace Ids the agent will be a member of.
+
+```yaml
+Type: Int32[]
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 24
 Default value: None
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False

@@ -19,18 +19,21 @@ Set-FreshServiceAgent -id <Int64> [-first_name <String>] [-last_name <String>] [
  [-department_ids <Int64[]>] [-can_see_all_tickets_from_associated_departments <Boolean>]
  [-reporting_manager_id <Int64>] [-address <String>] [-time_zone <String>] [-time_format <String>]
  [-language <String>] [-location_id <Int64>] [-background_information <String>] [-scoreboard_level_id <Int32>]
- [-member_of <Int64[]>] [-observer_of <Int64[]>] [-roles <Object[]>] [-signature <String>]
- [-custom_fields <Hashtable>] [-WhatIf] [-Confirm] [<CommonParameters>]
+ [-member_of <Int64[]>] [-observer_of <Int64[]>] [-roles <Object[]>] [-license_type <String>]
+ [-signature <String>] [-custom_fields <Hashtable>] [-workspace_ids <Int32[]>] [-WhatIf] [-Confirm]
+ [<CommonParameters>]
 ```
 
 ### reactivate
 ```
-Set-FreshServiceAgent -id <Int64> [-reactivate] [-WhatIf] [-Confirm] [<CommonParameters>]
+Set-FreshServiceAgent -id <Int64> [-license_type <String>] [-reactivate] [-workspace_ids <Int32[]>] [-WhatIf]
+ [-Confirm] [<CommonParameters>]
 ```
 
 ### convert_to_requester
 ```
-Set-FreshServiceAgent -id <Int64> [-convert_to_requester] [-WhatIf] [-Confirm] [<CommonParameters>]
+Set-FreshServiceAgent -id <Int64> [-license_type <String>] [-convert_to_requester] [-workspace_ids <Int32[]>]
+ [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -510,6 +513,21 @@ Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
+### -license_type
+The type of license, IT or Business.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
 ### -signature
 Signature of the agent in HTML format.
 
@@ -566,6 +584,21 @@ Aliases:
 Required: False
 Position: Named
 Default value: False
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -workspace_ids
+Workspace Ids the agent will be a member of.
+
+```yaml
+Type: Int32[]
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```

@@ -14,7 +14,8 @@ Returns a Freshservice Business Hours.
 
 ### default (Default)
 ```
-Get-FreshServiceBusinessHour [[-per_page] <Int32>] [[-page] <Int32>] [<CommonParameters>]
+Get-FreshServiceBusinessHour [[-workspace_id] <Int32[]>] [[-per_page] <Int32>] [[-page] <Int32>]
+ [<CommonParameters>]
 ```
 
 ### id
@@ -84,6 +85,25 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### -workspace_id
+Workspace id filter is applicable only for accounts with Workspaces feature enabled. Providing a Workspace_id will return tickets from a specific workspace.
+
+If the workspace_id(s) parameter is NOT provided, data will only be returned for the Default\Primary Workspace.
+If the workspace_id(s) parameter is provided, data will be returned from the specified Workspaces.
+If the workspace_id value is 0, data will be returned from all workspaces (the user has access to), with only global level fields.
+
+```yaml
+Type: Int32[]
+Parameter Sets: default
+Aliases:
+
+Required: False
+Position: 1
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### -per_page
 Number of records to return per page during pagination. 
 Maximum of 100 records.
@@ -94,7 +114,7 @@ Parameter Sets: default
 Aliases:
 
 Required: False
-Position: 1
+Position: 2
 Default value: 100
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -109,7 +129,7 @@ Parameter Sets: default
 Aliases:
 
 Required: False
-Position: 2
+Position: 3
 Default value: 1
 Accept pipeline input: False
 Accept wildcard characters: False

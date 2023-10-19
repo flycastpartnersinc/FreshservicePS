@@ -13,7 +13,7 @@ Returns a Freshservice change.
 ## SYNTAX
 
 ```
-New-FreshServiceChange [[-workspace_id] <Int64>] [[-agent_id] <Int64>] [[-description] <String>]
+New-FreshServiceChange [[-workspace_id] <Int32>] [[-agent_id] <Int64>] [[-description] <String>]
  [-requester_id] <Int64> [[-group_id] <Int64>] [[-priority] <Int64>] [[-impact] <Int64>] [[-status] <Int64>]
  [[-risk] <Int64>] [[-change_type] <Int64>] [[-approval_status] <Int64>] [[-planned_start_date] <DateTime>]
  [[-planned_end_date] <DateTime>] [[-subject] <String>] [[-department_id] <Int64>] [[-category] <String>]
@@ -44,7 +44,7 @@ The attribute is applicable only for accounts with the 'Workspaces' feature enab
 The default value is the ID of the primary workspace of the account.
 
 ```yaml
-Type: Int64
+Type: Int32
 Parameter Sets: (All)
 Aliases:
 

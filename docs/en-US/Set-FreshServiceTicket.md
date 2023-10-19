@@ -12,21 +12,16 @@ Updates a Freshservice Ticket.
 
 ## SYNTAX
 
-### default (Default)
 ```
-Set-FreshServiceTicket [-id] <Int64> [[-name] <String>] [[-requester_id] <Int64>] [[-email] <String>]
- [[-phone] <String>] [[-subject] <String>] [[-type] <String>] [[-status] <Int32>] [[-priority] <Int32>]
- [[-description] <String>] [[-responder_id] <Int64>] [[-attachments] <FileInfo[]>] [[-custom_fields] <Object>]
- [[-due_by] <DateTime>] [[-email_config_id] <Int64>] [[-fr_due_by] <DateTime>] [[-group_id] <Int64>]
- [[-source] <String>] [[-tags] <String[]>] [[-assets] <Object[]>] [[-urgency] <Int32>] [[-impact] <Int32>]
- [[-category] <String>] [[-sub_category] <String>] [[-item_category] <String>] [[-department_id] <Int64>]
- [[-problem] <Object[]>] [[-change_initiating_ticket] <Object[]>] [[-change_initiated_by_ticket] <Object[]>]
- [-WhatIf] [-Confirm] [<CommonParameters>]
-```
-
-### Restore
-```
-Set-FreshServiceTicket [-id] <Int64> [-WhatIf] [-Confirm] [<CommonParameters>]
+Set-FreshServiceTicket [-id] <Int64> [[-workspace_id] <Int32>] [[-name] <String>] [[-requester_id] <Int64>]
+ [[-email] <String>] [[-phone] <String>] [[-subject] <String>] [[-type] <String>] [[-status] <Int32>]
+ [[-priority] <Int32>] [[-description] <String>] [[-responder_id] <Int64>] [[-attachments] <FileInfo[]>]
+ [[-cc_emails] <String[]>] [[-custom_fields] <Object>] [[-due_by] <DateTime>] [[-email_config_id] <Int64>]
+ [[-fr_due_by] <DateTime>] [[-group_id] <Int64>] [[-source] <String>] [[-tags] <String[]>]
+ [[-assets] <Object[]>] [[-urgency] <Int32>] [[-impact] <Int32>] [[-category] <String>]
+ [[-sub_category] <String>] [[-item_category] <String>] [[-department_id] <Int64>] [[-problem] <Object[]>]
+ [[-change_initiating_ticket] <Object[]>] [[-change_initiated_by_ticket] <Object[]>] [-WhatIf] [-Confirm]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -94,16 +89,31 @@ Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
+### -workspace_id
+Workspace ID to move ticket. The attribute is applicable only for accounts with the Workspaces feature enabled. The default value is the ID of the primary workspace of the account.
+
+```yaml
+Type: Int32
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 2
+Default value: 0
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
 ### -name
 Name of the requester
 
 ```yaml
 Type: String
-Parameter Sets: default
+Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 2
+Position: 3
 Default value: None
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
@@ -115,11 +125,11 @@ For existing contacts, the requester_id can be passed instead of the requester's
 
 ```yaml
 Type: Int64
-Parameter Sets: default
+Parameter Sets: (All)
 Aliases: RequesterId
 
 Required: False
-Position: 3
+Position: 4
 Default value: 0
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
@@ -131,11 +141,11 @@ If no contact exists with this email address in Freshservice, it will be added a
 
 ```yaml
 Type: String
-Parameter Sets: default
+Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 4
+Position: 5
 Default value: None
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
@@ -148,11 +158,11 @@ If the phone number is set and the email address is not, then the name attribute
 
 ```yaml
 Type: String
-Parameter Sets: default
+Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 5
+Position: 6
 Default value: None
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
@@ -164,11 +174,11 @@ The default value is null.
 
 ```yaml
 Type: String
-Parameter Sets: default
+Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 6
+Position: 7
 Default value: None
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
@@ -182,11 +192,11 @@ As of now, API v2 supports only type 'incident'
 
 ```yaml
 Type: String
-Parameter Sets: default
+Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 7
+Position: 8
 Default value: None
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
@@ -202,11 +212,11 @@ Status of the ticket.
 
 ```yaml
 Type: Int32
-Parameter Sets: default
+Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 8
+Position: 9
 Default value: 0
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
@@ -222,11 +232,11 @@ Priority of the ticket.
 
 ```yaml
 Type: Int32
-Parameter Sets: default
+Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 9
+Position: 10
 Default value: 0
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
@@ -237,11 +247,11 @@ HTML content of the ticket.
 
 ```yaml
 Type: String
-Parameter Sets: default
+Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 10
+Position: 11
 Default value: None
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
@@ -252,11 +262,11 @@ Unique id of the agent to whom the ticket has been assigned
 
 ```yaml
 Type: Int64
-Parameter Sets: default
+Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 11
+Position: 12
 Default value: 0
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
@@ -268,11 +278,26 @@ The total size of these attachments cannot exceed 15MB.
 
 ```yaml
 Type: FileInfo[]
-Parameter Sets: default
+Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 12
+Position: 13
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -cc_emails
+Email address added in the 'cc' field of the incoming ticket email.
+
+```yaml
+Type: String[]
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 14
 Default value: None
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
@@ -284,11 +309,11 @@ Read more here.
 
 ```yaml
 Type: Object
-Parameter Sets: default
+Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 13
+Position: 15
 Default value: None
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
@@ -299,11 +324,11 @@ Timestamp that denotes when the ticket is due to be resolved.
 
 ```yaml
 Type: DateTime
-Parameter Sets: default
+Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 14
+Position: 16
 Default value: None
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
@@ -315,11 +340,11 @@ ID of email config which is used for this ticket.
 
 ```yaml
 Type: Int64
-Parameter Sets: default
+Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 15
+Position: 17
 Default value: 0
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
@@ -330,11 +355,11 @@ Timestamp that denotes when the first response is due
 
 ```yaml
 Type: DateTime
-Parameter Sets: default
+Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 16
+Position: 18
 Default value: None
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
@@ -347,11 +372,11 @@ associated with the given email_config_id
 
 ```yaml
 Type: Int64
-Parameter Sets: default
+Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 17
+Position: 19
 Default value: 0
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
@@ -374,11 +399,11 @@ The default value is 2.
 
 ```yaml
 Type: String
-Parameter Sets: default
+Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 18
+Position: 20
 Default value: None
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
@@ -389,11 +414,11 @@ Tags that have been associated with the ticket
 
 ```yaml
 Type: String[]
-Parameter Sets: default
+Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 19
+Position: 21
 Default value: None
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
@@ -404,11 +429,11 @@ List of assets associated with the ticket.
 
 ```yaml
 Type: Object[]
-Parameter Sets: default
+Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 20
+Position: 22
 Default value: None
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
@@ -419,11 +444,11 @@ Ticket urgency.
 
 ```yaml
 Type: Int32
-Parameter Sets: default
+Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 21
+Position: 23
 Default value: 0
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
@@ -434,11 +459,11 @@ Ticket impact.
 
 ```yaml
 Type: Int32
-Parameter Sets: default
+Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 22
+Position: 24
 Default value: 0
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
@@ -449,11 +474,11 @@ Ticket category.
 
 ```yaml
 Type: String
-Parameter Sets: default
+Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 23
+Position: 25
 Default value: None
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
@@ -464,11 +489,11 @@ Ticket sub category.
 
 ```yaml
 Type: String
-Parameter Sets: default
+Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 24
+Position: 26
 Default value: None
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
@@ -479,11 +504,11 @@ Ticket item category.
 
 ```yaml
 Type: String
-Parameter Sets: default
+Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 25
+Position: 27
 Default value: None
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
@@ -494,11 +519,11 @@ Department ID of the requester.
 
 ```yaml
 Type: Int64
-Parameter Sets: default
+Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 26
+Position: 28
 Default value: 0
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
@@ -509,11 +534,11 @@ Problem that need to be associated with ticket (problem display id).
 
 ```yaml
 Type: Object[]
-Parameter Sets: default
+Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 27
+Position: 29
 Default value: None
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
@@ -524,11 +549,11 @@ Change causing the ticket that needs to be associated with ticket (change displa
 
 ```yaml
 Type: Object[]
-Parameter Sets: default
+Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 28
+Position: 30
 Default value: None
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
@@ -539,11 +564,11 @@ Change needed for the ticket to be fixed that needs to be associated with ticket
 
 ```yaml
 Type: Object[]
-Parameter Sets: default
+Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 29
+Position: 31
 Default value: None
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False

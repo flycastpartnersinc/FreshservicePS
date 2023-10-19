@@ -13,7 +13,7 @@ Creates new Freshservice Release.
 ## SYNTAX
 
 ```
-New-FreshServiceRelease [-workspace_id <Int64>] [-agent_id <Int64>] [-group_id <Int64>] -priority <Int32>
+New-FreshServiceRelease [-workspace_id <Int32>] [-agent_id <Int64>] [-group_id <Int64>] -priority <Int32>
  -status <Int32> -release_type <Int32> -subject <String> [-description <String>] -planned_start_date <DateTime>
  -planned_end_date <DateTime> [-work_start_date <DateTime>] [-work_end_date <DateTime>]
  [-department_id <Int64>] [-category <String>] [-sub_category <String>] [-item_category <String>]
@@ -53,7 +53,7 @@ The attribute is applicable only for accounts with the 'Workspaces' feature enab
 The default value is the ID of the primary workspace of the account.
 
 ```yaml
-Type: Int64
+Type: Int32
 Parameter Sets: (All)
 Aliases:
 
