@@ -11,11 +11,8 @@ else {
     $Global:FreshServiceConfigPath = ('{0}/{1}/{1}.config' -f $env:HOME,$FreshServiceModuleName)
 }
 
-# Dot source public/private functions
-# $public  = @(Get-ChildItem -Path (Join-Path -Path $PSScriptRoot -ChildPath 'Public/*.ps1')  -Recurse -ErrorAction Stop)
-# $private = @(Get-ChildItem -Path (Join-Path -Path $PSScriptRoot -ChildPath 'Private/*.ps1') -Recurse -ErrorAction Stop)
-
-$FunctionFiles = $("$PSScriptRoot\Public\","$PSScriptRoot\Private\")| Get-Childitem -File -Recurse -Include "*.ps1" -ErrorAction SilentlyContinue
+$FunctionFiles = $("$PSScriptRoot\Public\","$PSScriptRoot\Private\") |
+                        Get-Childitem -File -Recurse -Include "*.ps1" -ErrorAction SilentlyContinue
 
 foreach ($import in $FunctionFiles) {
     try {
