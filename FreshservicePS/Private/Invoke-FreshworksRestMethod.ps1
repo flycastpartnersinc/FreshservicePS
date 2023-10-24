@@ -156,6 +156,12 @@ function Invoke-FreshworksRestMethod {
                 ErrorAction     = 'Stop'
             }
 
+
+            #Support for ServerCore, requires BasicParsing. Get-ComputerInfo is avoided due to performance each time the cmdlet is called.
+            if((Get-ItemProperty "HKLM:\Software\Microsoft\Windows NT\CurrentVersion" InstallationType).InstallationType -eq "Server Core"){
+                $restParams.Add('UseBasicParsing', $true)
+            }
+
             if ( $Body ) {
                 $restParams.Add( 'Body', $Body )
             }
