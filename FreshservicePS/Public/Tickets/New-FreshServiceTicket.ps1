@@ -209,7 +209,7 @@
     This module was developed and tested with Freshservice REST API v2.
 #>
 function New-FreshServiceTicket {
-    [CmdletBinding(SupportsShouldProcess=$true, ConfirmImpact='Medium')]
+    [CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'Medium')]
 
     param (
         [Parameter(
@@ -267,7 +267,7 @@ function New-FreshServiceTicket {
             HelpMessage = 'Priority of the ticket.',
             ValueFromPipelineByPropertyName = $true
         )]
-        [ValidateRange(1,4)]
+        [ValidateRange(1, 4)]
         [int]$priority,
         [Parameter(
             Mandatory = $false,
@@ -287,17 +287,17 @@ function New-FreshServiceTicket {
             ValueFromPipelineByPropertyName = $true
         )]
         [ValidateScript({
-            if(-Not ($_ | Test-Path) ){
-                throw ("Cannot find path {0} because it does not exist." -f $_.FullName)
-            }
-            if(-Not ($_ | Test-Path -PathType Leaf) ){
-                throw ("{0} is not a valid file. Folder paths are not allowed." -f $_.FullName)
-            }
-            if($_.Length/1MB -gt 15 ) {
-                throw ("{0} exceeds the file size limit. Files must be under 15MB." -f $_.FullName)
-            }
-            return $true
-        })]
+                if (-Not ($_ | Test-Path) ) {
+                    throw ("Cannot find path {0} because it does not exist." -f $_.FullName)
+                }
+                if (-Not ($_ | Test-Path -PathType Leaf) ) {
+                    throw ("{0} is not a valid file. Folder paths are not allowed." -f $_.FullName)
+                }
+                if ($_.Length / 1MB -gt 15 ) {
+                    throw ("{0} exceeds the file size limit. Files must be under 15MB." -f $_.FullName)
+                }
+                return $true
+            })]
         [System.IO.FileInfo[]]$attachments,
         [Parameter(
             Mandatory = $false,
@@ -340,7 +340,6 @@ function New-FreshServiceTicket {
             HelpMessage = 'The channel through which the ticket was created. The default value is 2.',
             ValueFromPipelineByPropertyName = $true
         )]
-        [ValidateRange(1,10)]
         [string]$source,
         [Parameter(
             Mandatory = $false,
@@ -413,12 +412,12 @@ function New-FreshServiceTicket {
             HelpMessage = 'Create as child ticket of Parent Id',
             ValueFromPipelineByPropertyName = $true
         )]
-        [Alias('ParentId','AsChildOf')]
+        [Alias('ParentId', 'AsChildOf')]
         [long]$parent_id
     )
     begin {
 
-        $PrivateData  = $MyInvocation.MyCommand.Module.PrivateData
+        $PrivateData = $MyInvocation.MyCommand.Module.PrivateData
 
         if (!$PrivateData.FreshserviceBaseUri) {
             throw "No connection found!  Setup a new Freshservice connection with New-FreshServiceConnection and then Connect-FreshService. Set a default connection with New-FreshServiceConnection or Set-FreshConnection to automatically connect when importing the module."
@@ -442,7 +441,7 @@ function New-FreshServiceTicket {
             #    $jsonBody[$PSItem.ToLower()] = [int]$PSBoundParameters[$PSItem]
             #}
             #else {
-                $jsonBody[$PSItem.ToLower()] = $PSBoundParameters[$PSItem]
+            $jsonBody[$PSItem.ToLower()] = $PSBoundParameters[$PSItem]
             #}
         }
 
@@ -460,33 +459,30 @@ function New-FreshServiceTicket {
                         Write-Warning "Sorry! Attachments are not currently supported in versions earlier than Powershell 7.x due to multipart/form-data requirements. Attachment parameter will be ignored."
                         $jsonBody.Remove('attachments')
                         $params.Body = $jsonBody | ConvertTo-Json
-                    }
-                    else {
+                    } else {
                         #Invoke-WebRequest -Form is supported in 7+
-                        $jsonBody.Add('attachments[]',$attachments)
+                        $jsonBody.Add('attachments[]', $attachments)
                         $jsonBody.Remove('attachments')
                         $params.Form = $jsonBody
                     }
-                }
-                else {
+                } else {
                     $params.Body = $jsonBody | ConvertTo-Json
                 }
 
                 $result = Invoke-FreshworksRestMethod @params
 
                 if ($result.Content) {
-                    $content = $result.Content |
-                                    ConvertFrom-Json
+                    $content = $result.Content | ConvertFrom-Json
 
                     #API returns singluar or plural property based on the number of records, parse to get property returned.
                     $objProperty = $content[0].PSObject.Properties.Name
                     Write-Verbose -Message ("Returning {0} property with count {1}" -f $objProperty, $content."$($objProperty)".Count)
                     $content."$($objProperty)"
                 }
-
+            } else {
+                $jsonBody | Out-String
             }
-        }
-        catch {
+        } catch {
             Throw $_
         }
 

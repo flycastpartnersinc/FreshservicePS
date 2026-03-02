@@ -181,7 +181,7 @@ function Get-FreshServiceOnboardingRequest {
         [int]$page = 1
     )
     begin {
-        $PrivateData  = $MyInvocation.MyCommand.Module.PrivateData
+        $PrivateData = $MyInvocation.MyCommand.Module.PrivateData
 
         if (!$PrivateData.FreshserviceBaseUri) {
             throw "No connection found!  Setup a new Freshservice connection with New-FreshServiceConnection and then Connect-FreshService. Set a default connection with New-FreshServiceConnection or Set-FreshConnection to automatically connect when importing the module."
@@ -199,12 +199,12 @@ function Get-FreshServiceOnboardingRequest {
             $enablePagination = $false
         }
 
-        If ($tickets){
+        If ($tickets) {
             $uri.Path = "{0}/tickets" -f $uri.Path
             $enablePagination = $true
         }
 
-        if ($fields){
+        if ($fields) {
             $uri.Path = "{0}/form" -f $uri.Path
             $enablePagination = $true
         }
@@ -232,7 +232,7 @@ function Get-FreshServiceOnboardingRequest {
 
                 if ($result.Content) {
                     $content = $result.Content |
-                                    ConvertFrom-Json
+                        ConvertFrom-Json
 
                     #API returns singluar or plural property based on the number of records, parse to get property returned.
                     $objProperty = $content[0].PSObject.Properties.Name
@@ -241,15 +241,14 @@ function Get-FreshServiceOnboardingRequest {
                 }
 
                 if ($result.Headers.Link) {
-                    $uri = [regex]::Matches($result.Headers.Link,'<(?<Uri>.*)>')[0].Groups['Uri'].Value
+                    $uri = [regex]::Matches($result.Headers.Link, '<(?<Uri>.*)>')[0].Groups['Uri'].Value
                     Write-Verbose ('Automatic pagination enabled with next link {0}' -f $uri)
                 }
 
             }
             until (!$result.Headers.Link)
 
-        }
-        catch {
+        } catch {
             Throw $_
         }
     }
